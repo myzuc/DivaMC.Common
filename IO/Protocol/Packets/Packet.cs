@@ -8,7 +8,7 @@ namespace Net.Myzuc.DivaMC.Common.IO.Protocol.Packets
     public static class Packet
     {
         private delegate IPacket Deserializer(BinaryStream stream, object registry);
-        private static ConcurrentDictionary<PacketSignature, Deserializer> Deserializers = [];
+        private static readonly ConcurrentDictionary<PacketSignature, Deserializer> Deserializers = [];
 
         static Packet()
         {
