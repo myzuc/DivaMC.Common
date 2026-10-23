@@ -1,0 +1,12 @@
+namespace Net.Myzuc.DivaMC.Common.IO.Protocol
+{
+    public enum ProtocolStage : byte
+    {
+        Disconnected = 0xFF,
+        Handshake = 0x00,
+        Status = 0x01,
+        Login = 0x02,
+        Configuration = 0x03,
+        Play = 0x04,
+    }
+}
