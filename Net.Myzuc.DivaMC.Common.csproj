@@ -28,4 +28,8 @@
       <Folder Include="Utility\" />
     </ItemGroup>
 
+    <ItemGroup>
+      <PackageReference Include="Me.Shiokawaii.IO" Version="1.0.6.1" />
+    </ItemGroup>
+
 </Project>

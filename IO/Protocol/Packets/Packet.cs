@@ -1,12 +1,13 @@
 using System.Collections.Concurrent;
 using System.Net;
 using System.Reflection;
+using Me.Shiokawaii.IO;
 
 namespace Net.Myzuc.DivaMC.Common.IO.Protocol.Packets
 {
     public static class Packet
     {
-        private delegate IPacket Deserializer(Stream stream, object registry);
+        private delegate IPacket Deserializer(BinaryStream stream, object registry);
         private static ConcurrentDictionary<PacketSignature, Deserializer> Deserializers = [];
 
         static Packet()
@@ -18,7 +19,7 @@ namespace Net.Myzuc.DivaMC.Common.IO.Protocol.Packets
             }
         }
         
-        public static IPacket Deserialize(PacketSignature signature, Stream stream, object registry)
+        public static IPacket Deserialize(PacketSignature signature, BinaryStream stream, object registry)
         {
             if (!Deserializers.TryGetValue(signature, out Deserializer? deserializer))
             {
@@ -27,7 +28,7 @@ namespace Net.Myzuc.DivaMC.Common.IO.Protocol.Packets
             IPacket packet = deserializer(stream, registry);
             return packet;
         }
-        public static void Serialize(IPacket packet, Stream stream, object registry)
+        public static void Serialize(IPacket packet, BinaryStream stream, object registry)
         {
             packet.Serialize(stream, registry);
         }
