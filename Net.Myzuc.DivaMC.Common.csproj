@@ -25,11 +25,13 @@
       <Folder Include="Game\BlockEntity\" />
       <Folder Include="Game\Blocks\" />
       <Folder Include="Game\Entities\" />
+      <Folder Include="IO\Protocol\Packets\Handshake\Clientbound\" />
       <Folder Include="Utility\" />
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="Me.Shiokawaii.IO" Version="1.0.6.1" />
+      <PackageReference Include="fNbt" Version="2.1.0" />
+      <PackageReference Include="System.Text.Json" Version="11.0.0-rc.2.26504.105" />
     </ItemGroup>
 
 </Project>

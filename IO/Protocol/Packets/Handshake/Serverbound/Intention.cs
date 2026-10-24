@@ -1,35 +1,32 @@
-using Me.Shiokawaii.IO;
-
 namespace Net.Myzuc.DivaMC.Common.IO.Protocol.Packets.Handshake.Serverbound
 {
-    public sealed record Intention : IPacket
+    public sealed record Intention : Packet
     {
         static Intention()
         {
-            Packet.Register<Intention>();
-        }
-        public static PacketSignature Signature => 
-            new PacketSignature(
+            PacketSignature signature = new PacketSignature(
                 ProtocolDirection.Serverbound,
                 ProtocolStage.Handshake,
                 0x00
             );
+            Packet.Register<Intention>(signature, Deserialize);
+        }
         
         public required int Version { get; init; }
         public required string ServerAddress { get; init; }
         public required ushort ServerPort { get; init; }
         public required Intent Intent { get; init; }
         
-        public void Serialize(BinaryStream stream, object registry)
+        protected override void Serialize(Stream stream, object registry)
         {
             throw new NotImplementedException();
         }
-        public static IPacket Deserialize(BinaryStream stream, object registry)
+        private static Packet Deserialize(Stream stream, object registry)
         {
             return new Intention()
             {
                 Version = stream.ReadVS32(),
-                ServerAddress = stream.ReadT0AU16(),
+                ServerAddress = stream.ReadT0AVS32(),
                 ServerPort = stream.ReadU16(),
                 Intent = (Intent)stream.ReadVS32()
             };

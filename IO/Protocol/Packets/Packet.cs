@@ -1,14 +1,13 @@
 using System.Collections.Concurrent;
-using System.Net;
 using System.Reflection;
-using Me.Shiokawaii.IO;
 
 namespace Net.Myzuc.DivaMC.Common.IO.Protocol.Packets
 {
-    public static class Packet
+    public record Packet
     {
-        private delegate IPacket Deserializer(BinaryStream stream, object registry);
+        protected delegate Packet Deserializer(Stream stream, object registry);
         private static readonly ConcurrentDictionary<PacketSignature, Deserializer> Deserializers = [];
+        private static readonly ConcurrentDictionary<Type, PacketSignature> Signatures = [];
 
         static Packet()
         {
@@ -18,24 +17,48 @@ namespace Net.Myzuc.DivaMC.Common.IO.Protocol.Packets
                 System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(type.TypeHandle);
             }
         }
+
+        public PacketSignature Signature
+        {
+            get
+            {
+                if (!Signatures.TryGetValue(GetType(), out PacketSignature value))
+                {
+                    throw new InvalidOperationException("Unknown packet!");
+                }
+                return value;
+            }
+        }
+        protected internal Packet()
+        {
+            
+        }
+        protected virtual void Serialize(Stream stream, object registry)
+        {
+            
+        }
         
-        public static IPacket Deserialize(PacketSignature signature, BinaryStream stream, object registry)
+        public static Packet Deserialize(PacketSignature signature, Stream stream, object registry)
         {
             if (!Deserializers.TryGetValue(signature, out Deserializer? deserializer))
             {
-                throw new ProtocolViolationException("Unknown packet signature!");
+                throw new InvalidDataException("Unknown packet signature!");
             }
-            IPacket packet = deserializer(stream, registry);
+            Packet packet = deserializer(stream, registry);
             return packet;
         }
-        public static void Serialize(IPacket packet, BinaryStream stream, object registry)
+        public static void Serialize(Packet packet, Stream stream, object registry)
         {
             packet.Serialize(stream, registry);
         }
 
-        internal static void Register<TPacket>() where TPacket : IPacket
+        protected static void Register<TPacket>(PacketSignature signature, Deserializer deserializer) where TPacket : Packet
         {
-            if (!Deserializers.TryAdd(TPacket.Signature, TPacket.Deserialize))
+            if (!Deserializers.TryAdd(signature, deserializer))
+            {
+                throw new InvalidOperationException("Duplicate packet deserializer!");
+            }
+            if (!Signatures.TryAdd(typeof(TPacket), signature))
             {
                 throw new InvalidOperationException("Duplicate packet signature!");
             }
