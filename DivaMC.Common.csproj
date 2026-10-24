@@ -32,4 +32,8 @@
       <PackageReference Include="System.Text.Json" Version="11.0.0-rc.2.26504.105" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Content Include="DivaMC.Common.sln.DotSettings.user" />
+    </ItemGroup>
+
 </Project>
