@@ -1,15 +1,15 @@
 namespace DivaMC.Common.IO.Protocol.Packets.Status.Clientbound
 {
-    public sealed record PongResponse : Packet
+    public sealed record PingResponse : Packet
     {
-        static PongResponse()
+        static PingResponse()
         {
             PacketSignature signature = new PacketSignature(
                 ProtocolDirection.Clientbound,
                 ProtocolStage.Status,
                 0x01
             );
-            Packet.Register<PongResponse>(signature, Deserialize);
+            Packet.Register<PingResponse>(signature, Deserialize);
         }
         
         public required long Data { get; init; }
