@@ -1,4 +1,4 @@
-namespace Net.Myzuc.DivaMC.Common.IO.Protocol.Packets.Handshake.Serverbound
+namespace DivaMC.Common.IO.Protocol.Packets.Handshake.Serverbound
 {
     public sealed record Intention : Packet
     {

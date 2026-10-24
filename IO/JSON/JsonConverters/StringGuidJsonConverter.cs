@@ -1,7 +1,7 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace Net.Myzuc.DivaMC.Common.IO.JSON.JsonConverters
+namespace DivaMC.Common.IO.JSON.JsonConverters
 {
     internal sealed class StringGuidJsonConverter : JsonConverter<Guid>
     {

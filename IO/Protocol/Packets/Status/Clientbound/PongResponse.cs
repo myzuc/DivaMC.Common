@@ -1,4 +1,4 @@
-namespace Net.Myzuc.DivaMC.Common.IO.Protocol.Packets.Status.Clientbound
+namespace DivaMC.Common.IO.Protocol.Packets.Status.Clientbound
 {
     public sealed record PongResponse : Packet
     {

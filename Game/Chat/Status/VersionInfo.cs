@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
 
-namespace Net.Myzuc.DivaMC.Common.Game.Chat.Status
+namespace DivaMC.Common.Game.Chat.Status
 {
     public sealed record VersionInfo
     {

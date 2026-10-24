@@ -4,7 +4,7 @@ using System.Globalization;
 using System.Text.Json.Nodes;
 using System.Text.Json.Serialization;
 
-namespace Net.Myzuc.DivaMC.Common.Game.Chat.Components
+namespace DivaMC.Common.Game.Chat.Components
 {
     [JsonConverter(typeof(ChatComponentJsonConverter))]
     public abstract record ChatComponent

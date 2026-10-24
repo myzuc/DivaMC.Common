@@ -3,7 +3,7 @@
 using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
 
-namespace Net.Myzuc.DivaMC.Common.IO
+namespace DivaMC.Common.IO
 {
     public sealed class AesCfbStream : Stream
     {

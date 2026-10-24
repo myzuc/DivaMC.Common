@@ -1,8 +1,8 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using Net.Myzuc.DivaMC.Common.IO.JSON.JsonConverters;
+using DivaMC.Common.IO.JSON.JsonConverters;
 
-namespace Net.Myzuc.DivaMC.Common
+namespace DivaMC.Common
 {
     internal static class Global
     {

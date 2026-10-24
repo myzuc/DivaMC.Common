@@ -1,4 +1,4 @@
-namespace Net.Myzuc.DivaMC.Common.IO.Protocol.Packets
+namespace DivaMC.Common.IO.Protocol.Packets
 {
     public readonly struct PacketSignature
     {

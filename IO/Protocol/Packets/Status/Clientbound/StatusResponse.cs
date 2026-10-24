@@ -1,6 +1,6 @@
 using System.Text.Json;
 
-namespace Net.Myzuc.DivaMC.Common.IO.Protocol.Packets.Status.Clientbound
+namespace DivaMC.Common.IO.Protocol.Packets.Status.Clientbound
 {
     public sealed record StatusResponse : Packet
     {

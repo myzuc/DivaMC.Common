@@ -2,7 +2,7 @@ using System.Buffers.Binary;
 using System.Runtime.InteropServices;
 using System.Text;
 
-namespace Net.Myzuc.DivaMC.Common.IO
+namespace DivaMC.Common.IO
 {
     public static class StreamExtension
     {

@@ -1,4 +1,4 @@
-namespace Net.Myzuc.DivaMC.Common.IO.Protocol.Packets.Status.Serverbound
+namespace DivaMC.Common.IO.Protocol.Packets.Status.Serverbound
 {
     public sealed record StatusRequest : Packet
     {

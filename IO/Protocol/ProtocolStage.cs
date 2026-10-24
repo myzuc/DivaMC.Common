@@ -1,4 +1,4 @@
-namespace Net.Myzuc.DivaMC.Common.IO.Protocol
+namespace DivaMC.Common.IO.Protocol
 {
     public enum ProtocolStage : byte
     {

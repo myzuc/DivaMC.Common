@@ -1,4 +1,4 @@
-namespace Net.Myzuc.DivaMC.Common.Primitives
+namespace DivaMC.Common.Primitives
 {
     public struct Resource
     {

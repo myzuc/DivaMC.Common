@@ -1,4 +1,4 @@
-namespace Net.Myzuc.DivaMC.Common.IO
+namespace DivaMC.Common.IO
 {
     public interface IBinarySerializable<T>
     {

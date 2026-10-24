@@ -1,8 +1,8 @@
 using System;
 using System.Text.Json.Serialization;
-using Net.Myzuc.DivaMC.Common.IO.JSON.JsonConverters;
+using DivaMC.Common.IO.JSON.JsonConverters;
 
-namespace Net.Myzuc.DivaMC.Common.Game.Chat.Status
+namespace DivaMC.Common.Game.Chat.Status
 {
     public sealed record PlayerSample
     {

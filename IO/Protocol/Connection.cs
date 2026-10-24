@@ -1,8 +1,8 @@
 using System.IO.Compression;
 using System.Net.Sockets;
-using Net.Myzuc.DivaMC.Common.IO.Protocol.Packets;
+using DivaMC.Common.IO.Protocol.Packets;
 
-namespace Net.Myzuc.DivaMC.Common.IO.Protocol
+namespace DivaMC.Common.IO.Protocol
 {
    public sealed class Connection : IDisposable, IAsyncDisposable
    {

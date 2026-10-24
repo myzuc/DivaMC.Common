@@ -1,6 +1,6 @@
 using System.Text.Json.Nodes;
 
-namespace Net.Myzuc.DivaMC.Common.Game.Chat.Components
+namespace DivaMC.Common.Game.Chat.Components
 {
    
     public sealed record TextChatComponent : ChatComponent

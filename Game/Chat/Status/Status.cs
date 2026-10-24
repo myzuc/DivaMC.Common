@@ -1,7 +1,7 @@
 using System.Text.Json.Serialization;
-using Net.Myzuc.DivaMC.Common.Game.Chat.Components;
+using DivaMC.Common.Game.Chat.Components;
 
-namespace Net.Myzuc.DivaMC.Common.Game.Chat.Status
+namespace DivaMC.Common.Game.Chat.Status
 {
     public sealed record Status
     {

@@ -1,7 +1,7 @@
 using System.Collections.Concurrent;
 using System.Reflection;
 
-namespace Net.Myzuc.DivaMC.Common.IO.Protocol.Packets
+namespace DivaMC.Common.IO.Protocol.Packets
 {
     public record Packet
     {
