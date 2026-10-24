@@ -1,6 +1,9 @@
 using System.IO.Compression;
 using System.Net.Sockets;
 using DivaMC.Common.IO.Protocol.Packets;
+using HandshakePackets = DivaMC.Common.IO.Protocol.Packets.Handshake;
+using StatusPackets = DivaMC.Common.IO.Protocol.Packets.Status;
+using LoginPackets = DivaMC.Common.IO.Protocol.Packets.Login;
 
 namespace DivaMC.Common.IO.Protocol
 {
@@ -86,6 +89,7 @@ namespace DivaMC.Common.IO.Protocol
                    await WriteSync.WaitAsync(cancellationToken);
                    await Stream.WriteVS32Async(data.Length, cancellationToken);
                    await Stream.WriteU8AAsync(data, cancellationToken);
+                   await Stream.FlushAsync(cancellationToken);
                }
                finally
                {
@@ -97,7 +101,7 @@ namespace DivaMC.Common.IO.Protocol
        {
            switch (packet)
            {
-               case Packets.Handshake.Serverbound.Intention intention:
+               case HandshakePackets.Serverbound.Intention intention:
                {
                    ProtocolStage = intention.Intent switch
                    {
@@ -107,22 +111,22 @@ namespace DivaMC.Common.IO.Protocol
                    };
                    break;
                }
-               /*case Protocol.Packets.Login.Clientbound.DisconnectPacket:
+               case LoginPackets.Clientbound.Disconnect:
                {
-                   ProtocolStage = this.ProtocolStage.Disconnected;
+                   Dispose();
                    break;
                }
-               case CompressionPacket loginCompressionPacket:
+               case LoginPackets.Clientbound.Compression loginCompressionPacket:
                {
                    CompressionThreshold = loginCompressionPacket.Threshold;
                    break;
                }
-               case Protocol.Packets.Login.Serverbound.EndPacket:
+               case LoginPackets.Serverbound.Finish:
                {
-                   ProtocolStage = this.ProtocolStage.Configuration;
+                   ProtocolStage = ProtocolStage.Configuration;
                    break;
                }
-               case DisconnectPacket:
+               /*case DisconnectPacket:
                {
                    ProtocolStage = this.ProtocolStage.Disconnected;
                    break;

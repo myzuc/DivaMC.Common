@@ -2,7 +2,7 @@ namespace DivaMC.Common.IO
 {
     public interface IBinarySerializable<T>
     {
-        internal abstract void Serialize(Stream stream, T data);
+        internal void Serialize(Stream stream);
         internal static abstract T Deserialize(Stream stream);
     }
 }

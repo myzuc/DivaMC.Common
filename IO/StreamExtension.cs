@@ -1,6 +1,7 @@
 using System.Buffers.Binary;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Text.Json;
 
 namespace DivaMC.Common.IO
 {
@@ -35,7 +36,7 @@ namespace DivaMC.Common.IO
             {
                 return await stream.ReadU8Async(cancellationToken) != 0;
             }
-            public bool ReadU1(int length)
+            public bool ReadU1()
             {
                 return stream.ReadU8() != 0;
             }
@@ -306,27 +307,21 @@ namespace DivaMC.Common.IO
             }
             public async ValueTask WriteVU32Async(uint data, CancellationToken cancellationToken = default)
             {
-                do
+                while (data >= 0x80)
                 {
-                    byte current = (byte)data;
+                    await stream.WriteU8Async((byte)(data | 0x80), cancellationToken);
                     data >>= 7;
-                    if (data != 0) current |= 128;
-                    else current &= 127;
-                    await stream.WriteU8Async(current, cancellationToken);
                 }
-                while (data != 0);
+                await stream.WriteU8Async((byte)data, cancellationToken);
             }
             public void WriteVU32(uint data)
             {
-                do
+                while (data >= 0x80)
                 {
-                    byte current = (byte)data;
+                    stream.WriteU8((byte)(data | 0x80));
                     data >>= 7;
-                    if (data != 0) current |= 128;
-                    else current &= 127;
-                    stream.WriteU8(current);
                 }
-                while (data != 0);
+                stream.WriteU8((byte)data);
             }
             #endregion
             #region VS32
@@ -340,7 +335,7 @@ namespace DivaMC.Common.IO
             }
             public async ValueTask WriteVS32Async(int data, CancellationToken cancellationToken = default)
             {
-                await stream.WriteU32Async((uint)data, cancellationToken);
+                await stream.WriteVU32Async((uint)data, cancellationToken);
             }
             public void WriteVS32(int data)
             {
@@ -410,7 +405,7 @@ namespace DivaMC.Common.IO
             }
             public async ValueTask WriteVS64Async(long data, CancellationToken cancellationToken = default)
             {
-                await stream.WriteU64Async((ulong)data, cancellationToken);
+                await stream.WriteVU64Async((ulong)data, cancellationToken);
             }
             public void WriteVS64(long data)
             {
@@ -519,7 +514,20 @@ namespace DivaMC.Common.IO
                 stream.WriteU8A(buffer);
             }
             #endregion
+            #region JSON
+            public T ReadJSON<T>()
+            {
+                T? data = JsonSerializer.Deserialize<T>(stream.ReadT0AVS32(), Global.JsonSerializerOptions);
+                if (data is null) throw new InvalidDataException("Object is null!");
+                return data;
+            }
 
+            public void WriteJSON<T>(T data)
+            {
+                stream.WriteT0AVS32(JsonSerializer.Serialize(data, Global.JsonSerializerOptions));
+            }
+            #endregion
+            
             #region S32A
             public Span<int> ReadS32A(int size)
             {
@@ -540,7 +548,6 @@ namespace DivaMC.Common.IO
                 stream.WriteU8A(MemoryMarshal.AsBytes(reversed).ToArray());
             }
             #endregion
-
             #region S64A
             public Span<long> ReadS64A(int size)
             {
@@ -559,6 +566,18 @@ namespace DivaMC.Common.IO
                 Span<long> reversed = new(new long[data.Length]);
                 BinaryPrimitives.ReverseEndianness(data, reversed);
                 stream.WriteU8A(MemoryMarshal.AsBytes(reversed).ToArray());
+            }
+            #endregion
+
+            #region IBinarySerializable
+            public T Read<T>() where T : IBinarySerializable<T>
+            {
+                return T.Deserialize(stream);
+            }
+
+            public void Write<T>(T data) where T : IBinarySerializable<T>
+            {
+                data.Serialize(stream);
             }
             #endregion
         }

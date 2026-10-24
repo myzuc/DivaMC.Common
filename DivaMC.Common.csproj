@@ -24,7 +24,6 @@
       <Folder Include="Game\Blocks\" />
       <Folder Include="Game\Entities\" />
       <Folder Include="IO\Protocol\Packets\Handshake\Clientbound\" />
-      <Folder Include="Utility\" />
     </ItemGroup>
 
     <ItemGroup>

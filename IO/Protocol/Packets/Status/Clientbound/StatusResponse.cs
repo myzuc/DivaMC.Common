@@ -18,7 +18,7 @@ namespace DivaMC.Common.IO.Protocol.Packets.Status.Clientbound
         
         protected override void Serialize(Stream stream, object registry)
         {
-            stream.WriteT0AVS32(JsonSerializer.Serialize(Status, Global.JsonSerializerOptions));
+            stream.WriteJSON(Status);
         }
         private static Packet Deserialize(Stream stream, object registry)
         {
