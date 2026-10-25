@@ -11,7 +11,7 @@ namespace DivaMC.Common.Game.Chat.Components
     [JsonConverter(typeof(ChatComponentJsonConverter))]
     public abstract record ChatComponent : INbtSerializable<ChatComponent>
     {
-        protected abstract string Type { get; }
+        private string Type { get; }
         public ImmutableList<ChatComponent>? Children { get; init; } = null;
         public Color? Color { get; init; } = null;
         public Color? ShadowColor { get; init; } = null;
@@ -22,11 +22,11 @@ namespace DivaMC.Common.Game.Chat.Components
         public bool? Obfuscated { get; init; } = null;
         public string? Font { get; init; } = null;
         
-        protected internal ChatComponent()
+        protected internal ChatComponent(string type)
         {
-            
+            Type = type;
         }
-        protected internal ChatComponent(JsonObject obj)
+        protected internal ChatComponent(string type, JsonObject obj) : this(type)
         {
             if (obj.TryGetPropertyValue("extra", out JsonNode? children))
             {

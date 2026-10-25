@@ -7,18 +7,18 @@ namespace DivaMC.Common.Game.Chat.Components
    
     public sealed record TextChatComponent : ChatComponent
     {
-        protected override string Type => "text";
+        public static readonly string Type = "text";
         public string Text { get; init; } = string.Empty;
         
-        public TextChatComponent()
+        public TextChatComponent() : base(Type)
         {
             
         }
-        public TextChatComponent(string text)
+        public TextChatComponent(string text) : base(Type)
         {
             Text = text;
         }
-        internal TextChatComponent(JsonObject obj) : base(obj)
+        internal TextChatComponent(JsonObject obj) : base(Type, obj)
         {
             Text = obj["text"]?.AsValue().GetValue<string>() ?? throw new ArgumentException("Missing member!");
         }
