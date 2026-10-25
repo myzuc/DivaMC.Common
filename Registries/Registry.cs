@@ -126,7 +126,7 @@ namespace DivaMC.Common.Registries
             return registry;
         }
     }
-    public sealed record Registry<T> : IBinarySerializable<Registry<T>> where T : class, INbtSerializable<T>
+    public sealed class Registry<T> : IBinarySerializable<Registry<T>> where T : class, INbtSerializable<T>
     {
         public Identifier Id { get; set; }
         public OrderedDictionary<Identifier, T?> Entries { get; init; } = [];
