@@ -35,7 +35,7 @@ namespace DivaMC.Common.IO.Protocol
            await using Stream ms = await readRawAsync();
            int id = ms.ReadVS32();
            PacketSignature signature = new(RemoteIsClient ? ProtocolDirection.Serverbound : ProtocolDirection.Clientbound, ProtocolStage, id);
-           Packet? packet = Packet.Deserialize(signature, ms, null);
+           Packet? packet = Packet.Deserialize(signature, ms);
            if (packet is not null) Run(packet);
            return packet;
 
@@ -64,7 +64,7 @@ namespace DivaMC.Common.IO.Protocol
            if (packet.Signature.Direction != (RemoteIsClient ? ProtocolDirection.Clientbound : ProtocolDirection.Serverbound) || packet.Signature.Stage != ProtocolStage) throw new InvalidOperationException($"Disallowed packet!");
            using MemoryStream ms = new();
            ms.WriteVS32(packet.Signature.Id);
-           Packet.Serialize(packet, ms, null);
+           Packet.Serialize(packet, ms);
            await writeRawAsync(ms.ToArray());
            Run(packet);
            return;

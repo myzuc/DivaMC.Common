@@ -16,11 +16,11 @@ namespace DivaMC.Common.IO.Protocol.Packets.Login.Clientbound
         
         public required int Threshold { get; set; }
         
-        protected override void Serialize(Stream stream, Context context)
+        protected override void Serialize(Stream stream)
         {
             stream.WriteVS32(Threshold);
         }
-        private static Packet Deserialize(Stream stream, Context context)
+        private static Packet Deserialize(Stream stream)
         {
             throw new NotImplementedException();
         }

@@ -12,11 +12,11 @@ namespace DivaMC.Common.IO.Protocol.Packets.Status.Serverbound
             Packet.Register<StatusRequest>(signature, Deserialize);
         }
         
-        protected override void Serialize(Stream stream, Context context)
+        protected override void Serialize(Stream stream)
         {
             throw new NotImplementedException();
         }
-        private static Packet Deserialize(Stream stream, Context context)
+        private static Packet Deserialize(Stream stream)
         {
             return new StatusRequest();
         }

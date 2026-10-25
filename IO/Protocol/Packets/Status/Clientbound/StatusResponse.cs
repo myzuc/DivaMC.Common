@@ -17,11 +17,11 @@ namespace DivaMC.Common.IO.Protocol.Packets.Status.Clientbound
         
         public required Chat.Status.Status Status { get; set; }
         
-        protected override void Serialize(Stream stream, Context context)
+        protected override void Serialize(Stream stream)
         {
             stream.WriteJSON(Status);
         }
-        private static Packet Deserialize(Stream stream, Context context)
+        private static Packet Deserialize(Stream stream)
         {
             throw new NotImplementedException();
         }

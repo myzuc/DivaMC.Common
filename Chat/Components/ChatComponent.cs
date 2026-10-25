@@ -73,20 +73,6 @@ namespace DivaMC.Common.Chat.Components
                 Children = data.ToList(),
             };
         }
-        public static implicit operator ChatComponent(ReadOnlyCollection<ChatComponent> data)
-        {
-            return new TextChatComponent()
-            {
-                Children = data.ToList(),
-            };
-        }
-        public static implicit operator ChatComponent(Collection<ChatComponent> data)
-        {
-            return new TextChatComponent()
-            {
-                Children = data.ToList(),
-            };
-        }
         public static implicit operator ChatComponent(List<ChatComponent> data)
         {
             return new TextChatComponent()

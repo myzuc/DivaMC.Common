@@ -14,10 +14,10 @@ namespace DivaMC.Common.IO.Protocol.Packets.Configuration.Serverbound
             Packet.Register<Finish>(signature, Deserialize);
         }
         
-        protected override void Serialize(Stream stream, Context context)
+        protected override void Serialize(Stream stream)
         {
         }
-        private static Packet Deserialize(Stream stream, Context context)
+        private static Packet Deserialize(Stream stream)
         {
             return new Finish();
         }

@@ -14,9 +14,9 @@ namespace DivaMC.Common.IO.Protocol.Packets.Configuration.Clientbound
             Packet.Register<RegistryTags>(signature, Deserialize);
         }
         
-        public required IReadOnlyCollection<Registries.RegistryTags> RegistryTagLists { get; init; }
+        public required List<Registries.RegistryTags> RegistryTagLists { get; init; }
         
-        protected override void Serialize(Stream stream, Context context)
+        protected override void Serialize(Stream stream)
         {
             stream.WriteVS32(RegistryTagLists.Count);
             foreach (Registries.RegistryTags registryTagList in RegistryTagLists)
@@ -24,11 +24,11 @@ namespace DivaMC.Common.IO.Protocol.Packets.Configuration.Clientbound
                 stream.Write(registryTagList);
             }
         }
-        private static Packet Deserialize(Stream stream, Context context)
+        private static Packet Deserialize(Stream stream)
         {
             return new RegistryTags()
             {
-                RegistryTagLists = Enumerable.Range(0, stream.ReadVS32()).Select(i => stream.Read<Registries.RegistryTags>()).ToArray()
+                RegistryTagLists = Enumerable.Range(0, stream.ReadVS32()).Select(i => stream.Read<Registries.RegistryTags>()).ToList()
             };
         }
     }

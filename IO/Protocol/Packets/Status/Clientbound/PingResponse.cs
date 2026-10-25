@@ -16,11 +16,11 @@ namespace DivaMC.Common.IO.Protocol.Packets.Status.Clientbound
         
         public required long Data { get; set; }
         
-        protected override void Serialize(Stream stream, Context context)
+        protected override void Serialize(Stream stream)
         {
             stream.WriteS64(Data);
         }
-        private static Packet Deserialize(Stream stream, Context context)
+        private static Packet Deserialize(Stream stream)
         {
             throw new NotImplementedException();
         }

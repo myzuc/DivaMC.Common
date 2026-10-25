@@ -29,7 +29,7 @@ namespace DivaMC.Common.IO.Protocol.Packets.Play.Clientbound
         public required bool Authenticated { get; set; }
         public required bool HasCensorship { get; set; }
         
-        protected override void Serialize(Stream stream, Context context)
+        protected override void Serialize(Stream stream)
         {
             stream.WriteS32(EntityId);
             stream.WriteU1(Hardcore);
@@ -48,7 +48,7 @@ namespace DivaMC.Common.IO.Protocol.Packets.Play.Clientbound
             stream.WriteU1(Authenticated);
             stream.WriteU1(HasCensorship);
         }
-        private static Packet Deserialize(Stream stream, Context context)
+        private static Packet Deserialize(Stream stream)
         {
             throw new NotImplementedException();
         }

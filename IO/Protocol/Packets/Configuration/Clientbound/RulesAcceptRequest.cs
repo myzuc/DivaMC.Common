@@ -16,11 +16,11 @@ namespace DivaMC.Common.IO.Protocol.Packets.Configuration.Clientbound
         
         public required string Message { get; set; }
         
-        protected override void Serialize(Stream stream, Context context)
+        protected override void Serialize(Stream stream)
         {
             stream.WriteT0AVS32(Message);
         }
-        private static Packet Deserialize(Stream stream, Context context)
+        private static Packet Deserialize(Stream stream)
         {
             throw new NotImplementedException();
         }

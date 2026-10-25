@@ -10,10 +10,10 @@ namespace DivaMC.Common.IO.Protocol.Packets
         {
             Signature = packet.Signature;
             using MemoryStream ms = new();
-            Serialize(packet, ms, null);
+            Serialize(packet, ms);
             Buffer = ms.ToArray();
         }
-        protected override void Serialize(Stream stream, Context context)
+        protected override void Serialize(Stream stream)
         {
             stream.WriteU8A(Buffer);
         }

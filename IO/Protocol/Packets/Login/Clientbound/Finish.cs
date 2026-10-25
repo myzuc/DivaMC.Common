@@ -18,12 +18,12 @@ namespace DivaMC.Common.IO.Protocol.Packets.Login.Clientbound
         public required Profile Profile { get; set; }
         public required Guid SessionId { get; set; }
         
-        protected override void Serialize(Stream stream, Context context)
+        protected override void Serialize(Stream stream)
         {
             stream.Write(Profile);
             stream.WriteGuid(SessionId);
         }
-        private static Packet Deserialize(Stream stream, Context context)
+        private static Packet Deserialize(Stream stream)
         {
             throw new NotImplementedException();
         }

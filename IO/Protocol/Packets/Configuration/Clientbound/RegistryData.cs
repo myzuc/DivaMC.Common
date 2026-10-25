@@ -17,11 +17,11 @@ namespace DivaMC.Common.IO.Protocol.Packets.Configuration.Clientbound
         
         public required Registry Registry { get; set; }
         
-        protected override void Serialize(Stream stream, Context context)
+        protected override void Serialize(Stream stream)
         {
             stream.Write(Registry);
         }
-        private static Packet Deserialize(Stream stream, Context context)
+        private static Packet Deserialize(Stream stream)
         {
             return new RegistryData()
             {

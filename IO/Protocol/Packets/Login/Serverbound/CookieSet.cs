@@ -18,11 +18,11 @@ namespace DivaMC.Common.IO.Protocol.Packets.Login.Serverbound
         public required Identifier Id { get; set; }
         public required byte[]? Data { get; set; }
         
-        protected override void Serialize(Stream stream, Context context)
+        protected override void Serialize(Stream stream)
         {
             throw new NotImplementedException();
         }
-        private static Packet Deserialize(Stream stream, Context context)
+        private static Packet Deserialize(Stream stream)
         {
             return new CookieSet()
             {
