@@ -1,12 +1,10 @@
-using System.Collections.Immutable;
-using System.Collections.Specialized;
 using DivaMC.Common.IO.Serialization;
 using DivaMC.Common.Primitives;
 using fNbt;
 
 namespace DivaMC.Common.Game.Registries
 {
-    public sealed record Registry : IBinarySerializable<Registry>
+    public sealed class Registry : IBinarySerializable<Registry>
     {
         public static readonly Identifier RegistryName = "minecraft:root";
 

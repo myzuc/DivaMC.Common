@@ -3,7 +3,7 @@ using DivaMC.Common.Primitives;
 
 namespace DivaMC.Common.Game.Registries
 {
-    public sealed record RegistryTags : IBinarySerializable<RegistryTags>
+    public sealed class RegistryTags : IBinarySerializable<RegistryTags>
     {
         public Identifier Id { get; set; }
         public Dictionary<Identifier, List<int>> Tags { get; set; } = [];
