@@ -1,3 +1,4 @@
+using System.Drawing;
 using System.Runtime.InteropServices;
 using fNbt;
 
@@ -92,6 +93,14 @@ namespace DivaMC.Common.IO.Serialization
             public static NbtInt FromU32(uint value)
             {
                 return new((int)value);
+            }
+            public Color ToColor()
+            {
+                return Color.FromArgb(nbt.Value);
+            }
+            public static NbtInt FromColor(Color value)
+            {
+                return new(value.ToArgb());
             }
         }
         extension(NbtLong nbt)

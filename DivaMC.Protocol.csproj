@@ -27,7 +27,6 @@
       <Folder Include="IO\Protocol\Packets\Handshake\Clientbound\" />
       <Folder Include="IO\Protocol\Packets\Play\Serverbound\" />
       <Folder Include="Tablist\" />
-      <Folder Include="World\Biomes\" />
       <Folder Include="World\Blocks\" />
       <Folder Include="World\Chunks\" />
       <Folder Include="World\Entities\" />

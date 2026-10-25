@@ -9,6 +9,7 @@ using DivaMC.Common.Data.Variants.Entities;
 using DivaMC.Common.Data.Variants.EntitySounds;
 using DivaMC.Common.IO.Serialization;
 using DivaMC.Common.World;
+using DivaMC.Common.World.Biomes;
 using DivaMC.Common.World.Dimensions;
 using fNbt;
 
@@ -21,6 +22,7 @@ namespace DivaMC.Common.Registries
         public static readonly IReadOnlyCollection<Registry> StubRegistries =
         [
             (Registry)DimensionType.StubRegistry,
+            (Registry)Biome.StubRegistry,
             (Registry)CatSounds.StubRegistry,
             (Registry)ChickenSounds.StubRegistry,
             (Registry)CowSounds.StubRegistry,
@@ -45,6 +47,7 @@ namespace DivaMC.Common.Registries
         ];
         public static readonly RegistryTags[] StubRegistryTags = [
             DimensionType.StubRegistryTags,
+            Biome.StubRegistryTags,
             CatSounds.StubRegistryTags,
             ChickenSounds.StubRegistryTags,
             CowSounds.StubRegistryTags,
