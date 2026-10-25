@@ -1,6 +1,7 @@
 using DivaMC.Common.Common;
 using DivaMC.Common.Data;
 using DivaMC.Common.Data.Banners;
+using DivaMC.Common.Data.DecoratedPots;
 using DivaMC.Common.Data.Instruments;
 using DivaMC.Common.Data.Jukeboxes;
 using DivaMC.Common.Data.Trims;
@@ -40,6 +41,7 @@ namespace DivaMC.Common.Registries
             (Registry)JukeboxSong.StubRegistry,
             (Registry)BannerPattern.StubRegistry,
             (Registry)Instrument.StubRegistry,
+            (Registry)DecoratedPotPattern.StubRegistry,
         ];
         public static readonly RegistryTags[] StubRegistryTags = [
             DimensionType.StubRegistryTags,
@@ -63,6 +65,7 @@ namespace DivaMC.Common.Registries
             JukeboxSong.StubRegistryTags,
             BannerPattern.StubRegistryTags,
             Instrument.StubRegistryTags,
+            DecoratedPotPattern.StubRegistryTags,
         ];
         
         public Identifier Id { get; set; }
