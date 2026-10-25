@@ -2,6 +2,7 @@ using System.Buffers.Binary;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.Json;
+using fNbt;
 
 namespace DivaMC.Common.IO.Serialization
 {
@@ -514,19 +515,6 @@ namespace DivaMC.Common.IO.Serialization
                 stream.WriteU8A(buffer);
             }
             #endregion
-            #region JSON
-            public T ReadJSON<T>()
-            {
-                T? data = JsonSerializer.Deserialize<T>(stream.ReadT0AVS32(), Global.JsonSerializerOptions);
-                if (data is null) throw new InvalidDataException("Object is null!");
-                return data;
-            }
-
-            public void WriteJSON<T>(T data)
-            {
-                stream.WriteT0AVS32(JsonSerializer.Serialize(data, Global.JsonSerializerOptions));
-            }
-            #endregion
             
             #region S32A
             public Span<int> ReadS32A(int size)
@@ -569,15 +557,54 @@ namespace DivaMC.Common.IO.Serialization
             }
             #endregion
 
+            #region JSON
+            public T? ReadJSON<T>(bool allowNull = true)
+            {
+                T? data = JsonSerializer.Deserialize<T>(stream.ReadT0AVS32(), Global.JsonSerializerOptions);
+                if (!allowNull && data is null) throw new InvalidDataException("Data is null!");
+                return data;
+            }
+
+            public void WriteJSON<T>(T? data, bool allowNull = true)
+            {
+                if (!allowNull && data is null) throw new InvalidDataException("Data is null!");
+                stream.WriteT0AVS32(JsonSerializer.Serialize(data, Global.JsonSerializerOptions));
+            }
+            #endregion
             #region IBinarySerializable
             public T Read<T>() where T : IBinarySerializable<T>
             {
                 return T.Deserialize(stream);
             }
-
             public void Write<T>(T data) where T : IBinarySerializable<T>
             {
                 data.Serialize(stream);
+            }
+            #endregion
+            #region INbtSerializable
+            public NbtTag? ReadNbt(bool allowNull = true)
+            {
+                NbtCodec c = new(NbtFlavor.JavaNetwork);
+                c.TryReadTag(stream, out NbtTag? data);
+                if (!allowNull && data is null) throw new InvalidDataException("Data is null!");
+                return data;
+            }
+            public void WriteNbt(NbtTag? data, bool allowNull = true)
+            {
+                if (!allowNull && data is null) throw new InvalidDataException("Data is null!");
+                NbtCodec c = new(NbtFlavor.JavaNetwork);
+                c.WriteTag(data, stream);
+            }
+            public T? ReadNbt<T>(bool allowNull = true) where T : INbtSerializable<T>
+            {
+                NbtTag? nbt = stream.ReadNbt(allowNull);
+                if (nbt is null) return default;
+                return T.FromNbt(nbt);
+            }
+            public void WriteNbt<T>(T? data, bool allowNull = true) where T : INbtSerializable<T>
+            {
+                NbtTag? nbt = data?.ToNbt();
+                stream.WriteNbt(nbt, allowNull);
             }
             #endregion
         }
