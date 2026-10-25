@@ -6,12 +6,12 @@ namespace DivaMC.Common.Game.Objects
 {
     public sealed class NbtList<T> : INbtSerializable<NbtList<T>>, IList<T> where T : INbtSerializable<T>
     {
-        private readonly IList<T> List;
+        private readonly List<T> List;
         public NbtList()
         {
             List = [];
         }
-        public NbtList(IList<T> list)
+        public NbtList(List<T> list)
         {
             List = list;
         }
@@ -68,7 +68,7 @@ namespace DivaMC.Common.Game.Objects
         {
             get
             {
-                return List.IsReadOnly;
+                return false;
             }
         }
         public int IndexOf(T item)
