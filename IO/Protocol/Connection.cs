@@ -6,6 +6,8 @@ using DivaMC.Common.IO.Serialization;
 using HandshakePackets = DivaMC.Common.IO.Protocol.Packets.Handshake;
 using StatusPackets = DivaMC.Common.IO.Protocol.Packets.Status;
 using LoginPackets = DivaMC.Common.IO.Protocol.Packets.Login;
+using ConfigurationPackets = DivaMC.Common.IO.Protocol.Packets.Configuration;
+using PlayPackets = DivaMC.Common.IO.Protocol.Packets.Play;
 
 namespace DivaMC.Common.IO.Protocol
 {
@@ -128,14 +130,14 @@ namespace DivaMC.Common.IO.Protocol
                    ProtocolStage = ProtocolStage.Configuration;
                    break;
                }
+               case ConfigurationPackets.Serverbound.Finish:
+               {
+                   ProtocolStage = ProtocolStage.Play;
+                   break;
+               }
                /*case DisconnectPacket:
                {
                    ProtocolStage = this.ProtocolStage.Disconnected;
-                   break;
-               }
-               case EndPacket:
-               {
-                   ProtocolStage = this.ProtocolStage.Play;
                    break;
                }*/
            }
