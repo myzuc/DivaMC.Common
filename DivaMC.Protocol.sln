@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DivaMC.Common", "DivaMC.Common.csproj", "{FA967F08-98EF-4783-809B-60E82ED70B8B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DivaMC.Protocol", "DivaMC.Protocol.csproj", "{FA967F08-98EF-4783-809B-60E82ED70B8B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
