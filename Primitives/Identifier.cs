@@ -7,6 +7,8 @@ namespace DivaMC.Common.Primitives
 {
     public readonly record struct Identifier : IBinarySerializable<Identifier>, INbtSerializable<Identifier>
     {
+        public static readonly Identifier Empty = "mineraft:empty";
+        
         private const string ValidNamespaceCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWYZ0123456789.-_";
         private const string ValidValueCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWYZ0123456789.-_/";
         
@@ -25,7 +27,7 @@ namespace DivaMC.Common.Primitives
         public Identifier()
         {
             Namespace = "minecraft";
-            Path = "unknown";
+            Path = "empty";
         }
         public Identifier(string @namespace, string path)
         {
