@@ -3,11 +3,13 @@ using System.Drawing;
 using System.Globalization;
 using System.Text.Json.Nodes;
 using System.Text.Json.Serialization;
+using DivaMC.Common.IO.Serialization;
+using fNbt;
 
 namespace DivaMC.Common.Game.Chat.Components
 {
     [JsonConverter(typeof(ChatComponentJsonConverter))]
-    public abstract record ChatComponent
+    public abstract record ChatComponent : INbtSerializable<ChatComponent>
     {
         protected abstract string Type { get; }
         public ImmutableList<ChatComponent>? Children { get; init; } = null;
@@ -85,6 +87,7 @@ namespace DivaMC.Common.Game.Chat.Components
             if (Strikethrough.HasValue) obj["strikethrough"] = Strikethrough!.Value;
             if (Obfuscated.HasValue) obj["obfuscated"] = Obfuscated!.Value;
             if (Font is not null) obj["font"] = Font;
+            obj["type"] = Type;
             return obj;
         }
         public static ChatComponent FromJSON(JsonNode? json)
@@ -137,6 +140,27 @@ namespace DivaMC.Common.Game.Chat.Components
             {
                 Children = data,
             };
+        }
+        
+        public virtual NbtTag ToNbt()
+        {
+            NbtCompound nbt = new();
+            if (Children is not null) NbtList.FromIEnumerable(Children).Rename("extra").AddTo(nbt);
+            if (Color.HasValue) NbtString.FromT0A(EncodeColor(Color.Value)).Rename("color").AddTo(nbt);
+            if (ShadowColor.HasValue) NbtInt.FromS32(ShadowColor!.Value.ToArgb()).Rename("shadow_color").AddTo(nbt);
+            if (Bold.HasValue) NbtByte.FromU1(Bold!.Value).Rename("bold").AddTo(nbt);
+            if (Italic.HasValue) NbtByte.FromU1(Italic!.Value).Rename("italic").AddTo(nbt);
+            if (Underlined.HasValue) NbtByte.FromU1(Underlined!.Value).Rename("underlined").AddTo(nbt);
+            if (Strikethrough.HasValue) NbtByte.FromU1(Strikethrough!.Value).Rename("strikethrough").AddTo(nbt);
+            if (Obfuscated.HasValue) NbtByte.FromU1(Obfuscated!.Value).Rename("obfuscated").AddTo(nbt);
+            if (Font is not null) NbtString.FromT0A(Font).Rename("font").AddTo(nbt);
+            NbtString.FromT0A(Type).Rename("type").AddTo(nbt);
+            return nbt;
+        }
+        public static ChatComponent FromNbt(NbtTag nbt)
+        {
+            //can be compound, array, string
+            throw new NotImplementedException();
         }
 
         private static string EncodeColor(Color color)
