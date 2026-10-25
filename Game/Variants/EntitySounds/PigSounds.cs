@@ -14,19 +14,17 @@ namespace DivaMC.Common.Game.Variants.EntitySounds
             Adult = PigSoundAssets.Stub,
             Baby = PigSoundAssets.Stub,
         };
-        public static readonly Registry<PigSounds> StubRegistry = new()
+        public static readonly Registry<PigSounds> StubRegistry = new(RegistryName)
         {
-            Id = RegistryName,
-            Entries = [new(Identifier.Empty, Stub)]
+            Entries =
+            {
+                ["Identifier.Empty"] = Stub
+            }
         };
-        public static readonly RegistryTagList StubRegistryTags = new()
-        {
-            Id = RegistryName,
-            Entries = []
-        };
+        public static readonly RegistryTags StubRegistryTags = new(RegistryName);
         
-        public required PigSoundAssets Adult { get; init; }
-        public required PigSoundAssets Baby { get; init; }
+        public required PigSoundAssets Adult { get; set; }
+        public required PigSoundAssets Baby { get; set; }
 
         public PigSounds()
         {

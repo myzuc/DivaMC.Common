@@ -1,4 +1,3 @@
-using System.Collections.Immutable;
 using DivaMC.Common.Game.Objects;
 using DivaMC.Common.IO.Serialization;
 using DivaMC.Common.Primitives;
@@ -17,18 +16,18 @@ namespace DivaMC.Common.IO.Protocol.Packets.Play.Clientbound
             Packet.Register<Start>(signature, Deserialize);
         }
         
-        public required int EntityId { get; init; }
-        public required bool Hardcore { get; init; }
-        public required IImmutableList<Identifier> DimensionNames { get; set; }
-        public required int TablistSize { get; init; }
-        public required int ViewDistance { get; init; }
-        public required int SimulationDistance { get; init; }
-        public required bool ReduceDebugInfo { get; init; }
-        public required bool ShowRespawnScreen { get; init; }
-        public required bool LimitedCrafting { get; init; }
-        public required RespawnInfo RespawnInfo { get; init; }
-        public required bool Authenticated { get; init; }
-        public required bool HasCensorship { get; init; }
+        public required int EntityId { get; set; }
+        public required bool Hardcore { get; set; }
+        public required List<Identifier> DimensionNames { get; set; }
+        public required int TablistSize { get; set; }
+        public required int ViewDistance { get; set; }
+        public required int SimulationDistance { get; set; }
+        public required bool ReduceDebugInfo { get; set; }
+        public required bool ShowRespawnScreen { get; set; }
+        public required bool LimitedCrafting { get; set; }
+        public required RespawnInfo RespawnInfo { get; set; }
+        public required bool Authenticated { get; set; }
+        public required bool HasCensorship { get; set; }
         
         protected override void Serialize(Stream stream, object registry)
         {

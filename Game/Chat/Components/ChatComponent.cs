@@ -1,4 +1,4 @@
-using System.Collections.Immutable;
+using System.Collections.ObjectModel;
 using System.Drawing;
 using System.Globalization;
 using System.Text.Json.Nodes;
@@ -12,59 +12,19 @@ namespace DivaMC.Common.Game.Chat.Components
     public abstract record ChatComponent : INbtSerializable<ChatComponent>
     {
         private string Type { get; }
-        public ImmutableList<ChatComponent>? Children { get; init; } = null;
-        public Color? Color { get; init; } = null;
-        public Color? ShadowColor { get; init; } = null;
-        public bool? Bold { get; init; } = null;
-        public bool? Italic { get; init; } = null;
-        public bool? Underlined { get; init; } = null;
-        public bool? Strikethrough { get; init; } = null;
-        public bool? Obfuscated { get; init; } = null;
-        public string? Font { get; init; } = null;
+        public List<ChatComponent>? Children { get; set; } = null;
+        public Color? Color { get; set; } = null;
+        public Color? ShadowColor { get; set; } = null;
+        public bool? Bold { get; set; } = null;
+        public bool? Italic { get; set; } = null;
+        public bool? Underlined { get; set; } = null;
+        public bool? Strikethrough { get; set; } = null;
+        public bool? Obfuscated { get; set; } = null;
+        public string? Font { get; set; } = null;
         
         protected internal ChatComponent(string type)
         {
             Type = type;
-        }
-        protected internal ChatComponent(string type, JsonObject obj) : this(type)
-        {
-            if (obj.TryGetPropertyValue("extra", out JsonNode? children))
-            {
-                if (children is not JsonArray list) throw new InvalidDataException("Invalid format!");
-                Children = list!.Select<JsonNode, ChatComponent>(node => FromJSON(node.GetValue<string>())).ToImmutableList();
-            }
-            if (obj.TryGetPropertyValue("color", out JsonNode? color))
-            {
-                Color = DecodeColor(color!.AsValue().ToString());
-            }
-            if (obj.TryGetPropertyValue("shadow_color", out JsonNode? shadowColor))
-            {
-                ShadowColor = System.Drawing.Color.FromArgb(shadowColor!.GetValue<int>());
-            }
-            if (obj.TryGetPropertyValue("bold", out JsonNode? bold))
-            {
-                Bold = bold!.GetValue<bool>();
-            }
-            if (obj.TryGetPropertyValue("italic", out JsonNode? italic))
-            {
-                italic = italic!.GetValue<bool>();
-            }
-            if (obj.TryGetPropertyValue("underlined", out JsonNode? underlined))
-            {
-                Underlined = underlined!.GetValue<bool>();
-            }
-            if (obj.TryGetPropertyValue("strikethrough", out JsonNode? strikethrough))
-            {
-                Strikethrough = strikethrough!.GetValue<bool>();
-            }
-            if (obj.TryGetPropertyValue("obfuscated", out JsonNode? obfuscated))
-            {
-                Obfuscated = obfuscated!.GetValue<bool>();
-            }
-            if (obj.TryGetPropertyValue("font", out JsonNode? font))
-            {
-                Font = font!.GetValue<string>();
-            }
         }
 
         public virtual JsonNode ToJSON()
@@ -92,28 +52,7 @@ namespace DivaMC.Common.Game.Chat.Components
         }
         public static ChatComponent FromJSON(JsonNode? json)
         {
-            switch (json)
-            {
-                case null: throw new InvalidDataException("Invalid format!");
-                case JsonValue value: return value.ToString();
-                case JsonArray list: return list!.Select<JsonNode, ChatComponent>(node => FromJSON(node.GetValue<string>())).ToImmutableList();
-                case JsonObject obj:
-                {
-                    if (obj.TryGetPropertyValue("type", out JsonNode? type))
-                    {
-                        return type!.GetValue<string>() switch
-                        {
-                            "text" => new TextChatComponent(obj),
-                            //
-                            _ => throw new InvalidDataException("Invalid format!")
-                        };
-                    }
-                    if (TextChatComponent.TryFromJSON(obj, out TextChatComponent? text)) return text!;
-                    //
-                    throw new InvalidDataException("Unrecognized format!");
-                }
-                default: throw new InvalidDataException("Unrecognized format!");
-            }
+            throw new NotImplementedException();
         }
         
         public static implicit operator ChatComponent(string data)
@@ -124,17 +63,31 @@ namespace DivaMC.Common.Game.Chat.Components
         {
             return new TextChatComponent()
             {
-                Children = data.Select<string, ChatComponent>(child => new TextChatComponent(child)).ToImmutableList(),
+                Children = data.Select<string, ChatComponent>(child => new TextChatComponent(child)).ToList(),
             };
         }
         public static implicit operator ChatComponent(ChatComponent[] data)
         {
             return new TextChatComponent()
             {
-                Children = data.ToImmutableList(),
+                Children = data.ToList(),
             };
         }
-        public static implicit operator ChatComponent(ImmutableList<ChatComponent> data)
+        public static implicit operator ChatComponent(ReadOnlyCollection<ChatComponent> data)
+        {
+            return new TextChatComponent()
+            {
+                Children = data.ToList(),
+            };
+        }
+        public static implicit operator ChatComponent(Collection<ChatComponent> data)
+        {
+            return new TextChatComponent()
+            {
+                Children = data.ToList(),
+            };
+        }
+        public static implicit operator ChatComponent(List<ChatComponent> data)
         {
             return new TextChatComponent()
             {

@@ -1,4 +1,3 @@
-using System.Collections.Immutable;
 using DivaMC.Common.IO.Serialization;
 using fNbt;
 
@@ -6,8 +5,8 @@ namespace DivaMC.Common.Primitives
 {
     public sealed record IdentifierSelector : INbtSerializable<IdentifierSelector>
     {
-        public IImmutableList<Identifier> Identifiers { get; init; } = [];
-        public IImmutableList<Identifier> Tags { get; init; } = [];
+        public List<Identifier> Identifiers { get; set; } = [];
+        public List<Identifier> Tags { get; set; } = [];
         public IdentifierSelector()
         {
             
@@ -21,10 +20,10 @@ namespace DivaMC.Common.Primitives
         {
             Identifiers = [key];
         }
-        public IdentifierSelector(IImmutableList<string> keys)
+        public IdentifierSelector(List<string> keys)
         {
-            Tags = keys.Where(IsTag).Select(ToNonTag).ToImmutableArray();
-            Identifiers = keys.Where(key => !IsTag(key)).Select(ToNonTag).ToImmutableArray();
+            Tags = keys.Where(IsTag).Select(ToNonTag).ToList();
+            Identifiers = keys.Where(key => !IsTag(key)).Select(ToNonTag).ToList();
         }
         
         public static implicit operator IdentifierSelector(string value)
@@ -53,8 +52,8 @@ namespace DivaMC.Common.Primitives
         
         public NbtTag ToNbt()
         {
-            if (Identifiers.Count == 1 && Tags.Count == 0) return NbtString.FromT0A(Identifiers[0]);
-            if (Identifiers.Count == 0 && Tags.Count == 1) return NbtString.FromT0A($"#{Tags[0]}");
+            if (Identifiers.Count == 1 && Tags.Count == 0) return NbtString.FromT0A(Identifiers.First());
+            if (Identifiers.Count == 0 && Tags.Count == 1) return NbtString.FromT0A($"#{Tags.First()}");
             return NbtList.FromIEnumerable(Tags.Select(ToTag).Concat(Identifiers.Select(key => key.FullKey)).Select(NbtString.FromT0A));
         }
         public static IdentifierSelector FromNbt(NbtTag nbt)

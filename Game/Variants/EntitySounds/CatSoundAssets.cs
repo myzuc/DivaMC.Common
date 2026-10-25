@@ -19,17 +19,17 @@ namespace DivaMC.Common.Game.Variants.EntitySounds
             Death = SoundEvent.None
         };
         
-        public required SoundEvent Ambient { get; init; }
-        public required SoundEvent StrayAmbient { get; init; }
+        public required SoundEvent Ambient { get; set; }
+        public required SoundEvent StrayAmbient { get; set; }
         
-        public required SoundEvent Eat { get; init; }
-        public required SoundEvent FoodBeg { get; init; }
+        public required SoundEvent Eat { get; set; }
+        public required SoundEvent FoodBeg { get; set; }
         
-        public required SoundEvent Purr { get; init; }
-        public required SoundEvent Purreow { get; init; }
-        public required SoundEvent Hiss { get; init; }
-        public required SoundEvent Hurt { get; init; }
-        public required SoundEvent Death { get; init; }
+        public required SoundEvent Purr { get; set; }
+        public required SoundEvent Purreow { get; set; }
+        public required SoundEvent Hiss { get; set; }
+        public required SoundEvent Hurt { get; set; }
+        public required SoundEvent Death { get; set; }
 
         public CatSoundAssets()
         {

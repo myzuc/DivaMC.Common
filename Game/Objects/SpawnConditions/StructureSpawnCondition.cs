@@ -1,4 +1,3 @@
-using System.Collections.Immutable;
 using DivaMC.Common.IO.Serialization;
 using DivaMC.Common.Primitives;
 using fNbt;
@@ -9,7 +8,7 @@ namespace DivaMC.Common.Game.Objects.SpawnConditions
     {
         public static readonly string Type = "structure";
 
-        public required IImmutableList<Identifier> Structures { get; init; }
+        public required List<Identifier> Structures { get; set; }
         
         public StructureSpawnCondition() : base(Type)
         {

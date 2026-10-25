@@ -14,7 +14,7 @@ namespace DivaMC.Common.IO.Protocol.Packets.Login.Clientbound
             Packet.Register<Compression>(signature, Deserialize);
         }
         
-        public required int Threshold { get; init; }
+        public required int Threshold { get; set; }
         
         protected override void Serialize(Stream stream, object registry)
         {

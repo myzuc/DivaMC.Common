@@ -14,8 +14,8 @@ namespace DivaMC.Common.IO.Protocol.Packets.Configuration.Clientbound
             Packet.Register<Transfer>(signature, Deserialize);
         }
         
-        public required string Address { get; init; }
-        public required ushort Port { get; init; }
+        public required string Address { get; set; }
+        public required ushort Port { get; set; }
         
         protected override void Serialize(Stream stream, object registry)
         {

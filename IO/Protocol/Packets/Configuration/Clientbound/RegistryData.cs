@@ -15,7 +15,7 @@ namespace DivaMC.Common.IO.Protocol.Packets.Configuration.Clientbound
             Packet.Register<RegistryData>(signature, Deserialize);
         }
         
-        public required Registry Registry { get; init; }
+        public required Registry Registry { get; set; }
         
         protected override void Serialize(Stream stream, object registry)
         {

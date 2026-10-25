@@ -5,8 +5,8 @@ namespace DivaMC.Common.Game.Objects
 {
     public sealed record GlobalLocation : IBinarySerializable<GlobalLocation>
     {
-        public required Identifier Dimension { get; init; }
-        public required Location Location { get; init; }
+        public required Identifier Dimension { get; set; }
+        public required Location Location { get; set; }
         public GlobalLocation()
         {
             

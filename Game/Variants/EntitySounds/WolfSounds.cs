@@ -14,19 +14,17 @@ namespace DivaMC.Common.Game.Variants.EntitySounds
             Adult = WolfSoundAssets.Stub,
             Baby = WolfSoundAssets.Stub,
         };
-        public static readonly Registry<WolfSounds> StubRegistry = new()
+        public static readonly Registry<WolfSounds> StubRegistry = new(RegistryName)
         {
-            Id = RegistryName,
-            Entries = [new(Identifier.Empty, Stub)]
+            Entries =
+            {
+                ["Identifier.Empty"] = Stub
+            }
         };
-        public static readonly RegistryTagList StubRegistryTags = new()
-        {
-            Id = RegistryName,
-            Entries = []
-        };
+        public static readonly RegistryTags StubRegistryTags = new(RegistryName);
         
-        public required WolfSoundAssets Adult { get; init; }
-        public required WolfSoundAssets Baby { get; init; }
+        public required WolfSoundAssets Adult { get; set; }
+        public required WolfSoundAssets Baby { get; set; }
 
         public WolfSounds()
         {

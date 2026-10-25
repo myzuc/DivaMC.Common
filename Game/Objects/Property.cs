@@ -7,11 +7,11 @@ namespace DivaMC.Common.Game.Objects
     public sealed record Property : IBinarySerializable<Property>
     {
         [JsonPropertyName("name")]
-        public required string Name { get; init; }
+        public required string Name { get; set; }
         [JsonPropertyName("value")]
-        public required string Value { get; init; }
+        public required string Value { get; set; }
         [JsonPropertyName("signature")]
-        public string? Signature { get; init; }
+        public string? Signature { get; set; }
         public Property()
         {
             

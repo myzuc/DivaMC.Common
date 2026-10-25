@@ -1,4 +1,3 @@
-using System.Collections.Immutable;
 using DivaMC.Common.Game.Registries;
 using DivaMC.Common.IO.Serialization;
 
@@ -16,12 +15,12 @@ namespace DivaMC.Common.IO.Protocol.Packets.Configuration.Clientbound
             Packet.Register<RegistryTags>(signature, Deserialize);
         }
         
-        public required IImmutableList<RegistryTagList> RegistryTagLists { get; init; }
+        public required IReadOnlyCollection<Game.Registries.RegistryTags> RegistryTagLists { get; init; }
         
         protected override void Serialize(Stream stream, object registry)
         {
             stream.WriteVS32(RegistryTagLists.Count);
-            foreach (RegistryTagList registryTagList in RegistryTagLists)
+            foreach (Game.Registries.RegistryTags registryTagList in RegistryTagLists)
             {
                 stream.Write(registryTagList);
             }
@@ -30,7 +29,7 @@ namespace DivaMC.Common.IO.Protocol.Packets.Configuration.Clientbound
         {
             return new RegistryTags()
             {
-                RegistryTagLists = Enumerable.Range(0, stream.ReadVS32()).Select(i => stream.Read<RegistryTagList>()).ToImmutableArray()
+                RegistryTagLists = Enumerable.Range(0, stream.ReadVS32()).Select(i => stream.Read<Game.Registries.RegistryTags>()).ToArray()
             };
         }
     }

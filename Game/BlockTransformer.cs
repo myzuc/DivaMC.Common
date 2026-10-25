@@ -1,4 +1,3 @@
-using System.Collections.Immutable;
 using DivaMC.Common.Game.Objects;
 using BlockStateProviders = DivaMC.Common.Game.Providers.BlockStateProviders;
 using DivaMC.Common.Game.Registries;
@@ -19,31 +18,26 @@ namespace DivaMC.Common.Game
                 Source = Identifier.EmptyBlock
             }
         };
-        public static readonly Registry<NbtList<BlockTransformer>> StubRegistry = new()
+        public static readonly Registry<NbtList<BlockTransformer>> StubRegistry = new(RegistryName)
         {
-            Id = RegistryName,
-            Entries = [
-                new("minecraft:hoe", [Stub]),
-                new("minecraft:shovel", [Stub]),
-                new("minecraft:axe", [Stub]),
-            ]
+            Entries = {
+                ["minecraft:hoe"] = [Stub],
+                ["minecraft:shovel"] = [Stub],
+                ["minecraft:axe"] = [Stub],
+            }
         };
-        public static readonly RegistryTagList StubRegistryTags = new()
-        {
-            Id = RegistryName,
-            Entries = []
-        };
+        public static readonly RegistryTags StubRegistryTags = new(RegistryName);
         
-        public required BlockStateProviders.BlockStateProvider BlockStateProvider { get; init; }
-        public SoundEvent? Sound { get; init; }
-        public string? Particle { get; init; }
-        public IImmutableList<string>? DisallowedFaces { get; init; }
-        public Identifier? Loot  { get; init; }
-        public string? DropPosition { get; init; }
-        public bool? TriggerUpdate { get; init; }
-        public string? Type { get; init; }
-        public bool? ConsumeItem { get; init; }
-        public int? DamageItem { get; init; }
+        public required BlockStateProviders.BlockStateProvider BlockStateProvider { get; set; }
+        public SoundEvent? Sound { get; set; }
+        public string? Particle { get; set; }
+        public List<string>? DisallowedFaces { get; set; }
+        public Identifier? Loot  { get; set; }
+        public string? DropPosition { get; set; }
+        public bool? TriggerUpdate { get; set; }
+        public string? Type { get; set; }
+        public bool? ConsumeItem { get; set; }
+        public int? DamageItem { get; set; }
         public BlockTransformer()
         {
             

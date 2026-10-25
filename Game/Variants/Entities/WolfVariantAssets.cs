@@ -14,9 +14,9 @@ namespace DivaMC.Common.Game.Variants.Entities
             Tame = Identifier.EmptyTexture,
         };
         
-        public required Identifier Angry { get; init; }
-        public required Identifier Wild { get; init; }
-        public required Identifier Tame { get; init; }
+        public required Identifier Angry { get; set; }
+        public required Identifier Wild { get; set; }
+        public required Identifier Tame { get; set; }
 
         public WolfVariantAssets()
         {

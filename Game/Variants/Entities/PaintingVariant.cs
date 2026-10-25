@@ -18,22 +18,20 @@ namespace DivaMC.Common.Game.Variants.Entities
             Title = string.Empty,
             Author = string.Empty,
         };
-        public static readonly Registry<PaintingVariant> StubRegistry = new()
+        public static readonly Registry<PaintingVariant> StubRegistry = new(RegistryName)
         {
-            Id = RegistryName,
-            Entries = [new(Identifier.Empty, Stub)]
+            Entries =
+            {
+                ["Identifier.Empty"] = Stub
+            }
         };
-        public static readonly RegistryTagList StubRegistryTags = new()
-        {
-            Id = RegistryName,
-            Entries = []
-        };
+        public static readonly RegistryTags StubRegistryTags = new(RegistryName);
         
-        public required Identifier Texture { get; init; }
-        public required int Width { get; init; }
-        public required int Height { get; init; }
-        public required ChatComponent Title { get; init; }
-        public required ChatComponent Author { get; init; }
+        public required Identifier Texture { get; set; }
+        public required int Width { get; set; }
+        public required int Height { get; set; }
+        public required ChatComponent Title { get; set; }
+        public required ChatComponent Author { get; set; }
 
         public PaintingVariant()
         {

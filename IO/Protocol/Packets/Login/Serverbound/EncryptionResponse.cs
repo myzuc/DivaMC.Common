@@ -14,8 +14,8 @@ namespace DivaMC.Common.IO.Protocol.Packets.Login.Serverbound
             Packet.Register<EncryptionResponse>(signature, Deserialize);
         }
         
-        public required byte[] EncryptedSecret { get; init; }
-        public required byte[] EncryptedSample { get; init; }
+        public required byte[] EncryptedSecret { get; set; }
+        public required byte[] EncryptedSample { get; set; }
         
         protected override void Serialize(Stream stream, object registry)
         {

@@ -1,4 +1,3 @@
-using System.Collections.Immutable;
 using System.Text.Json.Serialization;
 
 namespace DivaMC.Common.Game.Chat.Status
@@ -6,11 +5,11 @@ namespace DivaMC.Common.Game.Chat.Status
     public sealed record PlayersInfo
     {
         [JsonPropertyName("max")]
-        public required int Maximum { get; init; }
+        public required int Maximum { get; set; }
         [JsonPropertyName("online")]
-        public required int Online { get; init; }
+        public required int Online { get; set; }
         [JsonPropertyName("sample")] 
-        public ImmutableList<PlayerSample>? Samples { get; init; } = null;
+        public List<PlayerSample>? Samples { get; set; } = null;
         public PlayersInfo()
         {
             

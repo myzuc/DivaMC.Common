@@ -1,4 +1,3 @@
-using System.Collections.Immutable;
 using DivaMC.Common.Game.Registries;
 using DivaMC.Common.IO.Serialization;
 using DivaMC.Common.Primitives;
@@ -34,41 +33,37 @@ namespace DivaMC.Common.Game
             MobSpawnLight = 0,
             MobSpawnBlocklightLimit = 0,
         };
-        public static readonly Registry<DimensionType> StubRegistry = new()
+        public static readonly Registry<DimensionType> StubRegistry = new(RegistryName)
         {
-            Id = RegistryName,
-            Entries = [
-                new("minecraft:overworld", Stub),
-            ]
+            Entries =
+            {
+                ["minecraft:overworld"] = Stub
+            }
         };
-        public static readonly RegistryTagList StubRegistryTags = new()
-        {
-            Id = RegistryName,
-            Entries = []
-        };
+        public static readonly RegistryTags StubRegistryTags = new(RegistryName);
         
-        public required int Depth { get; init; }
-        public required int Height { get; init; }
-        public required int LogicalHeight { get; init; }
-        public required double CoordinateScale { get; init; }
+        public required int Depth { get; set; }
+        public required int Height { get; set; }
+        public required int LogicalHeight { get; set; }
+        public required double CoordinateScale { get; set; }
         
-        public Identifier? Clock { get; init; } = null;
-        public bool? HasNoTime { get; init; } = null;
-        public required IImmutableList<Identifier> Timelines { get; init; }
+        public Identifier? Clock { get; set; } = null;
+        public bool? HasNoTime { get; set; } = null;
+        public required List<Identifier> Timelines { get; set; }
         
-        public string? Skybox { get; init; } = null;
+        public string? Skybox { get; set; } = null;
         //todo: attribute provider thingy
-        public required float AmbientLight { get; init; }
-        public string? CardinalLight { get; init; } = null;
-        public required bool HasSkylight { get; init; }
+        public required float AmbientLight { get; set; }
+        public string? CardinalLight { get; set; } = null;
+        public required bool HasSkylight { get; set; }
         
-        public required IdentifierSelector InfiniteBurnBlockTag { get; init; }
+        public required IdentifierSelector InfiniteBurnBlockTag { get; set; }
         
-        public required bool HasCeiling { get; init; }
-        public required bool HasDragon { get; init; }
+        public required bool HasCeiling { get; set; }
+        public required bool HasDragon { get; set; }
         
-        public required object MobSpawnLight { get; init; } //todo: implement integer providers
-        public required int MobSpawnBlocklightLimit { get; init; }
+        public required object MobSpawnLight { get; set; } //todo: implement integer providers
+        public required int MobSpawnBlocklightLimit { get; set; }
         
         public DimensionType()
         {

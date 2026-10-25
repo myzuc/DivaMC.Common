@@ -8,7 +8,7 @@ namespace DivaMC.Common.Game.Chat.Components
     public sealed record TextChatComponent : ChatComponent
     {
         public static readonly string Type = "text";
-        public string Text { get; init; } = string.Empty;
+        public string Text { get; set; } = string.Empty;
         
         public TextChatComponent() : base(Type)
         {
@@ -17,10 +17,6 @@ namespace DivaMC.Common.Game.Chat.Components
         public TextChatComponent(string text) : base(Type)
         {
             Text = text;
-        }
-        internal TextChatComponent(JsonObject obj) : base(Type, obj)
-        {
-            Text = obj["text"]?.AsValue().GetValue<string>() ?? throw new ArgumentException("Missing member!");
         }
 
         public override JsonNode ToJSON()
@@ -38,13 +34,6 @@ namespace DivaMC.Common.Game.Chat.Components
             if (nbt.Count == 1) return NbtString.FromT0A(Text);
             NbtString.FromT0A(Text).Rename("text").AddTo(nbt);
             return nbt;
-        }
-        internal static bool TryFromJSON(JsonObject obj, out TextChatComponent? chat)
-        {
-            chat = null;
-            if (obj.ContainsKey("text")) return false;
-            chat = new TextChatComponent(obj);
-            return true;
         }
     }
 }

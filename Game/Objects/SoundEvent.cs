@@ -8,21 +8,27 @@ namespace DivaMC.Common.Game.Objects
     {
         public static readonly SoundEvent None = Identifier.EmptySound;
         
-        public Identifier Sound { get; }
-        public float? Range { get; init; } = null;
+        public required Identifier Sound { get; set; }
+        public float? Range { get; set; } = null;
         
-        public SoundEvent(Identifier sound)
+        public SoundEvent()
         {
-            Sound = sound;
+            
         }
         
         public static implicit operator SoundEvent(Identifier value)
         {
-            return new(value);
+            return new()
+            {
+                Sound = value
+            };
         }
         public static implicit operator SoundEvent(string value)
         {
-            return new(value);
+            return new()
+            {
+                Sound = value
+            };
         }
         
         public NbtTag ToNbt()

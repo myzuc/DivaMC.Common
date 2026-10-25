@@ -14,7 +14,7 @@ namespace DivaMC.Common.IO.Protocol.Packets.Configuration.Clientbound
             Packet.Register<PingRequest>(signature, Deserialize);
         }
         
-        public required int Id { get; init; }
+        public required int Id { get; set; }
         
         protected override void Serialize(Stream stream, object registry)
         {

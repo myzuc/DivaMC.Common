@@ -1,4 +1,3 @@
-using System.Collections.Immutable;
 using DivaMC.Common.Game.Objects.SpawnConditions;
 using DivaMC.Common.Game.Registries;
 using DivaMC.Common.IO.Serialization;
@@ -17,20 +16,18 @@ namespace DivaMC.Common.Game.Variants.Entities
             BabyTextures = WolfVariantAssets.Stub,
             SpawnConditions = [],
         };
-        public static readonly Registry<WolfVariant> StubRegistry = new()
+        public static readonly Registry<WolfVariant> StubRegistry = new(RegistryName)
         {
-            Id = RegistryName,
-            Entries = [new(Identifier.Empty, Stub)]
+            Entries =
+            {
+                ["Identifier.Empty"] = Stub
+            }
         };
-        public static readonly RegistryTagList StubRegistryTags = new()
-        {
-            Id = RegistryName,
-            Entries = []
-        };
+        public static readonly RegistryTags StubRegistryTags = new(RegistryName);
         
-        public required WolfVariantAssets AdultTextures { get; init; }
-        public required WolfVariantAssets BabyTextures { get; init; }
-        public required IImmutableList<SpawnCondition> SpawnConditions { get; init; }
+        public required WolfVariantAssets AdultTextures { get; set; }
+        public required WolfVariantAssets BabyTextures { get; set; }
+        public required List<SpawnCondition> SpawnConditions { get; set; }
 
         public WolfVariant()
         {

@@ -1,4 +1,3 @@
-using System.Collections.Immutable;
 using DivaMC.Common.Game.Objects.SpawnConditions;
 using DivaMC.Common.Game.Registries;
 using DivaMC.Common.IO.Serialization;
@@ -18,21 +17,19 @@ namespace DivaMC.Common.Game.Variants.Entities
             Model = "normal",
             SpawnConditions = [],
         };
-        public static readonly Registry<PigVariant> StubRegistry = new()
+        public static readonly Registry<PigVariant> StubRegistry = new(RegistryName)
         {
-            Id = RegistryName,
-            Entries = [new(Identifier.Empty, Stub)]
+            Entries =
+            {
+                ["Identifier.Empty"] = Stub
+            }
         };
-        public static readonly RegistryTagList StubRegistryTags = new()
-        {
-            Id = RegistryName,
-            Entries = []
-        };
+        public static readonly RegistryTags StubRegistryTags = new(RegistryName);
         
-        public required Identifier AdultTexture { get; init; }
-        public required Identifier BabyTexture { get; init; }
-        public required string Model { get; init; }
-        public required IImmutableList<SpawnCondition> SpawnConditions { get; init; }
+        public required Identifier AdultTexture { get; set; }
+        public required Identifier BabyTexture { get; set; }
+        public required string Model { get; set; }
+        public required List<SpawnCondition> SpawnConditions { get; set; }
 
         public PigVariant()
         {

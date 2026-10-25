@@ -14,19 +14,17 @@ namespace DivaMC.Common.Game.Variants.EntitySounds
             Adult = ChickenSoundAssets.Stub,
             Baby = ChickenSoundAssets.Stub,
         };
-        public static readonly Registry<ChickenSounds> StubRegistry = new()
+        public static readonly Registry<ChickenSounds> StubRegistry = new(RegistryName)
         {
-            Id = RegistryName,
-            Entries = [new(Identifier.Empty, Stub)]
+            Entries =
+            {
+                ["Identifier.Empty"] = Stub
+            }
         };
-        public static readonly RegistryTagList StubRegistryTags = new()
-        {
-            Id = RegistryName,
-            Entries = []
-        };
+        public static readonly RegistryTags StubRegistryTags = new(RegistryName);
         
-        public required ChickenSoundAssets Adult { get; init; }
-        public required ChickenSoundAssets Baby { get; init; }
+        public required ChickenSoundAssets Adult { get; set; }
+        public required ChickenSoundAssets Baby { get; set; }
 
         public ChickenSounds()
         {

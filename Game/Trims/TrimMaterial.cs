@@ -15,31 +15,26 @@ namespace DivaMC.Common.Game.Trims
             Name = string.Empty,
             PaletteId = "minecraft:trim_base"
         };
-        public static readonly Registry<TrimMaterial> StubRegistry = new()
+        public static readonly Registry<TrimMaterial> StubRegistry = new(RegistryName)
         {
-            Id = RegistryName,
-            Entries = [
-                new("minecraft:amethyst", Stub),
-                new("minecraft:copper", Stub),
-                new("minecraft:diamond", Stub),
-                new("minecraft:emerald", Stub),
-                new("minecraft:gold", Stub),
-                new("minecraft:iron", Stub),
-                new("minecraft:lapis", Stub),
-                new("minecraft:netherite", Stub),
-                new("minecraft:quartz", Stub),
-                new("minecraft:redstone", Stub),
-                new("minecraft:resin", Stub),
-            ]
+            Entries = {
+                ["minecraft:amethyst"] = Stub,
+                ["minecraft:copper"] = Stub,
+                ["minecraft:diamond"] = Stub,
+                ["minecraft:emerald"] = Stub,
+                ["minecraft:gold"] = Stub,
+                ["minecraft:iron"] = Stub,
+                ["minecraft:lapis"] = Stub,
+                ["minecraft:netherite"] = Stub,
+                ["minecraft:quartz"] = Stub,
+                ["minecraft:redstone"] = Stub,
+                ["minecraft:resin"] = Stub,
+            }
         };
-        public static readonly RegistryTagList StubRegistryTags = new()
-        {
-            Id = RegistryName,
-            Entries = []
-        };
+        public static readonly RegistryTags StubRegistryTags = new(RegistryName);
         
-        public required ChatComponent Name { get; init; }
-        public required Identifier PaletteId { get; init; }
+        public required ChatComponent Name { get; set; }
+        public required Identifier PaletteId { get; set; }
         public TrimMaterial()
         {
             

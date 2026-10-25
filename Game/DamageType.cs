@@ -17,54 +17,52 @@ namespace DivaMC.Common.Game
             Effects = null,
             Type = null
         };
-        public static readonly Registry<DamageType> StubRegistry = new()
+        public static readonly Registry<DamageType> StubRegistry = new(RegistryName)
         {
-            Id = RegistryName,
-            Entries = [
-                new("minecraft:cactus", Stub),
-                new("minecraft:campfire", Stub),
-                new("minecraft:cramming", Stub),
-                new("minecraft:dragon_breath", Stub),
-                new("minecraft:drown", Stub),
-                new("minecraft:dry_out", Stub),
-                new("minecraft:ender_pearl", Stub),
-                new("minecraft:fall", Stub),
-                new("minecraft:fly_into_wall", Stub),
-                new("minecraft:freeze", Stub),
-                new("minecraft:generic", Stub),
-                new("minecraft:generic_kill", Stub),
-                new("minecraft:hot_floor", Stub),
-                new("minecraft:in_fire", Stub),
-                new("minecraft:in_wall", Stub),
-                new("minecraft:lava", Stub),
-                new("minecraft:lightning_bolt", Stub),
-                new("minecraft:magic", Stub),
-                new("minecraft:on_fire", Stub),
-                new("minecraft:out_of_world", Stub),
-                new("minecraft:outside_border", Stub),
-                new("minecraft:spear", Stub),
-                new("minecraft:stalagmite", Stub),
-                new("minecraft:starve", Stub),
-                new("minecraft:sweet_berry_bush", Stub),
-                new("minecraft:wither", Stub),
-            ]
+            Entries = {
+                ["minecraft:cactus"] = Stub,
+                ["minecraft:campfire"] = Stub,
+                ["minecraft:cramming"] = Stub,
+                ["minecraft:dragon_breath"] = Stub,
+                ["minecraft:drown"] = Stub,
+                ["minecraft:dry_out"] = Stub,
+                ["minecraft:ender_pearl"] = Stub,
+                ["minecraft:fall"] = Stub,
+                ["minecraft:fly_into_wall"] = Stub,
+                ["minecraft:freeze"] = Stub,
+                ["minecraft:generic"] = Stub,
+                ["minecraft:generic_kill"] = Stub,
+                ["minecraft:hot_floor"] = Stub,
+                ["minecraft:in_fire"] = Stub,
+                ["minecraft:in_wall"] = Stub,
+                ["minecraft:lava"] = Stub,
+                ["minecraft:lightning_bolt"] = Stub,
+                ["minecraft:magic"] = Stub,
+                ["minecraft:on_fire"] = Stub,
+                ["minecraft:out_of_world"] = Stub,
+                ["minecraft:outside_border"] = Stub,
+                ["minecraft:spear"] = Stub,
+                ["minecraft:stalagmite"] = Stub,
+                ["minecraft:starve"] = Stub,
+                ["minecraft:sweet_berry_bush"] = Stub,
+                ["minecraft:wither"] = Stub,
+            }
         };
-        public static readonly RegistryTagList StubRegistryTags = new()
+        public static readonly RegistryTags StubRegistryTags = new(RegistryName)
         {
-            Id = RegistryName,
-            Entries =
-            [
-                new("minecraft:bypasses_shield", []),
-                new("minecraft:is_explosion", []),
-                new("minecraft:is_fire", []),
-            ],
+            Tags =
+            {
+                ["minecraft:bypasses_shield"] = [],
+                ["minecraft:is_explosion"] = [],
+                ["minecraft:is_fire"] = [],
+            },
         };
         
-        public required string PartialTranslationKey { get; init; }
-        public required float Exhaustion { get; init; }
-        public required string Scaling { get; init; }
-        public required string? Effects { get; init; }
-        public required string? Type { get; init; }
+        public required string PartialTranslationKey { get; set; }
+        public required float Exhaustion { get; set; }
+        public required string Scaling { get; set; }
+        public required string? Effects { get; set; }
+        public required string? Type { get; set; }
         
         public DamageType()
         {

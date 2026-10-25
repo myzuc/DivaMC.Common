@@ -7,10 +7,10 @@ namespace DivaMC.Common.Game.Chat.Status
     public sealed record PlayerSample
     {
         [JsonPropertyName("name")] 
-        public required string Name { get; init; } = string.Empty;
+        public required string Name { get; set; } = string.Empty;
         [JsonConverter(typeof(StringGuidJsonConverter))]
         [JsonPropertyName("id")] 
-        public required Guid Guid { get; init; } = Guid.Empty;
+        public required Guid Guid { get; set; } = Guid.Empty;
         [JsonConstructor]
         public PlayerSample()
         {

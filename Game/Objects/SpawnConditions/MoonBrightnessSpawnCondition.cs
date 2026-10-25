@@ -9,7 +9,7 @@ namespace DivaMC.Common.Game.Objects.SpawnConditions
     {
         public static readonly string Type = "moon_brightness";
 
-        public required DoubleRange Range { get; init; }
+        public required DoubleRange Range { get; set; }
         
         public MoonBrightnessSpawnCondition() : base(Type)
         {

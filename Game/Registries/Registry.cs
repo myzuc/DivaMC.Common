@@ -1,6 +1,8 @@
 using System.Collections.Immutable;
+using System.Collections.Specialized;
 using DivaMC.Common.IO.Serialization;
 using DivaMC.Common.Primitives;
+using fNbt;
 
 namespace DivaMC.Common.Game.Registries
 {
@@ -8,7 +10,7 @@ namespace DivaMC.Common.Game.Registries
     {
         public static readonly Identifier RegistryName = "minecraft:root";
 
-        public static readonly IImmutableList<Registry> StubRegistries =
+        public static readonly IReadOnlyCollection<Registry> StubRegistries =
         [
             (Registry)DimensionType.StubRegistry,
             (Registry)Variants.EntitySounds.CatSounds.StubRegistry,
@@ -29,7 +31,7 @@ namespace DivaMC.Common.Game.Registries
             (Registry)Trims.TrimPattern.StubRegistry,
             (Registry)BlockTransformer.StubRegistry,
         ];
-        public static readonly RegistryTagList[] StubRegistryTags = [
+        public static readonly RegistryTags[] StubRegistryTags = [
             DimensionType.StubRegistryTags,
             Variants.EntitySounds.CatSounds.StubRegistryTags,
             Variants.EntitySounds.ChickenSounds.StubRegistryTags,
@@ -50,120 +52,128 @@ namespace DivaMC.Common.Game.Registries
             BlockTransformer.StubRegistryTags,
         ];
         
-        public required Identifier Id { get; init; }
-        public required IImmutableList<RegistryEntry> Entries { get; init; }
-        public Registry()
+        public Identifier Id { get; set; }
+        public OrderedDictionary<Identifier, NbtTag?> Entries { get; set; } = [];
+        public Registry(Identifier id)
         {
-            
+            Id = id;
         }
 
         public int IdOf(Identifier id)
         {
-            int index = Entries.Select((entry, i) => (entry, i)).First(pair => pair.entry.Id == id).i;
-            //int index = Entries.FindIndex(entry => entry.Id == id);
+            int index = Entries.IndexOf(id);
             if (index < 0) throw new ArgumentException("Entry not found!");
             return index;
         }
-        public Identifier IdOf(int id)
+        public Identifier IdOf(int index)
         {
-            return EntryOf(id).Id;
+            Identifier? id = Entries.Keys.ElementAt(index).FullKey;
+            if (!id.HasValue) throw new ArgumentException("Entry not found!");
+            return id.Value;
         }
-        public RegistryEntry EntryOf(Identifier id)
+        public NbtTag? EntryOf(Identifier id)
         {
-            RegistryEntry? entry = Entries.FirstOrDefault(entry => entry.Id == id);
-            if (entry is null) throw new ArgumentException("Entry not found!");
+            if (!Entries.TryGetValue(id, out NbtTag? entry)) throw new ArgumentException("Entry not found!");
             return entry;
         }
-        public RegistryEntry EntryOf(int id)
+        public NbtTag? EntryOf(int index)
         {
-            RegistryEntry? entry = Entries.ElementAtOrDefault(id);
-            if (entry is null) throw new ArgumentException("Entry not found!");
-            return entry;
+            if (index < 0 || index > Entries.Count) throw new ArgumentException("Entry not found!");
+            return Entries.GetAt(index).Value;
         }
         
         public void Serialize(Stream stream)
         {
             stream.WriteT0AVS32(Id);
             stream.WriteVS32(Entries.Count);
-            foreach (RegistryEntry entry in Entries)
+            foreach (KeyValuePair<Identifier, NbtTag?> entry in Entries)
             {
-                stream.Write(entry);
+                stream.Write(entry.Key);
+                stream.WriteU1(entry.Value is not null);
+                if (entry.Value is not null) stream.WriteNbt(entry.Value);
             }
         }
         public static Registry Deserialize(Stream stream)
         {
-            return new()
+            Registry registry = new(stream.Read<Identifier>());
+            int entries = stream.ReadVS32();
+            for (int i = 0; i < entries; i++)
             {
-                Id = stream.Read<Identifier>(),
-                Entries = Enumerable.Range(0, stream.ReadVS32()).Select(i => stream.Read<RegistryEntry>()).ToImmutableArray(),
-            };
+                Identifier id = stream.Read<Identifier>();
+                NbtTag? value = stream.ReadU1() ? stream.ReadNbt() : null;
+                registry.Entries.Add(id, value);
+            }
+            return registry;
         }
     }
     public sealed record Registry<T> : IBinarySerializable<Registry<T>> where T : class, INbtSerializable<T>
     {
-        public required Identifier Id { get; init; }
-        public required IImmutableList<RegistryEntry<T>> Entries { get; init; }
-        public Registry()
+        public Identifier Id { get; set; }
+        public OrderedDictionary<Identifier, T?> Entries { get; init; } = [];
+        public Registry(Identifier id)
         {
-            
+            Id = id;
         }
         
         public int IdOf(Identifier id)
         {
-            int index = Entries.Select((entry, i) => (entry, i)).First(pair => pair.entry.Id == id).i;
-            //int index = Entries.FindIndex(entry => entry.Id == id);
+            int index = Entries.IndexOf(id);
             if (index < 0) throw new ArgumentException("Entry not found!");
             return index;
         }
-        public Identifier IdOf(int id)
+        public Identifier IdOf(int index)
         {
-            return EntryOf(id).Id;
+            Identifier? id = Entries.Keys.ElementAt(index).FullKey;
+            if (!id.HasValue) throw new ArgumentException("Entry not found!");
+            return id.Value;
         }
-        public RegistryEntry<T> EntryOf(Identifier id)
+        public T? EntryOf(Identifier id)
         {
-            RegistryEntry<T>? entry = Entries.FirstOrDefault(entry => entry.Id == id);
-            if (entry is null) throw new ArgumentException("Entry not found!");
-            return (RegistryEntry<T>)entry;
+            if (!Entries.TryGetValue(id, out T? entry)) throw new ArgumentException("Entry not found!");
+            return entry;
         }
-        public RegistryEntry<T> EntryOf(int id)
+        public T? EntryOf(int index)
         {
-            RegistryEntry<T>? entry = Entries.ElementAtOrDefault(id);
-            if (entry is null) throw new ArgumentException("Entry not found!");
-            return (RegistryEntry<T>)entry;
+            if (index < 0 || index > Entries.Count) throw new ArgumentException("Entry not found!");
+            return Entries.GetAt(index).Value;
         }
         
         public void Serialize(Stream stream)
         {
             stream.WriteT0AVS32(Id);
             stream.WriteVS32(Entries.Count);
-            foreach (RegistryEntry<T> entry in Entries)
+            foreach (KeyValuePair<Identifier, T?> entry in Entries)
             {
-                stream.Write(entry);
+                stream.Write(entry.Key);
+                stream.WriteU1(entry.Value is not null);
+                if (entry.Value is not null) stream.WriteNbt(entry.Value);
             }
         }
         public static Registry<T> Deserialize(Stream stream)
         {
-            return new()
+            Registry<T> registry = new(stream.Read<Identifier>());
+            int entries = stream.ReadVS32();
+            for (int i = 0; i < entries; i++)
             {
-                Id = stream.Read<Identifier>(),
-                Entries = Enumerable.Range(0, stream.ReadVS32()).Select(i => stream.Read<RegistryEntry<T>>()).ToImmutableArray(),
-            };
+                Identifier id = stream.Read<Identifier>();
+                T? value = stream.ReadU1() ? stream.ReadNbt<T>() : null;
+                registry.Entries.Add(id, value);
+            }
+            return registry;
         }
         
         public static explicit operator Registry(Registry<T> data)
         {
-            return new()
+            return new(data.Id)
             {
-                Id = data.Id,
-                Entries = data.Entries.Select(entry => (RegistryEntry)entry).ToImmutableArray(),
+                Entries = new(data.Entries.Select(entry => new KeyValuePair<Identifier, NbtTag?>(entry.Key, entry.Value?.ToNbt())))
             };
         }
         public static explicit operator Registry<T>(Registry data)
         {
-            return new()
+            return new(data.Id)
             {
-                Id = data.Id,
-                Entries = data.Entries.Select(entry => (RegistryEntry<T>)entry).ToImmutableArray(),
+                Entries = new(data.Entries.Select(entry => new KeyValuePair<Identifier, T?>(entry.Key, entry.Value is not null ? T.FromNbt(entry.Value) : null))),
             };
         }
     }

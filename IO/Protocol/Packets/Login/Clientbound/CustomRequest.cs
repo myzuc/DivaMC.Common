@@ -15,9 +15,9 @@ namespace DivaMC.Common.IO.Protocol.Packets.Login.Clientbound
             Packet.Register<CustomRequest>(signature, Deserialize);
         }
         
-        public required int Id { get; init; }
-        public required Identifier Channel { get; init; }
-        public required byte[] Data { get; init; }
+        public required int Id { get; set; }
+        public required Identifier Channel { get; set; }
+        public required byte[] Data { get; set; }
         
         protected override void Serialize(Stream stream, object registry)
         {

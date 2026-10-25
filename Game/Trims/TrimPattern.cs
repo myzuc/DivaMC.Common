@@ -16,20 +16,15 @@ namespace DivaMC.Common.Game.Trims
             AssetId = Identifier.Empty,
             BlendAlpha = false,
         };
-        public static readonly Registry<TrimPattern> StubRegistry = new()
+        public static readonly Registry<TrimPattern> StubRegistry = new(RegistryName)
         {
-            Id = RegistryName,
             Entries = []
         };
-        public static readonly RegistryTagList StubRegistryTags = new()
-        {
-            Id = RegistryName,
-            Entries = []
-        };
+        public static readonly RegistryTags StubRegistryTags = new(RegistryName);
         
-        public required ChatComponent Name { get; init; }
-        public required Identifier AssetId { get; init; }
-        public required bool BlendAlpha { get; init; }
+        public required ChatComponent Name { get; set; }
+        public required Identifier AssetId { get; set; }
+        public required bool BlendAlpha { get; set; }
         public TrimPattern()
         {
             

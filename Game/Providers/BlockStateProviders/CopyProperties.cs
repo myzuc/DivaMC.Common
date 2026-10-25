@@ -8,7 +8,7 @@ namespace DivaMC.Common.Game.Providers.BlockStateProviders
     {
         public static readonly string Type = "copy_properties";
         
-        public required NbtBlockState Source { get; init; }
+        public required NbtBlockState Source { get; set; }
         public CopyProperties() : base(Type)
         {
             

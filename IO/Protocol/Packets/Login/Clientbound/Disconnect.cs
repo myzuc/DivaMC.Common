@@ -15,7 +15,7 @@ namespace DivaMC.Common.IO.Protocol.Packets.Login.Clientbound
             Packet.Register<Disconnect>(signature, Deserialize);
         }
         
-        public required ChatComponent Message { get; init; }
+        public required ChatComponent Message { get; set; }
         
         protected override void Serialize(Stream stream, object registry)
         {

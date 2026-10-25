@@ -13,18 +13,16 @@ namespace DivaMC.Common.Game.Variants.EntitySounds
         {
             All = CowSoundAssets.Stub,
         };
-        public static readonly Registry<CowSounds> StubRegistry = new()
+        public static readonly Registry<CowSounds> StubRegistry = new(RegistryName)
         {
-            Id = RegistryName,
-            Entries = [new(Identifier.Empty, Stub)]
+            Entries =
+            {
+                ["Identifier.Empty"] = Stub
+            }
         };
-        public static readonly RegistryTagList StubRegistryTags = new()
-        {
-            Id = RegistryName,
-            Entries = []
-        };
+        public static readonly RegistryTags StubRegistryTags = new(RegistryName);
         
-        public required CowSoundAssets All { get; init; }
+        public required CowSoundAssets All { get; set; }
 
         public CowSounds()
         {

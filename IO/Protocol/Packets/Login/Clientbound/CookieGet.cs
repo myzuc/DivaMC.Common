@@ -15,7 +15,7 @@ namespace DivaMC.Common.IO.Protocol.Packets.Login.Clientbound
             Packet.Register<CookieGet>(signature, Deserialize);
         }
         
-        public required Identifier Id { get; init; }
+        public required Identifier Id { get; set; }
         
         protected override void Serialize(Stream stream, object registry)
         {

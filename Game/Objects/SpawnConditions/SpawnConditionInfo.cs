@@ -5,8 +5,8 @@ namespace DivaMC.Common.Game.Objects.SpawnConditions
 {
     public sealed record SpawnConditionInfo : INbtSerializable<SpawnConditionInfo>
     {
-        public SpawnCondition Condition { get; init; }
-        public int Priority { get; init; }
+        public SpawnCondition Condition { get; set; }
+        public int Priority { get; set; }
         public SpawnConditionInfo(SpawnCondition condition, int priority)
         {
             Condition = condition;

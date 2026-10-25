@@ -9,6 +9,7 @@ namespace DivaMC.Common.Game.Providers.BlockStateProviders
         protected internal BlockStateProvider(string type)
         {
             Type = type;
+            //todo: implement more
         }
         public virtual NbtTag ToNbt()
         {

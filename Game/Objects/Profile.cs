@@ -9,11 +9,11 @@ namespace DivaMC.Common.Game.Objects
     {
         [JsonConverter(typeof(StringGuidJsonConverter))]
         [JsonPropertyName("id")]
-        public required Guid Guid { get; init; }
+        public required Guid Guid { get; set; }
         [JsonPropertyName("name")]
-        public required string Name { get; init; }
+        public required string Name { get; set; }
         [JsonPropertyName("properties")]
-        public IReadOnlyList<Property> Properties { get; init; } = [];
+        public List<Property> Properties { get; set; } = [];
         public Profile()
         {
             
@@ -27,15 +27,12 @@ namespace DivaMC.Common.Game.Objects
                 Name = stream.ReadT0AVS32(),
                 Properties = []
             };
-            Property[] properties = new Property[stream.ReadVS32()];
-            for (int i = 0; i < properties.Length; i++)
+            int properties = stream.ReadVS32();
+            for (int i = 0; i < properties; i++)
             {
-                properties[i] = stream.Read<Property>();
+                data.Properties[i] = stream.Read<Property>();
             }
-            return data with
-            {
-                Properties = properties
-            };
+            return data;
         }
         void IBinarySerializable<Profile>.Serialize(Stream stream)
         {

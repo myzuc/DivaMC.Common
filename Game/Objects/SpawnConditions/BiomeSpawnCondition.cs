@@ -1,4 +1,3 @@
-using System.Collections.Immutable;
 using DivaMC.Common.IO.Serialization;
 using DivaMC.Common.Primitives;
 using fNbt;
@@ -9,7 +8,7 @@ namespace DivaMC.Common.Game.Objects.SpawnConditions
     {
         public static readonly string Type = "biome";
 
-        public required IImmutableList<Identifier> Biomes { get; init; }
+        public required List<Identifier> Biomes { get; set; }
         
         public BiomeSpawnCondition() : base(Type)
         {

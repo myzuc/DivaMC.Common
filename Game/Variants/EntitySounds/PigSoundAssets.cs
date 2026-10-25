@@ -15,13 +15,13 @@ namespace DivaMC.Common.Game.Variants.EntitySounds
             Death = SoundEvent.None
         };
         
-        public required SoundEvent Ambient { get; init; }
-        public required SoundEvent Step { get; init; }
+        public required SoundEvent Ambient { get; set; }
+        public required SoundEvent Step { get; set; }
         
-        public required SoundEvent Eat { get; init; }
+        public required SoundEvent Eat { get; set; }
         
-        public required SoundEvent Hurt { get; init; }
-        public required SoundEvent Death { get; init; }
+        public required SoundEvent Hurt { get; set; }
+        public required SoundEvent Death { get; set; }
 
         public PigSoundAssets()
         {

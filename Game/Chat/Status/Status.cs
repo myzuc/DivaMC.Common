@@ -6,15 +6,15 @@ namespace DivaMC.Common.Game.Chat.Status
     public sealed record Status
     {
         [JsonPropertyName("version")]
-        public VersionInfo? Version { get; init; } = null;
+        public VersionInfo? Version { get; set; } = null;
         [JsonPropertyName("players")]
-        public PlayersInfo? Players { get; init; } = null;
+        public PlayersInfo? Players { get; set; } = null;
         [JsonPropertyName("description")]
-        public ChatComponent? Description { get; init; } = null;
+        public ChatComponent? Description { get; set; } = null;
         [JsonPropertyName("favicon")]
-        public string? Icon { get; init; } = null;
+        public string? Icon { get; set; } = null;
         [JsonPropertyName("enforcesSecureChat")]
-        public bool? HasCensorship { get; init; } = null;
+        public bool? HasCensorship { get; set; } = null;
         public Status()
         {
             

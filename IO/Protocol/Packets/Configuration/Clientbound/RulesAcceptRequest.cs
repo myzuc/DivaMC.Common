@@ -14,7 +14,7 @@ namespace DivaMC.Common.IO.Protocol.Packets.Configuration.Clientbound
             Packet.Register<RulesAcceptRequest>(signature, Deserialize);
         }
         
-        public required string Message { get; init; }
+        public required string Message { get; set; }
         
         protected override void Serialize(Stream stream, object registry)
         {
