@@ -28,6 +28,11 @@ namespace DivaMC.Common.Game
                 new("minecraft:axe", [Stub]),
             ]
         };
+        public static readonly RegistryTagList StubRegistryTags = new()
+        {
+            Id = RegistryName,
+            Entries = []
+        };
         
         public required BlockStateProviders.BlockStateProvider BlockStateProvider { get; init; }
         public SoundEvent? Sound { get; init; }

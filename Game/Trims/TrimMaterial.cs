@@ -32,6 +32,11 @@ namespace DivaMC.Common.Game.Trims
                 new("minecraft:resin", Stub),
             ]
         };
+        public static readonly RegistryTagList StubRegistryTags = new()
+        {
+            Id = RegistryName,
+            Entries = []
+        };
         
         public required ChatComponent Name { get; init; }
         public required Identifier PaletteId { get; init; }

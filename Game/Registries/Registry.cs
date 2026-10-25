@@ -29,6 +29,26 @@ namespace DivaMC.Common.Game.Registries
             (Registry)Trims.TrimPattern.StubRegistry,
             (Registry)BlockTransformer.StubRegistry,
         ];
+        public static readonly RegistryTagList[] StubRegistryTags = [
+            DimensionType.StubRegistryTags,
+            Variants.EntitySounds.CatSounds.StubRegistryTags,
+            Variants.EntitySounds.ChickenSounds.StubRegistryTags,
+            Variants.EntitySounds.CowSounds.StubRegistryTags,
+            Variants.EntitySounds.PigSounds.StubRegistryTags,
+            Variants.EntitySounds.WolfSounds.StubRegistryTags,
+            Variants.Entities.CatVariant.StubRegistryTags,
+            Variants.Entities.ChickenVariant.StubRegistryTags,
+            Variants.Entities.CowVariant.StubRegistryTags,
+            Variants.Entities.FrogVariant.StubRegistryTags,
+            Variants.Entities.PigVariant.StubRegistryTags,
+            Variants.Entities.WolfVariant.StubRegistryTags,
+            Variants.Entities.ZombieNautilusVariant.StubRegistryTags,
+            Variants.Entities.PaintingVariant.StubRegistryTags,
+            DamageType.StubRegistryTags,
+            Trims.TrimMaterial.StubRegistryTags,
+            Trims.TrimPattern.StubRegistryTags,
+            BlockTransformer.StubRegistryTags,
+        ];
         
         public required Identifier Id { get; init; }
         public required IImmutableList<RegistryEntry> Entries { get; init; }

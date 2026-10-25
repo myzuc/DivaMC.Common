@@ -27,6 +27,11 @@ namespace DivaMC.Common.Game.Variants.Entities
                 new("minecraft:cold", Stub)
             ]
         };
+        public static readonly RegistryTagList StubRegistryTags = new()
+        {
+            Id = RegistryName,
+            Entries = []
+        };
         
         public required Identifier AdultTexture { get; init; }
         public required Identifier BabyTexture { get; init; }

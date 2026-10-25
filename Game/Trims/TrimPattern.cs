@@ -21,6 +21,11 @@ namespace DivaMC.Common.Game.Trims
             Id = RegistryName,
             Entries = []
         };
+        public static readonly RegistryTagList StubRegistryTags = new()
+        {
+            Id = RegistryName,
+            Entries = []
+        };
         
         public required ChatComponent Name { get; init; }
         public required Identifier AssetId { get; init; }

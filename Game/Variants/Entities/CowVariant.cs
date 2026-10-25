@@ -23,6 +23,11 @@ namespace DivaMC.Common.Game.Variants.Entities
             Id = RegistryName,
             Entries = [new(Identifier.Empty, Stub)]
         };
+        public static readonly RegistryTagList StubRegistryTags = new()
+        {
+            Id = RegistryName,
+            Entries = []
+        };
         
         public required Identifier AdultTexture { get; init; }
         public required Identifier BabyTexture { get; init; }

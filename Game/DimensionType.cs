@@ -41,6 +41,11 @@ namespace DivaMC.Common.Game
                 new("minecraft:overworld", Stub),
             ]
         };
+        public static readonly RegistryTagList StubRegistryTags = new()
+        {
+            Id = RegistryName,
+            Entries = []
+        };
         
         public required int Depth { get; init; }
         public required int Height { get; init; }
