@@ -1,4 +1,4 @@
-using DivaMC.Common.Primitives;
+using DivaMC.Common.Common;
 using DivaMC.Common.IO.Serialization;
 
 namespace DivaMC.Common.IO.Protocol.Packets.Login.Clientbound

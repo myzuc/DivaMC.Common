@@ -1,4 +1,3 @@
-using DivaMC.Common.Game.Registries;
 using DivaMC.Common.IO.Serialization;
 
 namespace DivaMC.Common.IO.Protocol.Packets.Configuration.Clientbound

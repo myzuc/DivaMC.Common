@@ -15,7 +15,7 @@ namespace DivaMC.Common.IO.Protocol.Packets.Status.Clientbound
             Packet.Register<StatusResponse>(signature, Deserialize);
         }
         
-        public required Game.Chat.Status.Status Status { get; set; }
+        public required Chat.Status.Status Status { get; set; }
         
         protected override void Serialize(Stream stream, object registry)
         {

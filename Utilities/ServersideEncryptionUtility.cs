@@ -6,9 +6,9 @@ using System.Security.Authentication;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
-using DivaMC.Common.Game.Objects;
 using DivaMC.Common.IO.Protocol.Packets.Login.Clientbound;
 using DivaMC.Common.IO.Protocol.Packets.Login.Serverbound;
+using DivaMC.Common.Player.Common;
 
 namespace DivaMC.Common.Utilities
 {

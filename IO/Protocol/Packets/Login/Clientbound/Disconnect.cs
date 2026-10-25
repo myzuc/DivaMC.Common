@@ -1,4 +1,4 @@
-using DivaMC.Common.Game.Chat.Components;
+using DivaMC.Common.Chat.Components;
 using DivaMC.Common.IO.Serialization;
 
 namespace DivaMC.Common.IO.Protocol.Packets.Login.Clientbound

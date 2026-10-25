@@ -1,0 +1,50 @@
+using DivaMC.Common.IO.Serialization;
+using fNbt;
+
+namespace DivaMC.Common.Data.Variants.EntitySounds
+{
+    public sealed record WolfSoundAssets : INbtSerializable<WolfSoundAssets>
+    {
+        public static readonly WolfSoundAssets Stub = new()
+        {
+            Ambient = SoundEvent.None,
+            Step = SoundEvent.None,
+            Pant = SoundEvent.None,
+            Whine = SoundEvent.None,
+            Growl = SoundEvent.None,
+            Hurt = SoundEvent.None,
+            Death = SoundEvent.None
+        };
+        
+        public required SoundEvent Ambient { get; set; }
+        public required SoundEvent Step { get; set; }
+        public required SoundEvent Pant { get; set; }
+        
+        public required SoundEvent Whine { get; set; }
+        public required SoundEvent Growl { get; set; }
+        public required SoundEvent Hurt { get; set; }
+        public required SoundEvent Death { get; set; }
+
+        public WolfSoundAssets()
+        {
+            
+        }
+        
+        public NbtTag ToNbt()
+        {
+            NbtCompound nbt = new();
+            Ambient.ToNbt().Rename("ambient_sound").AddTo(nbt);
+            Step.ToNbt().Rename("step_sound").AddTo(nbt);
+            Pant.ToNbt().Rename("pant_sound").AddTo(nbt);
+            Whine.ToNbt().Rename("whine_sound").AddTo(nbt);
+            Growl.ToNbt().Rename("growl_sound").AddTo(nbt);
+            Hurt.ToNbt().Rename("hurt_sound").AddTo(nbt);
+            Death.ToNbt().Rename("death_sound").AddTo(nbt);
+            return nbt;
+        }
+        public static WolfSoundAssets FromNbt(NbtTag nbt)
+        {
+            throw new NotImplementedException();
+        }
+    }
+}

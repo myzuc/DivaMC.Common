@@ -1,6 +1,6 @@
-using DivaMC.Common.Game.Objects;
+using DivaMC.Common.Common;
 using DivaMC.Common.IO.Serialization;
-using DivaMC.Common.Primitives;
+using DivaMC.Common.World.Common.Objects;
 
 namespace DivaMC.Common.IO.Protocol.Packets.Play.Clientbound
 {

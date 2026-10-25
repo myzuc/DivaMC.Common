@@ -1,5 +1,5 @@
+using DivaMC.Common.Common;
 using DivaMC.Common.IO.Serialization;
-using DivaMC.Common.Primitives;
 
 namespace DivaMC.Common.IO.Protocol.Packets.Login.Serverbound
 {
