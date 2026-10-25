@@ -1,3 +1,4 @@
+using System.Collections.Immutable;
 using System.Runtime.InteropServices;
 using fNbt;
 
@@ -205,6 +206,17 @@ namespace DivaMC.Common.IO.Serialization
             public static NbtString FromT0A(string value)
             {
                 return new(value);
+            }
+        }
+        extension(NbtList nbt)
+        {
+            public IEnumerable<T> ToIEnumerable<T>() where T : INbtSerializable<T>
+            {
+                return nbt.ToImmutableList().Select(T.FromNbt);
+            }
+            public static NbtList FromIEnumerable<T>(IEnumerable<T> value) where T : INbtSerializable<T>
+            {
+                return new(value.Select(entry => entry.ToNbt()));
             }
         }
     }
