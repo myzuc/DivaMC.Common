@@ -11,7 +11,7 @@ namespace DivaMC.Common.IO.Protocol.Packets.Play.Clientbound
             PacketSignature signature = new PacketSignature(
                 ProtocolDirection.Clientbound,
                 ProtocolStage.Play,
-                0x50
+                0x32
             );
             Packet.Register<Start>(signature, Deserialize);
         }
