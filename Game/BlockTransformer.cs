@@ -19,11 +19,13 @@ namespace DivaMC.Common.Game
                 Source = Identifier.EmptyBlock
             }
         };
-        public static readonly Registry<BlockTransformer> StubRegistry = new()
+        public static readonly Registry<NbtList<BlockTransformer>> StubRegistry = new()
         {
             Id = RegistryName,
             Entries = [
-                new("minecraft:shovel", Stub),
+                new("minecraft:hoe", [Stub]),
+                new("minecraft:shovel", [Stub]),
+                new("minecraft:axe", [Stub]),
             ]
         };
         
