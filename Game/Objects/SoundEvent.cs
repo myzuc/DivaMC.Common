@@ -6,7 +6,7 @@ namespace DivaMC.Common.Game.Objects
 {
     public sealed record SoundEvent : INbtSerializable<SoundEvent>
     {
-        public static readonly SoundEvent None = "minecraft:intentionally_empty";
+        public static readonly SoundEvent None = Identifier.EmptySound;
         
         public Identifier Sound { get; }
         public float? Range { get; init; } = null;
