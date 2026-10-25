@@ -2,7 +2,7 @@ using DivaMC.Common.Game.Objects;
 using DivaMC.Common.IO.Serialization;
 using fNbt;
 
-namespace DivaMC.Common.Game.Variants.Sounds
+namespace DivaMC.Common.Game.Variants.EntitySounds
 {
     public sealed record WolfSoundAssets : INbtSerializable<WolfSoundAssets>
     {

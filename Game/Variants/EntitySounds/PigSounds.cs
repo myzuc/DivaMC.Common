@@ -3,27 +3,27 @@ using DivaMC.Common.IO.Serialization;
 using DivaMC.Common.Primitives;
 using fNbt;
 
-namespace DivaMC.Common.Game.Variants.Sounds
+namespace DivaMC.Common.Game.Variants.EntitySounds
 {
-    public sealed record CatSounds : INbtSerializable<CatSounds>
+    public sealed record PigSounds : INbtSerializable<PigSounds>
     {
-        public static readonly Identifier RegistryName = "minecraft:cat_sound_variant";
+        public static readonly Identifier RegistryName = "minecraft:pig_sound_variant";
 
-        public static readonly CatSounds Stub = new()
+        public static readonly PigSounds Stub = new()
         {
-            Adult = CatSoundAssets.Stub,
-            Baby = CatSoundAssets.Stub,
+            Adult = PigSoundAssets.Stub,
+            Baby = PigSoundAssets.Stub,
         };
-        public static readonly Registry<CatSounds> StubRegistry = new()
+        public static readonly Registry<PigSounds> StubRegistry = new()
         {
             Id = RegistryName,
             Entries = [new(Identifier.Empty, Stub)]
         };
         
-        public required CatSoundAssets Adult { get; init; }
-        public required CatSoundAssets Baby { get; init; }
+        public required PigSoundAssets Adult { get; init; }
+        public required PigSoundAssets Baby { get; init; }
 
-        public CatSounds()
+        public PigSounds()
         {
             
         }
@@ -35,7 +35,7 @@ namespace DivaMC.Common.Game.Variants.Sounds
             Baby.ToNbt().Rename("baby_sounds").AddTo(nbt);
             return nbt;
         }
-        public static CatSounds FromNbt(NbtTag nbt)
+        public static PigSounds FromNbt(NbtTag nbt)
         {
             throw new NotImplementedException();
         }

@@ -3,7 +3,7 @@ using DivaMC.Common.IO.Serialization;
 using DivaMC.Common.Primitives;
 using fNbt;
 
-namespace DivaMC.Common.Game.Variants.Sounds
+namespace DivaMC.Common.Game.Variants.EntitySounds
 {
     public sealed record CowSounds : INbtSerializable<CowSounds>
     {

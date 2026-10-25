@@ -2,11 +2,11 @@ using DivaMC.Common.Game.Objects;
 using DivaMC.Common.IO.Serialization;
 using fNbt;
 
-namespace DivaMC.Common.Game.Variants.Sounds
+namespace DivaMC.Common.Game.Variants.EntitySounds
 {
-    public sealed record ChickenSoundAssets : INbtSerializable<ChickenSoundAssets>
+    public sealed record CowSoundAssets : INbtSerializable<CowSoundAssets>
     {
-        public static readonly ChickenSoundAssets Stub = new()
+        public static readonly CowSoundAssets Stub = new()
         {
             Ambient = SoundEvent.None,
             Step = SoundEvent.None,
@@ -20,7 +20,7 @@ namespace DivaMC.Common.Game.Variants.Sounds
         public required SoundEvent Hurt { get; init; }
         public required SoundEvent Death { get; init; }
 
-        public ChickenSoundAssets()
+        public CowSoundAssets()
         {
             
         }
@@ -34,7 +34,7 @@ namespace DivaMC.Common.Game.Variants.Sounds
             Death.ToNbt().Rename("death_sound").AddTo(nbt);
             return nbt;
         }
-        public static ChickenSoundAssets FromNbt(NbtTag nbt)
+        public static CowSoundAssets FromNbt(NbtTag nbt)
         {
             throw new NotImplementedException();
         }
