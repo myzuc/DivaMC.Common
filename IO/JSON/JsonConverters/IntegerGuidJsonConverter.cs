@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 
 namespace DivaMC.Common.IO.JSON.JsonConverters
 {
-    internal class IntegerGuidJsonConverter : JsonConverter<Guid>
+    internal sealed class IntegerGuidJsonConverter : JsonConverter<Guid>
     {
         public override Guid Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {

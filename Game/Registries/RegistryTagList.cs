@@ -4,7 +4,7 @@ using DivaMC.Common.Primitives;
 
 namespace DivaMC.Common.Game.Registries
 {
-    public record RegistryTagList : IBinarySerializable<RegistryTagList>
+    public sealed record RegistryTagList : IBinarySerializable<RegistryTagList>
     {
         public required Identifier Id { get; init; }
         public required IImmutableList<RegistryTagListEntry> Entries { get; init; }

@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 
 namespace DivaMC.Common.Game.Chat.Components
 {
-    internal class ChatComponentJsonConverter : JsonConverter<ChatComponent>
+    internal sealed class ChatComponentJsonConverter : JsonConverter<ChatComponent>
     {
         public override ChatComponent Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {

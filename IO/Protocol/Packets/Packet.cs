@@ -3,7 +3,7 @@ using System.Reflection;
 
 namespace DivaMC.Common.IO.Protocol.Packets
 {
-    public record Packet
+    public abstract record Packet
     {
         protected delegate Packet Deserializer(Stream stream, object registry);
         private static readonly ConcurrentDictionary<PacketSignature, Deserializer> Deserializers = [];

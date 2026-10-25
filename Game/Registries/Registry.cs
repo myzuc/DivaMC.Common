@@ -4,7 +4,7 @@ using DivaMC.Common.Primitives;
 
 namespace DivaMC.Common.Game.Registries
 {
-    public record Registry : IBinarySerializable<Registry>
+    public sealed record Registry : IBinarySerializable<Registry>
     {
         public static readonly Identifier RegistryName = "minecraft:root";
 
@@ -99,7 +99,7 @@ namespace DivaMC.Common.Game.Registries
             };
         }
     }
-    public record Registry<T> : IBinarySerializable<Registry<T>> where T : class, INbtSerializable<T>
+    public sealed record Registry<T> : IBinarySerializable<Registry<T>> where T : class, INbtSerializable<T>
     {
         public required Identifier Id { get; init; }
         public required IImmutableList<RegistryEntry<T>> Entries { get; init; }
