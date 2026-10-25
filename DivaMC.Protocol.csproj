@@ -33,7 +33,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Content Include="DivaMC.Common.sln.DotSettings.user" />
+      <Content Include="DivaMC.Protocol.sln.DotSettings.user" />
     </ItemGroup>
 
 </Project>
