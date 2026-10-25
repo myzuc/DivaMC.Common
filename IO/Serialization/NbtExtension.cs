@@ -17,6 +17,10 @@ namespace DivaMC.Common.IO.Serialization
             {
                 compound.Add(nbt);
             }
+            public void CloneTo(NbtCompound compound)
+            {
+                compound.Add((NbtTag)nbt.Clone());
+            }
         }
         extension(NbtByte nbt)
         {

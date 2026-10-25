@@ -23,7 +23,7 @@ namespace DivaMC.Common.Game.Objects
         {
             NbtCompound nbt = new();
             Id.ToNbt().Rename("id").AddTo(nbt);
-            Properties.Rename("properties").AddTo(nbt);
+            Properties.Rename("properties").CloneTo(nbt);
             return nbt;
         }
         public static NbtBlockState FromNbt(NbtTag nbt)
