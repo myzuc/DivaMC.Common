@@ -34,6 +34,8 @@ namespace DivaMC.Common.Registries
             (Registry)TrimMaterial.StubRegistry,
             (Registry)TrimPattern.StubRegistry,
             (Registry)BlockTransformer.StubRegistry,
+            (Registry)JukeboxSong.StubRegistry,
+            (Registry)BannerPattern.StubRegistry,
         ];
         public static readonly RegistryTags[] StubRegistryTags = [
             DimensionType.StubRegistryTags,
@@ -54,6 +56,8 @@ namespace DivaMC.Common.Registries
             TrimMaterial.StubRegistryTags,
             TrimPattern.StubRegistryTags,
             BlockTransformer.StubRegistryTags,
+            JukeboxSong.StubRegistryTags,
+            BannerPattern.StubRegistryTags,
         ];
         
         public Identifier Id { get; set; }
