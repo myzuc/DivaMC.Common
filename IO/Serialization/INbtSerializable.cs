@@ -2,9 +2,9 @@ using fNbt;
 
 namespace DivaMC.Common.IO.Serialization
 {
-    internal interface INbtSerializable<T>
+    public interface INbtSerializable<T>
     {
-        internal NbtTag ToNbt();
-        internal static abstract T FromNbt(NbtTag nbt);
+        public NbtTag ToNbt();
+        public static abstract T FromNbt(NbtTag nbt);
     }
 }
