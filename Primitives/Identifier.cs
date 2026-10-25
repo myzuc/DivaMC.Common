@@ -1,10 +1,11 @@
 using System.Text.Json.Serialization;
 using DivaMC.Common.IO;
 using DivaMC.Common.IO.Serialization;
+using fNbt;
 
 namespace DivaMC.Common.Primitives
 {
-    public readonly record struct Identifier : IBinarySerializable<Identifier>
+    public readonly record struct Identifier : IBinarySerializable<Identifier>, INbtSerializable<Identifier>
     {
         private const string ValidNamespaceCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWYZ0123456789.-_";
         private const string ValidValueCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWYZ0123456789.-_/";
@@ -64,6 +65,14 @@ namespace DivaMC.Common.Primitives
         void IBinarySerializable<Identifier>.Serialize(Stream stream)
         {
             stream.WriteT0AVS32(FullKey);
+        }
+        public NbtTag ToNbt()
+        {
+            return new NbtString(FullKey);
+        }
+        public static Identifier FromNbt(NbtTag nbt)
+        {
+            return new(nbt.StringValue);
         }
     }
 }
