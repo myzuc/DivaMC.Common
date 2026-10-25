@@ -6,9 +6,9 @@ using System.Security.Authentication;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
-using DivaMC.Common.Game.Objects;
 using DivaMC.Common.IO.Protocol.Packets.Login.Clientbound;
 using DivaMC.Common.IO.Protocol.Packets.Login.Serverbound;
+using DivaMC.Common.Player.Common;
 
 namespace DivaMC.Common.Utilities
 {
@@ -19,14 +19,13 @@ namespace DivaMC.Common.Utilities
         private readonly RSA Rsa;
         private readonly byte[] Sample;
         private byte[]? Secret = null;
-        public string Username { get; }
+        public required string Username { get; init; }
         public string ServerId { get; init; } = string.Empty;
         public bool Authenticate { get; init; } = true;
-        public ServersideEncryptionUtility(string username, int sampleSize = 64)
+        public ServersideEncryptionUtility(int sampleSize = 64)
         {
             Rsa = RSA.Create(1024);
             Sample = RandomNumberGenerator.GetBytes(sampleSize);
-            Username = username;
         }
         public EncryptionRequest GenerateRequest()
         {

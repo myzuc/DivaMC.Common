@@ -1,4 +1,5 @@
-using DivaMC.Common.Game.Objects;
+using DivaMC.Common.IO.Serialization;
+using DivaMC.Common.Player.Common;
 
 namespace DivaMC.Common.IO.Protocol.Packets.Login.Clientbound
 {
@@ -14,8 +15,8 @@ namespace DivaMC.Common.IO.Protocol.Packets.Login.Clientbound
             Packet.Register<Finish>(signature, Deserialize);
         }
         
-        public required Profile Profile { get; init; }
-        public required Guid SessionId { get; init; }
+        public required Profile Profile { get; set; }
+        public required Guid SessionId { get; set; }
         
         protected override void Serialize(Stream stream, object registry)
         {

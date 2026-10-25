@@ -1,3 +1,5 @@
+using DivaMC.Common.IO.Serialization;
+
 namespace DivaMC.Common.IO.Protocol.Packets.Login.Serverbound
 {
     public sealed record Start : Packet
@@ -12,8 +14,8 @@ namespace DivaMC.Common.IO.Protocol.Packets.Login.Serverbound
             Packet.Register<Start>(signature, Deserialize);
         }
         
-        public required string Name { get; init; }
-        public required Guid Id { get; init; }
+        public required string Name { get; set; }
+        public required Guid Id { get; set; }
         
         protected override void Serialize(Stream stream, object registry)
         {

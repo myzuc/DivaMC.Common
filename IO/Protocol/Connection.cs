@@ -1,9 +1,13 @@
 using System.IO.Compression;
 using System.Net.Sockets;
+using DivaMC.Common.IO.Cryptography;
 using DivaMC.Common.IO.Protocol.Packets;
+using DivaMC.Common.IO.Serialization;
 using HandshakePackets = DivaMC.Common.IO.Protocol.Packets.Handshake;
 using StatusPackets = DivaMC.Common.IO.Protocol.Packets.Status;
 using LoginPackets = DivaMC.Common.IO.Protocol.Packets.Login;
+using ConfigurationPackets = DivaMC.Common.IO.Protocol.Packets.Configuration;
+using PlayPackets = DivaMC.Common.IO.Protocol.Packets.Play;
 
 namespace DivaMC.Common.IO.Protocol
 {
@@ -26,13 +30,13 @@ namespace DivaMC.Common.IO.Protocol
        {
            Stream = new AesCfbStream(Stream, secret, secret, false);
        }
-       public async Task<Packet> ReadAsync(CancellationToken cancellationToken = default)
+       public async Task<Packet?> ReadAsync(CancellationToken cancellationToken = default)
        {
            await using Stream ms = await readRawAsync();
            int id = ms.ReadVS32();
            PacketSignature signature = new(RemoteIsClient ? ProtocolDirection.Serverbound : ProtocolDirection.Clientbound, ProtocolStage, id);
-           Packet packet = Packet.Deserialize(signature, ms, null);
-           Run(packet);
+           Packet? packet = Packet.Deserialize(signature, ms, null);
+           if (packet is not null) Run(packet);
            return packet;
 
            async Task<Stream> readRawAsync()
@@ -126,14 +130,14 @@ namespace DivaMC.Common.IO.Protocol
                    ProtocolStage = ProtocolStage.Configuration;
                    break;
                }
+               case ConfigurationPackets.Serverbound.Finish:
+               {
+                   ProtocolStage = ProtocolStage.Play;
+                   break;
+               }
                /*case DisconnectPacket:
                {
                    ProtocolStage = this.ProtocolStage.Disconnected;
-                   break;
-               }
-               case EndPacket:
-               {
-                   ProtocolStage = this.ProtocolStage.Play;
                    break;
                }*/
            }

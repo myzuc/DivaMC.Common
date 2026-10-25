@@ -1,3 +1,5 @@
+using DivaMC.Common.IO.Serialization;
+
 namespace DivaMC.Common.IO.Protocol.Packets.Login.Clientbound
 {
     public sealed record EncryptionRequest : Packet
@@ -12,10 +14,10 @@ namespace DivaMC.Common.IO.Protocol.Packets.Login.Clientbound
             Packet.Register<EncryptionRequest>(signature, Deserialize);
         }
         
-        public required string ServerId { get; init; }
-        public required byte[] PublicKey { get; init; }
-        public required byte[] DecryptedSample { get; init; }
-        public required bool Authenticate { get; init; }
+        public required string ServerId { get; set; }
+        public required byte[] PublicKey { get; set; }
+        public required byte[] DecryptedSample { get; set; }
+        public required bool Authenticate { get; set; }
         
         protected override void Serialize(Stream stream, object registry)
         {

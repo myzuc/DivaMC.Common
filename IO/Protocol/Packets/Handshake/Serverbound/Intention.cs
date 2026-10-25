@@ -1,3 +1,5 @@
+using DivaMC.Common.IO.Serialization;
+
 namespace DivaMC.Common.IO.Protocol.Packets.Handshake.Serverbound
 {
     public sealed record Intention : Packet
@@ -12,10 +14,10 @@ namespace DivaMC.Common.IO.Protocol.Packets.Handshake.Serverbound
             Packet.Register<Intention>(signature, Deserialize);
         }
         
-        public required int Version { get; init; }
-        public required string ServerAddress { get; init; }
-        public required ushort ServerPort { get; init; }
-        public required Intent Intent { get; init; }
+        public required int Version { get; set; }
+        public required string ServerAddress { get; set; }
+        public required ushort ServerPort { get; set; }
+        public required Intent Intent { get; set; }
         
         protected override void Serialize(Stream stream, object registry)
         {

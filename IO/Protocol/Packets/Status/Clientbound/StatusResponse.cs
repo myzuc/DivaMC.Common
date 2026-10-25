@@ -1,4 +1,5 @@
 using System.Text.Json;
+using DivaMC.Common.IO.Serialization;
 
 namespace DivaMC.Common.IO.Protocol.Packets.Status.Clientbound
 {
@@ -14,7 +15,7 @@ namespace DivaMC.Common.IO.Protocol.Packets.Status.Clientbound
             Packet.Register<StatusResponse>(signature, Deserialize);
         }
         
-        public required Game.Chat.Status.Status Status { get; init; }
+        public required Chat.Status.Status Status { get; set; }
         
         protected override void Serialize(Stream stream, object registry)
         {

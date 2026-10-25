@@ -1,4 +1,5 @@
-using DivaMC.Common.Game.Chat.Components;
+using DivaMC.Common.Chat.Components;
+using DivaMC.Common.IO.Serialization;
 
 namespace DivaMC.Common.IO.Protocol.Packets.Login.Clientbound
 {
@@ -14,7 +15,7 @@ namespace DivaMC.Common.IO.Protocol.Packets.Login.Clientbound
             Packet.Register<Disconnect>(signature, Deserialize);
         }
         
-        public required ChatComponent Message { get; init; }
+        public required ChatComponent Message { get; set; }
         
         protected override void Serialize(Stream stream, object registry)
         {
