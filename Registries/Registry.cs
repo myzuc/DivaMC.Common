@@ -19,7 +19,7 @@ namespace DivaMC.Common.Registries
     {
         public static readonly Identifier RegistryName = "minecraft:root";
 
-        public static readonly IReadOnlyCollection<Registry> StubRegistries =
+        public static readonly IReadOnlyList<Registry> StubRegistries =
         [
             (Registry)DimensionType.StubRegistry,
             (Registry)Biome.StubRegistry,
@@ -45,7 +45,8 @@ namespace DivaMC.Common.Registries
             (Registry)Instrument.StubRegistry,
             (Registry)DecoratedPotPattern.StubRegistry,
         ];
-        public static readonly RegistryTags[] StubRegistryTags = [
+        public static readonly IReadOnlyList<RegistryTags> StubRegistryTags = 
+        [
             DimensionType.StubRegistryTags,
             Biome.StubRegistryTags,
             CatSounds.StubRegistryTags,
