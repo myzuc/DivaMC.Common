@@ -19,7 +19,7 @@ namespace DivaMC.Common.IO.Protocol.Packets.Login.Clientbound
         public required byte[] DecryptedSample { get; set; }
         public required bool Authenticate { get; set; }
         
-        protected override void Serialize(Stream stream, object registry)
+        protected override void Serialize(Stream stream, Context context)
         {
             stream.WriteT0AVS32(ServerId);
             stream.WriteVS32(PublicKey.Length);
@@ -28,7 +28,7 @@ namespace DivaMC.Common.IO.Protocol.Packets.Login.Clientbound
             stream.WriteU8A(DecryptedSample);
             stream.WriteU1(Authenticate);
         }
-        private static Packet Deserialize(Stream stream, object registry)
+        private static Packet Deserialize(Stream stream, Context context)
         {
             throw new NotImplementedException();
         }

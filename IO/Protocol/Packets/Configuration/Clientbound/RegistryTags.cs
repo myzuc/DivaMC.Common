@@ -16,7 +16,7 @@ namespace DivaMC.Common.IO.Protocol.Packets.Configuration.Clientbound
         
         public required IReadOnlyCollection<Registries.RegistryTags> RegistryTagLists { get; init; }
         
-        protected override void Serialize(Stream stream, object registry)
+        protected override void Serialize(Stream stream, Context context)
         {
             stream.WriteVS32(RegistryTagLists.Count);
             foreach (Registries.RegistryTags registryTagList in RegistryTagLists)
@@ -24,7 +24,7 @@ namespace DivaMC.Common.IO.Protocol.Packets.Configuration.Clientbound
                 stream.Write(registryTagList);
             }
         }
-        private static Packet Deserialize(Stream stream, object registry)
+        private static Packet Deserialize(Stream stream, Context context)
         {
             return new RegistryTags()
             {

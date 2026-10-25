@@ -17,11 +17,11 @@ namespace DivaMC.Common.IO.Protocol.Packets.Login.Clientbound
         
         public required ChatComponent Message { get; set; }
         
-        protected override void Serialize(Stream stream, object registry)
+        protected override void Serialize(Stream stream, Context context)
         {
             stream.WriteJSON(Message);
         }
-        private static Packet Deserialize(Stream stream, object registry)
+        private static Packet Deserialize(Stream stream, Context context)
         {
             throw new NotImplementedException();
         }

@@ -5,7 +5,7 @@ namespace DivaMC.Common.IO.Protocol.Packets
 {
     public abstract record Packet
     {
-        protected delegate Packet Deserializer(Stream stream, object registry);
+        protected delegate Packet Deserializer(Stream stream, Context context);
         private static readonly ConcurrentDictionary<PacketSignature, Deserializer> Deserializers = [];
         private static readonly ConcurrentDictionary<Type, PacketSignature> Signatures = [];
 
@@ -34,19 +34,19 @@ namespace DivaMC.Common.IO.Protocol.Packets
             
         }
         
-        protected abstract void Serialize(Stream stream, object registry);
-        public static Packet? Deserialize(PacketSignature signature, Stream stream, object registry)
+        protected abstract void Serialize(Stream stream, Context context);
+        public static Packet? Deserialize(PacketSignature signature, Stream stream, Context context)
         {
             if (!Deserializers.TryGetValue(signature, out Deserializer? deserializer))
             {
                 return null;
             }
-            Packet packet = deserializer(stream, registry);
+            Packet packet = deserializer(stream, context);
             return packet;
         }
-        public static void Serialize(Packet packet, Stream stream, object registry)
+        public static void Serialize(Packet packet, Stream stream, Context context)
         {
-            packet.Serialize(stream, registry);
+            packet.Serialize(stream, context);
         }
 
         protected static void Register<TPacket>(PacketSignature signature, Deserializer deserializer) where TPacket : Packet

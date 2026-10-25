@@ -14,11 +14,11 @@ namespace DivaMC.Common.IO.Protocol.Packets.Configuration.Serverbound
             Packet.Register<RulesAcceptResponse>(signature, Deserialize);
         }
         
-        protected override void Serialize(Stream stream, object registry)
+        protected override void Serialize(Stream stream, Context context)
         {
             
         }
-        private static Packet Deserialize(Stream stream, object registry)
+        private static Packet Deserialize(Stream stream, Context context)
         {
             return new RulesAcceptResponse();
         }

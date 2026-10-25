@@ -17,11 +17,11 @@ namespace DivaMC.Common.IO.Protocol.Packets.Login.Clientbound
         
         public required Identifier Id { get; set; }
         
-        protected override void Serialize(Stream stream, object registry)
+        protected override void Serialize(Stream stream, Context context)
         {
             stream.Write(Id);
         }
-        private static Packet Deserialize(Stream stream, object registry)
+        private static Packet Deserialize(Stream stream, Context context)
         {
             throw new NotImplementedException();
         }

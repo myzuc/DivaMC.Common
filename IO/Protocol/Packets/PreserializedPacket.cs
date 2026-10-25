@@ -13,7 +13,7 @@ namespace DivaMC.Common.IO.Protocol.Packets
             Serialize(packet, ms, null);
             Buffer = ms.ToArray();
         }
-        protected override void Serialize(Stream stream, object registry)
+        protected override void Serialize(Stream stream, Context context)
         {
             stream.WriteU8A(Buffer);
         }

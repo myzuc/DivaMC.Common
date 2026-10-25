@@ -19,13 +19,13 @@ namespace DivaMC.Common.IO.Protocol.Packets.Login.Clientbound
         public required Identifier Channel { get; set; }
         public required byte[] Data { get; set; }
         
-        protected override void Serialize(Stream stream, object registry)
+        protected override void Serialize(Stream stream, Context context)
         {
             stream.WriteVS32(Id);
             stream.Write(Channel);
             stream.WriteU8A(Data);
         }
-        private static Packet Deserialize(Stream stream, object registry)
+        private static Packet Deserialize(Stream stream, Context context)
         {
             throw new NotImplementedException();
         }

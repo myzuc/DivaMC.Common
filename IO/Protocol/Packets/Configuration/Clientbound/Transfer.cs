@@ -17,12 +17,12 @@ namespace DivaMC.Common.IO.Protocol.Packets.Configuration.Clientbound
         public required string Address { get; set; }
         public required ushort Port { get; set; }
         
-        protected override void Serialize(Stream stream, object registry)
+        protected override void Serialize(Stream stream, Context context)
         {
             stream.WriteT0AVS32(Address);
             stream.WriteVS32(Port);
         }
-        private static Packet Deserialize(Stream stream, object registry)
+        private static Packet Deserialize(Stream stream, Context context)
         {
             throw new NotImplementedException();
         }
