@@ -14,7 +14,7 @@ namespace DivaMC.Common.Game
         {
             Depth = 0,
             Height = 16,
-            LogicalHeight = 512,
+            LogicalHeight = 16,
             CoordinateScale = 1.0,
                                                 
             Clock = null,

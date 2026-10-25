@@ -10,7 +10,7 @@ namespace DivaMC.Common.Game
 {
     public sealed record BlockTransformer : INbtSerializable<BlockTransformer>
     {
-        public static readonly Identifier RegistryName = "minecraft:trim_material";
+        public static readonly Identifier RegistryName = "minecraft:block_transformer";
 
         public static readonly BlockTransformer Stub = new()
         {
