@@ -1,7 +1,7 @@
 using DivaMC.Common.IO.Serialization;
 using fNbt;
 
-namespace DivaMC.Common.Primitives
+namespace DivaMC.Common.Game.Providers.Ranges
 {
     public readonly record struct IntRange : INbtSerializable<IntRange>
     {
