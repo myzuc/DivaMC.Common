@@ -14,16 +14,15 @@
     <ItemGroup>
       <Folder Include="Game\Biomes\" />
       <Folder Include="Game\Dialogs\" />
-      <Folder Include="Game\Dimensions\" />
       <Folder Include="Game\Events\" />
       <Folder Include="Game\Player\" />
-      <Folder Include="Game\Registries\" />
       <Folder Include="Game\Sounds\" />
       <Folder Include="Game\Tablist\" />
       <Folder Include="Game\BlockEntity\" />
       <Folder Include="Game\Blocks\" />
       <Folder Include="Game\Entities\" />
       <Folder Include="IO\Protocol\Packets\Handshake\Clientbound\" />
+      <Folder Include="IO\Protocol\Packets\Play\Serverbound\" />
     </ItemGroup>
 
     <ItemGroup>

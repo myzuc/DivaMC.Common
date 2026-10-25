@@ -4,15 +4,10 @@ using fNbt;
 
 namespace DivaMC.Common.Game.Registries
 {
-    public readonly record struct RegistryEntry : IBinarySerializable<RegistryEntry>
+    public sealed record RegistryEntry : IBinarySerializable<RegistryEntry>
     {
-        public readonly Identifier Id;
-        public readonly NbtTag? Value;
-        public RegistryEntry()
-        {
-            Id = new();
-            Value = null;
-        }
+        public Identifier Id { get; }
+        public NbtTag? Value { get; }
         public RegistryEntry(Identifier id, NbtTag? value)
         {
             Id = id;

@@ -12,6 +12,30 @@ namespace DivaMC.Common.Game.Registries
         {
             
         }
+
+        public int IdOf(Identifier id)
+        {
+            int index = Entries.Select((entry, i) => (entry, i)).First(pair => pair.entry.Id == id).i;
+            //int index = Entries.FindIndex(entry => entry.Id == id);
+            if (index < 0) throw new ArgumentException("Entry not found!");
+            return index;
+        }
+        public Identifier IdOf(int id)
+        {
+            return EntryOf(id).Id;
+        }
+        public RegistryEntry EntryOf(Identifier id)
+        {
+            RegistryEntry? entry = Entries.FirstOrDefault(entry => entry.Id == id);
+            if (entry is null) throw new ArgumentException("Entry not found!");
+            return entry;
+        }
+        public RegistryEntry EntryOf(int id)
+        {
+            RegistryEntry? entry = Entries.ElementAtOrDefault(id);
+            if (entry is null) throw new ArgumentException("Entry not found!");
+            return entry;
+        }
         
         public void Serialize(Stream stream)
         {
@@ -38,6 +62,30 @@ namespace DivaMC.Common.Game.Registries
         public Registry()
         {
             
+        }
+        
+        public int IdOf(Identifier id)
+        {
+            int index = Entries.Select((entry, i) => (entry, i)).First(pair => pair.entry.Id == id).i;
+            //int index = Entries.FindIndex(entry => entry.Id == id);
+            if (index < 0) throw new ArgumentException("Entry not found!");
+            return index;
+        }
+        public Identifier IdOf(int id)
+        {
+            return EntryOf(id).Id;
+        }
+        public RegistryEntry<T> EntryOf(Identifier id)
+        {
+            RegistryEntry<T>? entry = Entries.FirstOrDefault(entry => entry.Id == id);
+            if (entry is null) throw new ArgumentException("Entry not found!");
+            return (RegistryEntry<T>)entry;
+        }
+        public RegistryEntry<T> EntryOf(int id)
+        {
+            RegistryEntry<T>? entry = Entries.ElementAtOrDefault(id);
+            if (entry is null) throw new ArgumentException("Entry not found!");
+            return (RegistryEntry<T>)entry;
         }
         
         public void Serialize(Stream stream)
