@@ -31,6 +31,18 @@ namespace DivaMC.Common.IO.Serialization
             {
                 stream.Write(buffer);
             }
+            public async ValueTask<byte[]> ReadU8AAsync(CancellationToken cancellationToken = default)
+            {
+                using MemoryStream ms = new();
+                await stream.CopyToAsync(ms, cancellationToken);
+                return ms.ToArray();
+            }
+            public byte[] ReadU8A()
+            {
+                using MemoryStream ms = new();
+                stream.CopyTo(ms);
+                return ms.ToArray();
+            }
             #endregion
             #region U1
             public async ValueTask<bool> ReadU1Async(CancellationToken cancellationToken = default)

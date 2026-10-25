@@ -1,5 +1,6 @@
 using System.Collections.Concurrent;
 using System.Reflection;
+using DivaMC.Common.IO.Serialization;
 
 namespace DivaMC.Common.IO.Protocol.Packets
 {
@@ -35,11 +36,11 @@ namespace DivaMC.Common.IO.Protocol.Packets
         }
         
         protected abstract void Serialize(Stream stream);
-        public static Packet? Deserialize(PacketSignature signature, Stream stream)
+        public static Packet Deserialize(PacketSignature signature, Stream stream)
         {
             if (!Deserializers.TryGetValue(signature, out Deserializer? deserializer))
             {
-                return null;
+                return new UnknownPacket(signature, stream.ReadU8A());
             }
             Packet packet = deserializer(stream);
             return packet;

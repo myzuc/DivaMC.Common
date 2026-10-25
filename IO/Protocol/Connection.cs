@@ -30,13 +30,13 @@ namespace DivaMC.Common.IO.Protocol
        {
            Stream = new AesCfbStream(Stream, secret, secret, false);
        }
-       public async Task<Packet?> ReadAsync(CancellationToken cancellationToken = default)
+       public async Task<Packet> ReadAsync(CancellationToken cancellationToken = default)
        {
            await using Stream ms = await readRawAsync();
            int id = ms.ReadVS32();
            PacketSignature signature = new(RemoteIsClient ? ProtocolDirection.Serverbound : ProtocolDirection.Clientbound, ProtocolStage, id);
-           Packet? packet = Packet.Deserialize(signature, ms);
-           if (packet is not null) Run(packet);
+           Packet packet = Packet.Deserialize(signature, ms);
+           Run(packet);
            return packet;
 
            async Task<Stream> readRawAsync()
