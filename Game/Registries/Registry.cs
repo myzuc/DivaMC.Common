@@ -6,6 +6,30 @@ namespace DivaMC.Common.Game.Registries
 {
     public record Registry : IBinarySerializable<Registry>
     {
+        public static readonly Identifier RegistryName = "minecraft:root";
+
+        public static readonly IImmutableList<Registry> StubRegistries =
+        [
+            (Registry)DimensionType.StubRegistry,
+            (Registry)Variants.EntitySounds.CatSounds.StubRegistry,
+            (Registry)Variants.EntitySounds.ChickenSounds.StubRegistry,
+            (Registry)Variants.EntitySounds.CowSounds.StubRegistry,
+            (Registry)Variants.EntitySounds.PigSounds.StubRegistry,
+            (Registry)Variants.EntitySounds.WolfSounds.StubRegistry,
+            (Registry)Variants.Entities.CatVariant.StubRegistry,
+            (Registry)Variants.Entities.ChickenVariant.StubRegistry,
+            (Registry)Variants.Entities.CowVariant.StubRegistry,
+            (Registry)Variants.Entities.FrogVariant.StubRegistry,
+            (Registry)Variants.Entities.PigVariant.StubRegistry,
+            (Registry)Variants.Entities.WolfVariant.StubRegistry,
+            (Registry)Variants.Entities.ZombieNautilusVariant.StubRegistry,
+            (Registry)Variants.Entities.PaintingVariant.StubRegistry,
+            (Registry)DamageType.StubRegistry,
+            (Registry)Trims.TrimMaterial.StubRegistry,
+            (Registry)Trims.TrimPattern.StubRegistry,
+            (Registry)BlockTransformer.StubRegistry,
+        ];
+        
         public required Identifier Id { get; init; }
         public required IImmutableList<RegistryEntry> Entries { get; init; }
         public Registry()

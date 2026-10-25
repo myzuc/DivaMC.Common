@@ -10,6 +10,7 @@ namespace DivaMC.Common.Primitives
         public static readonly Identifier Empty = "mineraft:empty";
         public static readonly Identifier EmptySound = "minecraft:intentionally_empty";
         public static readonly Identifier EmptyTexture = "minecraft:missingno";
+        public static readonly Identifier EmptyBlock = "mineraft:air";
         
         private const string ValidNamespaceCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWYZ0123456789.-_";
         private const string ValidValueCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWYZ0123456789.-_/";

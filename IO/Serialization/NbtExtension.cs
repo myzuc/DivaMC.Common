@@ -212,11 +212,19 @@ namespace DivaMC.Common.IO.Serialization
         {
             public IEnumerable<T> ToIEnumerable<T>() where T : INbtSerializable<T>
             {
-                return nbt.ToImmutableList().Select(T.FromNbt);
+                return nbt.Select(T.FromNbt);
             }
             public static NbtList FromIEnumerable<T>(IEnumerable<T> value) where T : INbtSerializable<T>
             {
                 return new(value.Select(entry => entry.ToNbt()));
+            }
+            public IEnumerable<NbtTag> ToIEnumerable()
+            {
+                return nbt;
+            }
+            public static NbtList FromIEnumerable(IEnumerable<NbtTag> value)
+            {
+                return new(value);
             }
         }
     }
