@@ -5,15 +5,27 @@ namespace DivaMC.Common.IO.Serialization
 {
     internal static class NbtExtension
     {
+        extension(NbtTag nbt)
+        {
+            public NbtTag Rename(string name)
+            {
+                nbt.Name = name;
+                return nbt;
+            }
+            public void AddTo(NbtCompound compound)
+            {
+                compound.Add(nbt);
+            }
+        }
         extension(NbtByte nbt)
         {
             public sbyte ToS8()
             {
                 return (sbyte)nbt.Value;
             }
-            public static NbtByte FromS8(sbyte value)
+            public static NbtByte FromS8(sbyte value, string? name = null)
             {
-                return new((byte)value);
+                return new(name, (byte)value);
             }
             public byte ToU8()
             {
