@@ -80,7 +80,7 @@ namespace DivaMC.Common.Game
             if (Clock.HasValue) NbtString.FromT0A(Clock).Rename("default_clock").AddTo(nbt);
             if (HasNoTime.HasValue) NbtByte.FromU1(HasNoTime.Value).Rename("has_fixed_time").AddTo(nbt);
             if (Timelines.Count == 1) NbtString.FromT0A(Timelines.First()).Rename("timelines").AddTo(nbt);
-            else new NbtList(Timelines.Select(timeline => timeline.ToNbt())).Rename("timelines").AddTo(nbt);
+            else NbtList.FromIEnumerable(Timelines).Rename("timelines").AddTo(nbt);
             
             if (Skybox is not null) NbtString.FromT0A(Skybox).Rename("skybox").AddTo(nbt);
             new NbtCompound().Rename("attributes").AddTo(nbt); //todo: attribues

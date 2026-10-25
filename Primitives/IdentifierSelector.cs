@@ -55,7 +55,7 @@ namespace DivaMC.Common.Primitives
         {
             if (Identifiers.Count == 1 && Tags.Count == 0) return NbtString.FromT0A(Identifiers[0]);
             if (Identifiers.Count == 0 && Tags.Count == 1) return NbtString.FromT0A($"#{Tags[0]}");
-            return new NbtList(Tags.Select(ToTag).Concat(Identifiers.Select(key => key.FullKey)).Select(NbtString.FromT0A));
+            return NbtList.FromIEnumerable(Tags.Select(ToTag).Concat(Identifiers.Select(key => key.FullKey)).Select(NbtString.FromT0A));
         }
         public static IdentifierSelector FromNbt(NbtTag nbt)
         {
