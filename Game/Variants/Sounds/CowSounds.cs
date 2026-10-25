@@ -26,11 +26,11 @@ namespace DivaMC.Common.Game.Variants.Sounds
             
         }
         
-        NbtTag INbtSerializable<CowSounds>.ToNbt()
+        public NbtTag ToNbt()
         {
             return All.ToNbt();
         }
-        static CowSounds INbtSerializable<CowSounds>.FromNbt(NbtTag nbt)
+        public static CowSounds FromNbt(NbtTag nbt)
         {
             throw new NotImplementedException();
         }

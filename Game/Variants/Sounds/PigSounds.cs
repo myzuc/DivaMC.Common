@@ -28,14 +28,14 @@ namespace DivaMC.Common.Game.Variants.Sounds
             
         }
         
-        NbtTag INbtSerializable<PigSounds>.ToNbt()
+        public NbtTag ToNbt()
         {
             NbtCompound nbt = new();
             Adult.ToNbt().Rename("adult_sounds").AddTo(nbt);
             Baby.ToNbt().Rename("baby_sounds").AddTo(nbt);
             return nbt;
         }
-        static PigSounds INbtSerializable<PigSounds>.FromNbt(NbtTag nbt)
+        public static PigSounds FromNbt(NbtTag nbt)
         {
             throw new NotImplementedException();
         }
