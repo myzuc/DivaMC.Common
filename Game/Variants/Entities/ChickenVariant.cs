@@ -21,7 +21,11 @@ namespace DivaMC.Common.Game.Variants.Entities
         public static readonly Registry<ChickenVariant> StubRegistry = new()
         {
             Id = RegistryName,
-            Entries = [new(Identifier.Empty, Stub)]
+            Entries = [
+                new("minecraft:warm", Stub),
+                new("minecraft:temperate", Stub),
+                new("minecraft:cold", Stub)
+            ]
         };
         
         public required Identifier AdultTexture { get; init; }
