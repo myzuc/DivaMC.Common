@@ -38,11 +38,11 @@ namespace DivaMC.Common.IO.Protocol.Packets
             
         }
         
-        public static Packet Deserialize(PacketSignature signature, Stream stream, object registry)
+        public static Packet? Deserialize(PacketSignature signature, Stream stream, object registry)
         {
             if (!Deserializers.TryGetValue(signature, out Deserializer? deserializer))
             {
-                throw new InvalidDataException("Unknown packet signature!");
+                return null;
             }
             Packet packet = deserializer(stream, registry);
             return packet;
