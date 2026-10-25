@@ -6,7 +6,7 @@ namespace DivaMC.Common.Registries
     public sealed class RegistryTags : IBinarySerializable<RegistryTags>
     {
         public Identifier Id { get; set; }
-        public Dictionary<Identifier, List<int>> Tags { get; set; } = [];
+        public Dictionary<Identifier, List<int>> Entries { get; set; } = [];
         public RegistryTags(Identifier id)
         {
             Id = id;
@@ -15,8 +15,8 @@ namespace DivaMC.Common.Registries
         public void Serialize(Stream stream)
         {
             stream.WriteT0AVS32(Id);
-            stream.WriteVS32(Tags.Count);
-            foreach (KeyValuePair<Identifier, List<int>> entry in Tags)
+            stream.WriteVS32(Entries.Count);
+            foreach (KeyValuePair<Identifier, List<int>> entry in Entries)
             {
                 stream.Write(entry.Key);
                 stream.WriteVS32(entry.Value.Count);
