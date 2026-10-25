@@ -11,8 +11,8 @@ namespace DivaMC.Common.Common
         public static readonly Identifier EmptyTexture = "minecraft:missingno";
         public static readonly Identifier EmptyBlock = "minecraft:air";
         
-        private const string ValidNamespaceCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWYZ0123456789.-_";
-        private const string ValidValueCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWYZ0123456789.-_/";
+        private const string ValidNamespaceCharacters = "abcdefghijklmnopqrstuvwxyz0123456789.-_";
+        private const string ValidValueCharacters = "abcdefghijklmnopqrstuvwxyz0123456789.-_/";
         
         [JsonInclude]
         public string FullKey
