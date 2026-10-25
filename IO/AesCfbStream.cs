@@ -5,7 +5,7 @@ using System.Security.Cryptography;
 
 namespace DivaMC.Common.IO
 {
-    public sealed class AesCfbStream : Stream
+    internal sealed class AesCfbStream : Stream
     {
         public readonly Stream Stream;
         private readonly Aes Aes;

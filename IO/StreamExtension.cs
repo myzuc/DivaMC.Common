@@ -5,7 +5,7 @@ using System.Text.Json;
 
 namespace DivaMC.Common.IO
 {
-    public static class StreamExtension
+    internal static class StreamExtension
     {
         extension(Stream stream)
         {
