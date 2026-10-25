@@ -1,10 +1,9 @@
-using DivaMC.Common.Chat.Components;
 using DivaMC.Common.Common;
 using DivaMC.Common.IO.Serialization;
 using DivaMC.Common.Registries;
 using fNbt;
 
-namespace DivaMC.Common.Data
+namespace DivaMC.Common.Data.Banners
 {
     public sealed record BannerPattern : INbtSerializable<BannerPattern>
     {

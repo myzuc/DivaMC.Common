@@ -4,7 +4,7 @@ using DivaMC.Common.IO.Serialization;
 using DivaMC.Common.Registries;
 using fNbt;
 
-namespace DivaMC.Common.Data
+namespace DivaMC.Common.Data.Instruments
 {
     public sealed record Instrument : INbtSerializable<Instrument>
     {

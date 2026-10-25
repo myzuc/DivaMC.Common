@@ -1,5 +1,8 @@
 using DivaMC.Common.Common;
 using DivaMC.Common.Data;
+using DivaMC.Common.Data.Banners;
+using DivaMC.Common.Data.Instruments;
+using DivaMC.Common.Data.Jukeboxes;
 using DivaMC.Common.Data.Trims;
 using DivaMC.Common.Data.Variants.Entities;
 using DivaMC.Common.Data.Variants.EntitySounds;
