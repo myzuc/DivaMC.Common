@@ -3,7 +3,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.Json;
 
-namespace DivaMC.Common.IO
+namespace DivaMC.Common.IO.Serialization
 {
     internal static class StreamExtension
     {

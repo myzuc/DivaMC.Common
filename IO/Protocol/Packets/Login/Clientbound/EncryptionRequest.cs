@@ -1,3 +1,5 @@
+using DivaMC.Common.IO.Serialization;
+
 namespace DivaMC.Common.IO.Protocol.Packets.Login.Clientbound
 {
     public sealed record EncryptionRequest : Packet

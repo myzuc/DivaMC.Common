@@ -1,5 +1,6 @@
 using System.Text.Json.Serialization;
 using DivaMC.Common.IO;
+using DivaMC.Common.IO.Serialization;
 
 namespace DivaMC.Common.Primitives
 {

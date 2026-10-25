@@ -3,7 +3,7 @@
 using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
 
-namespace DivaMC.Common.IO
+namespace DivaMC.Common.IO.Cryptography
 {
     internal sealed class AesCfbStream : Stream
     {

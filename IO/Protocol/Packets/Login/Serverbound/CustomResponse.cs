@@ -1,3 +1,5 @@
+using DivaMC.Common.IO.Serialization;
+
 namespace DivaMC.Common.IO.Protocol.Packets.Login.Serverbound
 {
     public sealed record CustomResponse : Packet

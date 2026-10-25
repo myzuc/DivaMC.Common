@@ -1,6 +1,8 @@
 using System.IO.Compression;
 using System.Net.Sockets;
+using DivaMC.Common.IO.Cryptography;
 using DivaMC.Common.IO.Protocol.Packets;
+using DivaMC.Common.IO.Serialization;
 using HandshakePackets = DivaMC.Common.IO.Protocol.Packets.Handshake;
 using StatusPackets = DivaMC.Common.IO.Protocol.Packets.Status;
 using LoginPackets = DivaMC.Common.IO.Protocol.Packets.Login;

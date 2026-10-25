@@ -1,4 +1,5 @@
 using DivaMC.Common.Game.Objects;
+using DivaMC.Common.IO.Serialization;
 
 namespace DivaMC.Common.IO.Protocol.Packets.Login.Clientbound
 {
