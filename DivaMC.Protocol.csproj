@@ -10,6 +10,15 @@
         <FileVersion>0.0.1</FileVersion>
         <NeutralLanguage>en</NeutralLanguage>
         <RootNamespace>DivaMC.Common</RootNamespace>
+        <Title>DivaMC.Protocol</Title>
+        <Authors>DivaShioko</Authors>
+        <Copyright>Copyright (c) 2026 myzuc.net</Copyright>
+        <PackageProjectUrl>https://github.com/myzuc/DivaMC.Protocol/</PackageProjectUrl>
+        <PackageLicenseUrl>https://github.com/myzuc/DivaMC.Protocol/LICENSE.md</PackageLicenseUrl>
+        <RepositoryUrl>https://github.com/myzuc/DivaMC.Shared.git</RepositoryUrl>
+        <RepositoryType>git</RepositoryType>
+        <PackageTags>minecraft, protocol</PackageTags>
+        <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     </PropertyGroup>
 
     <ItemGroup>
@@ -33,7 +42,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Content Include="DivaMC.Protocol.sln.DotSettings.user" />
+      <None Remove="DivaMC.Protocol.sln.DotSettings" />
     </ItemGroup>
 
 </Project>
