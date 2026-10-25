@@ -14,7 +14,7 @@ namespace DivaMC.Common.Game.Chat.Status
         [JsonPropertyName("favicon")]
         public string? Icon { get; init; } = null;
         [JsonPropertyName("enforcesSecureChat")]
-        public bool? EnforcesSecureChat { get; init; } = null;
+        public bool? HasCensorship { get; init; } = null;
         public Status()
         {
             
