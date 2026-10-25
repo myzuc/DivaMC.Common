@@ -50,7 +50,7 @@ namespace DivaMC.Common.World
         };
         public static readonly RegistryTags StubRegistryTags = new(RegistryName)
         {
-            Tags =
+            Entries =
             {
                 ["minecraft:bypasses_shield"] = [],
                 ["minecraft:is_explosion"] = [],

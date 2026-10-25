@@ -19,7 +19,7 @@ namespace DivaMC.Common.Data.Variants.Entities
         {
             Entries =
             {
-                ["Identifier.Empty"] = Stub
+                [Identifier.Empty] = Stub
             }
         };
         public static readonly RegistryTags StubRegistryTags = new(RegistryName);
