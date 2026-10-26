@@ -1,16 +1,20 @@
+using DivaMC.Common.IO.Serialization;
+
 namespace DivaMC.Common.IO.Protocol.Packets.Status.Serverbound
 {
-    public sealed record StatusRequest : Packet
+    public sealed record PingRequestPacket : Packet
     {
-        static StatusRequest()
+        static PingRequestPacket()
         {
             PacketSignature signature = new PacketSignature(
                 ProtocolDirection.Serverbound,
                 ProtocolStage.Status,
-                0x00
+                0x01
             );
-            Packet.Register<StatusRequest>(signature, Deserialize);
+            Packet.Register<PingRequestPacket>(signature, Deserialize);
         }
+        
+        public required long Data { get; set; }
         
         protected override void Serialize(Stream stream)
         {
@@ -18,7 +22,10 @@ namespace DivaMC.Common.IO.Protocol.Packets.Status.Serverbound
         }
         private static Packet Deserialize(Stream stream)
         {
-            return new StatusRequest();
+            return new PingRequestPacket()
+            {
+                Data = stream.ReadS64(),
+            };
         }
     }
 }

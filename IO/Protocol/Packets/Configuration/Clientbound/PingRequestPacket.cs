@@ -1,31 +1,28 @@
 using DivaMC.Common.IO.Serialization;
 
-namespace DivaMC.Common.IO.Protocol.Packets.Configuration.Serverbound
+namespace DivaMC.Common.IO.Protocol.Packets.Configuration.Clientbound
 {
-    public sealed record PingResponse : Packet
+    public sealed record PingRequestPacket : Packet
     {
-        static PingResponse()
+        static PingRequestPacket()
         {
             PacketSignature signature = new PacketSignature(
-                ProtocolDirection.Serverbound,
+                ProtocolDirection.Clientbound,
                 ProtocolStage.Configuration,
                 0x05
             );
-            Packet.Register<PingResponse>(signature, Deserialize);
+            Packet.Register<PingRequestPacket>(signature, Deserialize);
         }
         
         public required int Id { get; set; }
         
         protected override void Serialize(Stream stream)
         {
-            throw new NotImplementedException();
+            stream.WriteS32(Id);
         }
         private static Packet Deserialize(Stream stream)
         {
-            return new PingResponse()
-            {
-                Id = stream.ReadS32(),
-            };
+            throw new NotImplementedException();
         }
     }
 }

@@ -2,24 +2,25 @@ using DivaMC.Common.IO.Serialization;
 
 namespace DivaMC.Common.IO.Protocol.Packets.Configuration.Serverbound
 {
-    public sealed record Finish : Packet
+    public sealed record RulesAcceptResponsePacket : Packet
     {
-        static Finish()
+        static RulesAcceptResponsePacket()
         {
             PacketSignature signature = new PacketSignature(
                 ProtocolDirection.Serverbound,
                 ProtocolStage.Configuration,
-                0x03
+                0x09
             );
-            Packet.Register<Finish>(signature, Deserialize);
+            Packet.Register<RulesAcceptResponsePacket>(signature, Deserialize);
         }
         
         protected override void Serialize(Stream stream)
         {
+            
         }
         private static Packet Deserialize(Stream stream)
         {
-            return new Finish();
+            return new RulesAcceptResponsePacket();
         }
     }
 }

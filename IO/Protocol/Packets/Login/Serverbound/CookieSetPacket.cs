@@ -1,21 +1,22 @@
+using DivaMC.Common.Common;
 using DivaMC.Common.IO.Serialization;
 
 namespace DivaMC.Common.IO.Protocol.Packets.Login.Serverbound
 {
-    public sealed record EncryptionResponse : Packet
+    public sealed record CookieSetPacket : Packet
     {
-        static EncryptionResponse()
+        static CookieSetPacket()
         {
             PacketSignature signature = new PacketSignature(
                 ProtocolDirection.Serverbound,
                 ProtocolStage.Login,
-                0x01
+                0x04
             );
-            Packet.Register<EncryptionResponse>(signature, Deserialize);
+            Packet.Register<CookieSetPacket>(signature, Deserialize);
         }
         
-        public required byte[] EncryptedSecret { get; set; }
-        public required byte[] EncryptedSample { get; set; }
+        public required Identifier Id { get; set; }
+        public required byte[]? Data { get; set; }
         
         protected override void Serialize(Stream stream)
         {
@@ -23,10 +24,10 @@ namespace DivaMC.Common.IO.Protocol.Packets.Login.Serverbound
         }
         private static Packet Deserialize(Stream stream)
         {
-            return new EncryptionResponse()
+            return new CookieSetPacket()
             {
-                EncryptedSecret = stream.ReadU8A(stream.ReadVS32()),
-                EncryptedSample = stream.ReadU8A(stream.ReadVS32())
+                Id = stream.Read<Identifier>(),
+                Data = stream.ReadU1() ? stream.ReadU8A(stream.ReadVS32()) : null
             };
         }
     }

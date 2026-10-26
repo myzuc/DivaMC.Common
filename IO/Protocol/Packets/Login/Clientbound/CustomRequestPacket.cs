@@ -1,24 +1,29 @@
+using DivaMC.Common.Common;
 using DivaMC.Common.IO.Serialization;
 
 namespace DivaMC.Common.IO.Protocol.Packets.Login.Clientbound
 {
-    public sealed record Compression : Packet
+    public sealed record CustomRequestPacket : Packet
     {
-        static Compression()
+        static CustomRequestPacket()
         {
             PacketSignature signature = new PacketSignature(
                 ProtocolDirection.Clientbound,
                 ProtocolStage.Login,
-                0x03
+                0x04
             );
-            Packet.Register<Compression>(signature, Deserialize);
+            Packet.Register<CustomRequestPacket>(signature, Deserialize);
         }
         
-        public required int Threshold { get; set; }
+        public required int Id { get; set; }
+        public required Identifier Channel { get; set; }
+        public required byte[] Data { get; set; }
         
         protected override void Serialize(Stream stream)
         {
-            stream.WriteVS32(Threshold);
+            stream.WriteVS32(Id);
+            stream.Write(Channel);
+            stream.WriteU8A(Data);
         }
         private static Packet Deserialize(Stream stream)
         {

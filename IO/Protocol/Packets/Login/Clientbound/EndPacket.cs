@@ -3,16 +3,16 @@ using DivaMC.Common.Player.Common;
 
 namespace DivaMC.Common.IO.Protocol.Packets.Login.Clientbound
 {
-    public sealed record Finish : Packet
+    public sealed record EndPacket : Packet
     {
-        static Finish()
+        static EndPacket()
         {
             PacketSignature signature = new PacketSignature(
                 ProtocolDirection.Clientbound,
                 ProtocolStage.Login,
                 0x02
             );
-            Packet.Register<Finish>(signature, Deserialize);
+            Packet.Register<EndPacket>(signature, Deserialize);
         }
         
         public required Profile Profile { get; set; }

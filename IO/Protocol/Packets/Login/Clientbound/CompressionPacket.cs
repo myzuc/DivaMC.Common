@@ -1,24 +1,24 @@
 using DivaMC.Common.IO.Serialization;
 
-namespace DivaMC.Common.IO.Protocol.Packets.Configuration.Clientbound
+namespace DivaMC.Common.IO.Protocol.Packets.Login.Clientbound
 {
-    public sealed record PingRequest : Packet
+    public sealed record CompressionPacket : Packet
     {
-        static PingRequest()
+        static CompressionPacket()
         {
             PacketSignature signature = new PacketSignature(
                 ProtocolDirection.Clientbound,
-                ProtocolStage.Configuration,
-                0x05
+                ProtocolStage.Login,
+                0x03
             );
-            Packet.Register<PingRequest>(signature, Deserialize);
+            Packet.Register<CompressionPacket>(signature, Deserialize);
         }
         
-        public required int Id { get; set; }
+        public required int Threshold { get; set; }
         
         protected override void Serialize(Stream stream)
         {
-            stream.WriteS32(Id);
+            stream.WriteVS32(Threshold);
         }
         private static Packet Deserialize(Stream stream)
         {

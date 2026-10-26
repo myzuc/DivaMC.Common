@@ -1,15 +1,15 @@
 namespace DivaMC.Common.IO.Protocol.Packets.Login.Serverbound
 {
-    public sealed record Finish : Packet
+    public sealed record EndPacket : Packet
     {
-        static Finish()
+        static EndPacket()
         {
             PacketSignature signature = new PacketSignature(
                 ProtocolDirection.Serverbound,
                 ProtocolStage.Login,
                 0x03
             );
-            Packet.Register<Finish>(signature, Deserialize);
+            Packet.Register<EndPacket>(signature, Deserialize);
         }
         
         protected override void Serialize(Stream stream)
@@ -18,7 +18,7 @@ namespace DivaMC.Common.IO.Protocol.Packets.Login.Serverbound
         }
         private static Packet Deserialize(Stream stream)
         {
-            return new Finish();
+            return new EndPacket();
         }
     }
 }

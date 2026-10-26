@@ -2,20 +2,20 @@ using DivaMC.Common.IO.Serialization;
 
 namespace DivaMC.Common.IO.Protocol.Packets.Login.Serverbound
 {
-    public sealed record CustomResponse : Packet
+    public sealed record StartPacket : Packet
     {
-        static CustomResponse()
+        static StartPacket()
         {
             PacketSignature signature = new PacketSignature(
                 ProtocolDirection.Serverbound,
                 ProtocolStage.Login,
-                0x02
+                0x00
             );
-            Packet.Register<CustomResponse>(signature, Deserialize);
+            Packet.Register<StartPacket>(signature, Deserialize);
         }
         
-        public required int Id { get; set; }
-        public required byte[]? Data { get; set; }
+        public required string Name { get; set; }
+        public required Guid Id { get; set; }
         
         protected override void Serialize(Stream stream)
         {
@@ -23,10 +23,10 @@ namespace DivaMC.Common.IO.Protocol.Packets.Login.Serverbound
         }
         private static Packet Deserialize(Stream stream)
         {
-            return new CustomResponse()
+            return new StartPacket()
             {
-                Id = stream.ReadVS32(),
-                Data = stream.ReadU1() ? stream.ReadU8A(stream.ReadVS32()) : null
+                Name = stream.ReadT0AVS32(),
+                Id = stream.ReadGuid(),
             };
         }
     }

@@ -2,16 +2,16 @@ using DivaMC.Common.IO.Serialization;
 
 namespace DivaMC.Common.IO.Protocol.Packets.Login.Clientbound
 {
-    public sealed record EncryptionRequest : Packet
+    public sealed record EncryptionRequestPacket : Packet
     {
-        static EncryptionRequest()
+        static EncryptionRequestPacket()
         {
             PacketSignature signature = new PacketSignature(
                 ProtocolDirection.Clientbound,
                 ProtocolStage.Login,
                 0x01
             );
-            Packet.Register<EncryptionRequest>(signature, Deserialize);
+            Packet.Register<EncryptionRequestPacket>(signature, Deserialize);
         }
         
         public required string ServerId { get; set; }

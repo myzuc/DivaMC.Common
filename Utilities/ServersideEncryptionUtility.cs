@@ -27,7 +27,7 @@ namespace DivaMC.Common.Utilities
             Rsa = RSA.Create(1024);
             Sample = RandomNumberGenerator.GetBytes(sampleSize);
         }
-        public EncryptionRequest GenerateRequest()
+        public EncryptionRequestPacket GenerateRequest()
         {
             return new()
             {
@@ -37,11 +37,11 @@ namespace DivaMC.Common.Utilities
                 DecryptedSample = Sample,
             };
         }
-        public byte[] HandleResponse(EncryptionResponse encryptionResponsePacket)
+        public byte[] HandleResponse(EncryptionResponsePacket encryptionResponsePacketPacket)
         {
             if (Secret is not null) throw new InvalidOperationException();
-            bool success = Enumerable.SequenceEqual(Sample, Rsa.Decrypt(encryptionResponsePacket.EncryptedSample, RSAEncryptionPadding.Pkcs1));
-            Secret = Rsa.Decrypt(encryptionResponsePacket.EncryptedSecret, RSAEncryptionPadding.Pkcs1);
+            bool success = Enumerable.SequenceEqual(Sample, Rsa.Decrypt(encryptionResponsePacketPacket.EncryptedSample, RSAEncryptionPadding.Pkcs1));
+            Secret = Rsa.Decrypt(encryptionResponsePacketPacket.EncryptedSecret, RSAEncryptionPadding.Pkcs1);
             if (!success) throw new CryptographicException();
             return Secret;
         }

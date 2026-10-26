@@ -1,20 +1,20 @@
 using DivaMC.Common.IO.Serialization;
 
-namespace DivaMC.Common.IO.Protocol.Packets.Status.Serverbound
+namespace DivaMC.Common.IO.Protocol.Packets.Configuration.Serverbound
 {
-    public sealed record PingRequest : Packet
+    public sealed record PingResponsePacket : Packet
     {
-        static PingRequest()
+        static PingResponsePacket()
         {
             PacketSignature signature = new PacketSignature(
                 ProtocolDirection.Serverbound,
-                ProtocolStage.Status,
-                0x01
+                ProtocolStage.Configuration,
+                0x05
             );
-            Packet.Register<PingRequest>(signature, Deserialize);
+            Packet.Register<PingResponsePacket>(signature, Deserialize);
         }
         
-        public required long Data { get; set; }
+        public required int Id { get; set; }
         
         protected override void Serialize(Stream stream)
         {
@@ -22,9 +22,9 @@ namespace DivaMC.Common.IO.Protocol.Packets.Status.Serverbound
         }
         private static Packet Deserialize(Stream stream)
         {
-            return new PingRequest()
+            return new PingResponsePacket()
             {
-                Data = stream.ReadS64(),
+                Id = stream.ReadS32(),
             };
         }
     }

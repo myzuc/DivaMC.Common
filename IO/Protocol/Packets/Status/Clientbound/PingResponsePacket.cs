@@ -1,25 +1,24 @@
-using DivaMC.Common.Chat.Components;
 using DivaMC.Common.IO.Serialization;
 
-namespace DivaMC.Common.IO.Protocol.Packets.Login.Clientbound
+namespace DivaMC.Common.IO.Protocol.Packets.Status.Clientbound
 {
-    public sealed record Disconnect : Packet
+    public sealed record PingResponsePacket : Packet
     {
-        static Disconnect()
+        static PingResponsePacket()
         {
             PacketSignature signature = new PacketSignature(
                 ProtocolDirection.Clientbound,
-                ProtocolStage.Login,
-                0x00
+                ProtocolStage.Status,
+                0x01
             );
-            Packet.Register<Disconnect>(signature, Deserialize);
+            Packet.Register<PingResponsePacket>(signature, Deserialize);
         }
         
-        public required ChatComponent Message { get; set; }
+        public required long Data { get; set; }
         
         protected override void Serialize(Stream stream)
         {
-            stream.WriteJSON(Message);
+            stream.WriteS64(Data);
         }
         private static Packet Deserialize(Stream stream)
         {

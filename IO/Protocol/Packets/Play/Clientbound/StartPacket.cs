@@ -4,16 +4,16 @@ using DivaMC.Common.World.Common.Objects;
 
 namespace DivaMC.Common.IO.Protocol.Packets.Play.Clientbound
 {
-    public sealed record Start : Packet
+    public sealed record StartPacket : Packet
     {
-        static Start()
+        static StartPacket()
         {
             PacketSignature signature = new PacketSignature(
                 ProtocolDirection.Clientbound,
                 ProtocolStage.Play,
                 0x32
             );
-            Packet.Register<Start>(signature, Deserialize);
+            Packet.Register<StartPacket>(signature, Deserialize);
         }
         
         public required int EntityId { get; set; }

@@ -2,16 +2,16 @@ using DivaMC.Common.IO.Serialization;
 
 namespace DivaMC.Common.IO.Protocol.Packets.Configuration.Clientbound
 {
-    public sealed record RulesAcceptRequest : Packet
+    public sealed record RulesAcceptRequestPacket : Packet
     {
-        static RulesAcceptRequest()
+        static RulesAcceptRequestPacket()
         {
             PacketSignature signature = new PacketSignature(
                 ProtocolDirection.Clientbound,
                 ProtocolStage.Configuration,
                 0x14
             );
-            Packet.Register<RulesAcceptRequest>(signature, Deserialize);
+            Packet.Register<RulesAcceptRequestPacket>(signature, Deserialize);
         }
         
         public required string Message { get; set; }

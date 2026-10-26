@@ -2,16 +2,16 @@ using DivaMC.Common.IO.Serialization;
 
 namespace DivaMC.Common.IO.Protocol.Packets.Configuration.Clientbound
 {
-    public sealed record RegistryTags : Packet
+    public sealed record RegistryTagsPacket : Packet
     {
-        static RegistryTags()
+        static RegistryTagsPacket()
         {
             PacketSignature signature = new PacketSignature(
                 ProtocolDirection.Clientbound,
                 ProtocolStage.Configuration,
                 0x0E
             );
-            Packet.Register<RegistryTags>(signature, Deserialize);
+            Packet.Register<RegistryTagsPacket>(signature, Deserialize);
         }
         
         public required List<Registries.RegistryTags> RegistryTagLists { get; init; }
@@ -26,7 +26,7 @@ namespace DivaMC.Common.IO.Protocol.Packets.Configuration.Clientbound
         }
         private static Packet Deserialize(Stream stream)
         {
-            return new RegistryTags()
+            return new RegistryTagsPacket()
             {
                 RegistryTagLists = Enumerable.Range(0, stream.ReadVS32()).Select(i => stream.Read<Registries.RegistryTags>()).ToList()
             };

@@ -3,27 +3,23 @@ using DivaMC.Common.IO.Serialization;
 
 namespace DivaMC.Common.IO.Protocol.Packets.Login.Clientbound
 {
-    public sealed record CustomRequest : Packet
+    public sealed record CookieGetPacket : Packet
     {
-        static CustomRequest()
+        static CookieGetPacket()
         {
             PacketSignature signature = new PacketSignature(
                 ProtocolDirection.Clientbound,
                 ProtocolStage.Login,
-                0x04
+                0x05
             );
-            Packet.Register<CustomRequest>(signature, Deserialize);
+            Packet.Register<CookieGetPacket>(signature, Deserialize);
         }
         
-        public required int Id { get; set; }
-        public required Identifier Channel { get; set; }
-        public required byte[] Data { get; set; }
+        public required Identifier Id { get; set; }
         
         protected override void Serialize(Stream stream)
         {
-            stream.WriteVS32(Id);
-            stream.Write(Channel);
-            stream.WriteU8A(Data);
+            stream.Write(Id);
         }
         private static Packet Deserialize(Stream stream)
         {

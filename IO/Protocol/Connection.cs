@@ -102,7 +102,7 @@ namespace DivaMC.Common.IO.Protocol
        {
            switch (packet)
            {
-               case HandshakePackets.Serverbound.Intention intention:
+               case HandshakePackets.Serverbound.HandshakePacket intention:
                {
                    ProtocolStage = intention.Intent switch
                    {
@@ -112,22 +112,22 @@ namespace DivaMC.Common.IO.Protocol
                    };
                    break;
                }
-               case LoginPackets.Clientbound.Disconnect:
+               case LoginPackets.Clientbound.DisconnectPacket:
                {
                    Dispose();
                    break;
                }
-               case LoginPackets.Clientbound.Compression loginCompressionPacket:
+               case LoginPackets.Clientbound.CompressionPacket loginCompressionPacket:
                {
                    CompressionThreshold = loginCompressionPacket.Threshold;
                    break;
                }
-               case LoginPackets.Serverbound.Finish:
+               case LoginPackets.Serverbound.EndPacket:
                {
                    ProtocolStage = ProtocolStage.Configuration;
                    break;
                }
-               case ConfigurationPackets.Serverbound.Finish:
+               case ConfigurationPackets.Serverbound.EndPacket:
                {
                    ProtocolStage = ProtocolStage.Play;
                    break;

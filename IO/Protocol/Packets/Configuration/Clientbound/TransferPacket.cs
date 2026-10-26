@@ -1,32 +1,30 @@
 using DivaMC.Common.IO.Serialization;
-using DivaMC.Common.Registries;
 
 namespace DivaMC.Common.IO.Protocol.Packets.Configuration.Clientbound
 {
-    public sealed record RegistryData : Packet
+    public sealed record TransferPacket : Packet
     {
-        static RegistryData()
+        static TransferPacket()
         {
             PacketSignature signature = new PacketSignature(
                 ProtocolDirection.Clientbound,
                 ProtocolStage.Configuration,
-                0x07
+                0x0C
             );
-            Packet.Register<RegistryData>(signature, Deserialize);
+            Packet.Register<TransferPacket>(signature, Deserialize);
         }
         
-        public required Registry Registry { get; set; }
+        public required string Address { get; set; }
+        public required ushort Port { get; set; }
         
         protected override void Serialize(Stream stream)
         {
-            stream.Write(Registry);
+            stream.WriteT0AVS32(Address);
+            stream.WriteVS32(Port);
         }
         private static Packet Deserialize(Stream stream)
         {
-            return new RegistryData()
-            {
-                Registry = stream.Read<Registry>()
-            };
+            throw new NotImplementedException();
         }
     }
 }

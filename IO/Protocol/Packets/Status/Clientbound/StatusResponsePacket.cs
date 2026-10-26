@@ -3,16 +3,16 @@ using DivaMC.Common.IO.Serialization;
 
 namespace DivaMC.Common.IO.Protocol.Packets.Status.Clientbound
 {
-    public sealed record StatusResponse : Packet
+    public sealed record StatusResponsePacket : Packet
     {
-        static StatusResponse()
+        static StatusResponsePacket()
         {
             PacketSignature signature = new PacketSignature(
                 ProtocolDirection.Clientbound,
                 ProtocolStage.Status,
                 0x00
             );
-            Packet.Register<StatusResponse>(signature, Deserialize);
+            Packet.Register<StatusResponsePacket>(signature, Deserialize);
         }
         
         public required Chat.Status.Status Status { get; set; }

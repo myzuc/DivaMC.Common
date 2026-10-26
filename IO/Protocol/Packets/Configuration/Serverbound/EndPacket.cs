@@ -1,17 +1,17 @@
 using DivaMC.Common.IO.Serialization;
 
-namespace DivaMC.Common.IO.Protocol.Packets.Configuration.Clientbound
+namespace DivaMC.Common.IO.Protocol.Packets.Configuration.Serverbound
 {
-    public sealed record Finish : Packet
+    public sealed record EndPacket : Packet
     {
-        static Finish()
+        static EndPacket()
         {
             PacketSignature signature = new PacketSignature(
-                ProtocolDirection.Clientbound,
+                ProtocolDirection.Serverbound,
                 ProtocolStage.Configuration,
                 0x03
             );
-            Packet.Register<Finish>(signature, Deserialize);
+            Packet.Register<EndPacket>(signature, Deserialize);
         }
         
         protected override void Serialize(Stream stream)
@@ -19,7 +19,7 @@ namespace DivaMC.Common.IO.Protocol.Packets.Configuration.Clientbound
         }
         private static Packet Deserialize(Stream stream)
         {
-            return new Finish();
+            return new EndPacket();
         }
     }
 }

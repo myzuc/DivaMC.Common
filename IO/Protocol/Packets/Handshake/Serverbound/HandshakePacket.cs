@@ -2,16 +2,16 @@ using DivaMC.Common.IO.Serialization;
 
 namespace DivaMC.Common.IO.Protocol.Packets.Handshake.Serverbound
 {
-    public sealed record Intention : Packet
+    public sealed record HandshakePacket : Packet
     {
-        static Intention()
+        static HandshakePacket()
         {
             PacketSignature signature = new PacketSignature(
                 ProtocolDirection.Serverbound,
                 ProtocolStage.Handshake,
                 0x00
             );
-            Packet.Register<Intention>(signature, Deserialize);
+            Packet.Register<HandshakePacket>(signature, Deserialize);
         }
         
         public required int Version { get; set; }
@@ -25,7 +25,7 @@ namespace DivaMC.Common.IO.Protocol.Packets.Handshake.Serverbound
         }
         private static Packet Deserialize(Stream stream)
         {
-            return new Intention()
+            return new HandshakePacket()
             {
                 Version = stream.ReadVS32(),
                 ServerAddress = stream.ReadT0AVS32(),
