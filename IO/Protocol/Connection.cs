@@ -32,32 +32,31 @@ namespace DivaMC.Common.IO.Protocol
        }
        public async Task<Packet> ReadAsync(CancellationToken cancellationToken = default)
        {
-           await using Stream ms = await readRawAsync();
+           await using Stream ms = await ReadRawAsync(cancellationToken);
            int id = ms.ReadVS32();
            PacketSignature signature = new(RemoteIsClient ? ProtocolDirection.Serverbound : ProtocolDirection.Clientbound, ProtocolStage, id);
            Packet packet = Packet.Deserialize(signature, ms);
            Run(packet);
            return packet;
-
-           async Task<Stream> readRawAsync()
+       }
+       private async Task<Stream> ReadRawAsync(CancellationToken cancellationToken = default)
+       {
+           byte[] data;
+           try
            {
-               byte[] data;
-               try
-               {
-                   await ReadSync.WaitAsync(cancellationToken);
-                   data = await Stream.ReadU8AAsync(await Stream.ReadVS32Async(cancellationToken), cancellationToken);
-               }
-               finally
-               {
-                   ReadSync.Release();
-               }
-               if (CompressionThreshold < 0) return new MemoryStream(data);
-               Stream ms2 = new MemoryStream(data);
-               int decompressedSize = ms2.ReadVS32();
-               if (decompressedSize <= 0) return ms2;
-               await using ZLibStream zlib = new(ms2, CompressionMode.Decompress, false);
-               return new MemoryStream(zlib.ReadU8A(decompressedSize));
+               await ReadSync.WaitAsync(cancellationToken);
+               data = await Stream.ReadU8AAsync(await Stream.ReadVS32Async(cancellationToken), cancellationToken);
            }
+           finally
+           {
+               ReadSync.Release();
+           }
+           if (CompressionThreshold < 0) return new MemoryStream(data);
+           Stream ms2 = new MemoryStream(data);
+           int decompressedSize = ms2.ReadVS32();
+           if (decompressedSize <= 0) return ms2;
+           await using ZLibStream zlib = new(ms2, CompressionMode.Decompress, false);
+           return new MemoryStream(zlib.ReadU8A(decompressedSize));
        }
        public async Task WriteAsync(Packet packet, CancellationToken cancellationToken = default)
        {
@@ -65,40 +64,38 @@ namespace DivaMC.Common.IO.Protocol
            using MemoryStream ms = new();
            ms.WriteVS32(packet.Signature.Id);
            Packet.Serialize(packet, ms);
-           await writeRawAsync(ms.ToArray());
+           await WriteAsync(ms.ToArray(), cancellationToken);
            Run(packet);
-           return;
-           
-           async Task writeRawAsync(byte[] data)
+       }
+       private async Task WriteAsync(byte[] data, CancellationToken cancellationToken = default)
+       {
+           if (CompressionThreshold >= 0)
            {
-               if (CompressionThreshold >= 0)
+               using MemoryStream ms2 = new();
+               if (data.Length < CompressionThreshold)
                {
-                   using MemoryStream ms2 = new();
-                   if (data.Length < CompressionThreshold)
-                   {
-                       ms2.WriteVS32(0);
-                       ms2.WriteU8A(data);
-                   }
-                   else
-                   {
-                       ms2.WriteVS32(data.Length);
-                       await using ZLibStream zlib = new(ms2, CompressionMode.Compress, true);
-                       zlib.WriteU8A(data);
-                       zlib.Flush();
-                   }
-                   data = ms2.ToArray();
+                   ms2.WriteVS32(0);
+                   ms2.WriteU8A(data);
                }
-               try
+               else
                {
-                   await WriteSync.WaitAsync(cancellationToken);
-                   await Stream.WriteVS32Async(data.Length, cancellationToken);
-                   await Stream.WriteU8AAsync(data, cancellationToken);
-                   await Stream.FlushAsync(cancellationToken);
+                   ms2.WriteVS32(data.Length);
+                   await using ZLibStream zlib = new(ms2, CompressionMode.Compress, true);
+                   zlib.WriteU8A(data);
+                   zlib.Flush();
                }
-               finally
-               {
-                   WriteSync.Release();
-               }
+               data = ms2.ToArray();
+           }
+           try
+           {
+               await WriteSync.WaitAsync(cancellationToken);
+               await Stream.WriteVS32Async(data.Length, cancellationToken);
+               await Stream.WriteU8AAsync(data, cancellationToken);
+               await Stream.FlushAsync(cancellationToken);
+           }
+           finally
+           {
+               WriteSync.Release();
            }
        }
        private void Run(Packet packet)
