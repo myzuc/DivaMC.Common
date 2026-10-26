@@ -74,7 +74,6 @@ namespace DivaMC.Common.Registries
         
         public Identifier Id { get; set; }
         public OrderedDictionary<Identifier, NbtTag?> Entries { get; set; } = [];
-        internal object? Original { get; init; }
         public Registry(Identifier id)
         {
             Id = id;
@@ -187,14 +186,12 @@ namespace DivaMC.Common.Registries
         {
             Registry registry = new(data.Id)
             {
-                Original = data,
                 Entries = new(data.Entries.Select(entry => new KeyValuePair<Identifier, NbtTag?>(entry.Key, entry.Value?.ToNbt())))
             };
             return registry;
         }
         public static explicit operator Registry<T>(Registry data)
         {
-            if (data.Original is Registry<T> registry) return registry;
             return new(data.Id)
             {
                 Entries = new(data.Entries.Select(entry => new KeyValuePair<Identifier, T?>(entry.Key, entry.Value is not null ? T.FromNbt(entry.Value) : null))),
