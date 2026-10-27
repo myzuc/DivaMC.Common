@@ -8,7 +8,7 @@ namespace DivaMC.Common.IO.Protocol.Packets
     {
         protected delegate Packet Deserializer(Stream stream, PacketContext context);
         private static readonly ConcurrentDictionary<PacketSignature, Deserializer> Deserializers = [];
-        private static readonly ConcurrentDictionary<Type, PacketSignature> Signatures = [];
+        private static readonly ConcurrentDictionary<PacketSignature, Type> Signatures = [];
 
         static Packet()
         {
@@ -18,18 +18,7 @@ namespace DivaMC.Common.IO.Protocol.Packets
                 System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(type.TypeHandle);
             }
         }
-
-        public virtual PacketSignature Signature
-        {
-            get
-            {
-                if (!Signatures.TryGetValue(GetType(), out PacketSignature value))
-                {
-                    throw new InvalidOperationException("Unknown packet!");
-                }
-                return value;
-            }
-        }
+        
         protected internal Packet()
         {
             
@@ -37,8 +26,20 @@ namespace DivaMC.Common.IO.Protocol.Packets
 
         public virtual void Serialize(Stream stream, PacketContext context)
         {
-            context.Check(Signature);
-            stream.WriteVS32(Signature.Id);
+            if (this is PreserializedPacket preserializedPacket)
+            {
+                preserializedPacket.Serialize(stream, context);
+                return;
+            }
+            if (this is UnknownPacket unknownPacket)
+            {
+                stream.WriteVS32(unknownPacket.Id);
+                return;
+            }
+            IEnumerable<KeyValuePair<PacketSignature, Type>> candidates = Signatures.Where(s => s.Key.Direction == context.ProtocolDirection && s.Key.Stage == context.ProtocolStage);
+            PacketSignature? signature = candidates.FirstOrDefault().Key;
+            if (!signature.HasValue) throw new InvalidOperationException();
+            stream.WriteVS32(signature.Value.Id);
         }
         public static Packet Deserialize(Stream stream, PacketContext context)
         {
@@ -46,7 +47,7 @@ namespace DivaMC.Common.IO.Protocol.Packets
             PacketSignature signature = new(context.ProtocolDirection, context.ProtocolStage, id);
             if (!Deserializers.TryGetValue(signature, out Deserializer? deserializer))
             {
-                return new UnknownPacket(signature, stream.ReadU8A());
+                return new UnknownPacket(id, stream.ReadU8A());
             }
             Packet packet = deserializer(stream, context);
             return packet;
@@ -58,7 +59,7 @@ namespace DivaMC.Common.IO.Protocol.Packets
             {
                 throw new InvalidOperationException("Duplicate packet deserializer!");
             }
-            if (!Signatures.TryAdd(typeof(TPacket), signature))
+            if (!Signatures.TryAdd(signature, typeof(TPacket)))
             {
                 throw new InvalidOperationException("Duplicate packet signature!");
             }

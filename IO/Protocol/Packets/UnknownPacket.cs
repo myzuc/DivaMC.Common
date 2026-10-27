@@ -4,18 +4,16 @@ namespace DivaMC.Common.IO.Protocol.Packets
 {
     public sealed class UnknownPacket : Packet
     {
-        public override PacketSignature Signature { get; }
+        public int Id { get; set; }
         public byte[] Buffer { get; set; }
-        public UnknownPacket(PacketSignature signature, byte[] buffer)
+        public UnknownPacket(int id, byte[] buffer)
         {
-            Signature = signature;
+            Id = id;
             Buffer = buffer;
         }
         public override void Serialize(Stream stream, PacketContext context)
         {
             base.Serialize(stream, context);
-            context.Check(Signature);
-            context.Check(Signature);
             stream.WriteU8A(Buffer);
         }
     }

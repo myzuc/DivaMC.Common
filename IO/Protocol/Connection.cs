@@ -7,7 +7,7 @@ using HandshakePackets = DivaMC.Common.IO.Protocol.Packets.Handshake;
 using StatusPackets = DivaMC.Common.IO.Protocol.Packets.Status;
 using LoginPackets = DivaMC.Common.IO.Protocol.Packets.Login;
 using ConfigurationPackets = DivaMC.Common.IO.Protocol.Packets.Configuration;
-using PlayPackets = DivaMC.Common.IO.Protocol.Packets.Play;
+using GamePackets = DivaMC.Common.IO.Protocol.Packets.Game;
 
 namespace DivaMC.Common.IO.Protocol
 {
@@ -67,7 +67,6 @@ namespace DivaMC.Common.IO.Protocol
            {
                ProtocolDirection = RemoteIsClient ? ProtocolDirection.Clientbound : ProtocolDirection.Serverbound,
            };
-           context.Check(packet.Signature);
            using MemoryStream ms = new();
            packet.Serialize(ms, context);
            await WriteAsync(ms.ToArray(), cancellationToken);
