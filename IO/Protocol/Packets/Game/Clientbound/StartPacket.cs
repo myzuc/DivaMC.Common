@@ -2,7 +2,7 @@ using DivaMC.Common.Common;
 using DivaMC.Common.IO.Serialization;
 using DivaMC.Common.World.Common.Objects;
 
-namespace DivaMC.Common.IO.Protocol.Packets.Play.Clientbound
+namespace DivaMC.Common.IO.Protocol.Packets.Game.Clientbound
 {
     public sealed class StartPacket : Packet
     {

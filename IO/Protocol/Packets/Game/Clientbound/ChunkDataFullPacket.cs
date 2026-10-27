@@ -4,7 +4,7 @@ using DivaMC.Common.World.Chunks.Heightmaps;
 using DivaMC.Common.World.Chunks.Light;
 using DivaMC.Common.World.TileEntities;
 
-namespace DivaMC.Common.IO.Protocol.Packets.Play.Clientbound
+namespace DivaMC.Common.IO.Protocol.Packets.Game.Clientbound
 {
     public sealed class ChunkDataFullPacket : Packet
     {

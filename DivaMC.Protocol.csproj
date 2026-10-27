@@ -25,7 +25,7 @@
       <Folder Include="Common\Objects\" />
       <Folder Include="Dialogs\" />
       <Folder Include="IO\Protocol\Packets\Handshake\Clientbound\" />
-      <Folder Include="IO\Protocol\Packets\Play\Serverbound\" />
+      <Folder Include="IO\Protocol\Packets\Game\Serverbound\" />
       <Folder Include="Tablist\" />
       <Folder Include="World\Entities\" />
       <Folder Include="World\Events\" />

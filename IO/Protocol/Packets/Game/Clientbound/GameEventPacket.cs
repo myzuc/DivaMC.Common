@@ -1,7 +1,7 @@
 using DivaMC.Common.IO.Serialization;
 using DivaMC.Common.World.Events.GameEvents;
 
-namespace DivaMC.Common.IO.Protocol.Packets.Play.Clientbound
+namespace DivaMC.Common.IO.Protocol.Packets.Game.Clientbound
 {
     public sealed class GameEventPacket : Packet
     {
