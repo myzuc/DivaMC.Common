@@ -1,8 +1,8 @@
-using DivaMC.Common.Common;
-using DivaMC.Common.IO.Serialization;
+using DivaMC.Protocol.Common;
+using DivaMC.Protocol.IO.Serialization;
 using fNbt;
 
-namespace DivaMC.Common.Data
+namespace DivaMC.Protocol.Data
 {
     public sealed record NbtBlockState : INbtSerializable<NbtBlockState>
     {

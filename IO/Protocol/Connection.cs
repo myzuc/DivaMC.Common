@@ -1,15 +1,10 @@
 using System.IO.Compression;
 using System.Net.Sockets;
-using DivaMC.Common.IO.Cryptography;
-using DivaMC.Common.IO.Protocol.Packets;
-using DivaMC.Common.IO.Serialization;
-using HandshakePackets = DivaMC.Common.IO.Protocol.Packets.Handshake;
-using StatusPackets = DivaMC.Common.IO.Protocol.Packets.Status;
-using LoginPackets = DivaMC.Common.IO.Protocol.Packets.Login;
-using ConfigurationPackets = DivaMC.Common.IO.Protocol.Packets.Configuration;
-using GamePackets = DivaMC.Common.IO.Protocol.Packets.Game;
+using DivaMC.Protocol.IO.Cryptography;
+using DivaMC.Protocol.IO.Protocol.Packets;
+using DivaMC.Protocol.IO.Serialization;
 
-namespace DivaMC.Common.IO.Protocol
+namespace DivaMC.Protocol.IO.Protocol
 {
    public sealed class Connection : IDisposable, IAsyncDisposable
    {

@@ -1,9 +1,9 @@
-using DivaMC.Common.Registries;
-using DivaMC.Common.World.Biomes;
-using DivaMC.Common.World.Chunks;
-using DivaMC.Common.World.Dimensions;
+using DivaMC.Protocol.Registries;
+using DivaMC.Protocol.World.Biomes;
+using DivaMC.Protocol.World.Chunks;
+using DivaMC.Protocol.World.Dimensions;
 
-namespace DivaMC.Common.IO.Protocol.Packets
+namespace DivaMC.Protocol.IO.Protocol.Packets
 {
     public sealed record ConnectionContext
     {

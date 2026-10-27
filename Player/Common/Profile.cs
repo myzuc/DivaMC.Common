@@ -1,8 +1,8 @@
 using System.Text.Json.Serialization;
-using DivaMC.Common.IO.JSON.JsonConverters;
-using DivaMC.Common.IO.Serialization;
+using DivaMC.Protocol.IO.JSON.JsonConverters;
+using DivaMC.Protocol.IO.Serialization;
 
-namespace DivaMC.Common.Player.Common
+namespace DivaMC.Protocol.Player.Common
 {
     public sealed record Profile : IBinarySerializable<Profile>
     {

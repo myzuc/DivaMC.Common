@@ -1,8 +1,7 @@
-using DivaMC.Common.IO.Serialization;
-using DivaMC.Common.World.Common;
+using DivaMC.Protocol.IO.Serialization;
 using fNbt;
 
-namespace DivaMC.Common.World.TileEntities
+namespace DivaMC.Protocol.World.TileEntities
 {
     public sealed class TileEntity : IBinarySerializable<TileEntity>
     {

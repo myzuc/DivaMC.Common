@@ -2,7 +2,7 @@ using System.Text.Json;
 using System.Text.Json.Nodes;
 using System.Text.Json.Serialization;
 
-namespace DivaMC.Common.Chat.Components
+namespace DivaMC.Protocol.Chat.Components
 {
     internal sealed class ChatComponentJsonConverter : JsonConverter<ChatComponent>
     {

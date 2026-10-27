@@ -1,6 +1,6 @@
-using DivaMC.Common.IO.Serialization;
+using DivaMC.Protocol.IO.Serialization;
 
-namespace DivaMC.Common.IO.Data.PalettedContainer
+namespace DivaMC.Protocol.IO.Data.PalettedContainer
 {
     internal sealed class SinglePalettedContainer : IPalettedContainer
     {

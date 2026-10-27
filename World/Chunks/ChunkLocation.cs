@@ -1,6 +1,6 @@
-using DivaMC.Common.IO.Serialization;
+using DivaMC.Protocol.IO.Serialization;
 
-namespace DivaMC.Common.World.Chunks
+namespace DivaMC.Protocol.World.Chunks
 {
     public readonly record struct ChunkLocation : IBinarySerializable<ChunkLocation>
     {

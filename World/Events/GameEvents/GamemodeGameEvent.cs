@@ -1,6 +1,6 @@
-using DivaMC.Common.Common.Enums;
+using DivaMC.Protocol.Common.Enums;
 
-namespace DivaMC.Common.World.Events.GameEvents
+namespace DivaMC.Protocol.World.Events.GameEvents
 {
     public sealed record GamemodeGameEvent : GameEvent
     {

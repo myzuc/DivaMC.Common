@@ -1,8 +1,8 @@
-using DivaMC.Common.Common;
-using DivaMC.Common.Common.Enums;
-using DivaMC.Common.IO.Serialization;
+using DivaMC.Protocol.Common;
+using DivaMC.Protocol.Common.Enums;
+using DivaMC.Protocol.IO.Serialization;
 
-namespace DivaMC.Common.World.Common.Objects
+namespace DivaMC.Protocol.World.Common.Objects
 {
     public sealed record RespawnInfo : IBinarySerializable<RespawnInfo>
     {

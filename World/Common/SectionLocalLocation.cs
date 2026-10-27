@@ -1,4 +1,4 @@
-namespace DivaMC.Common.World.Common
+namespace DivaMC.Protocol.World.Common
 {
     public readonly record struct SectionLocalLocation
     {

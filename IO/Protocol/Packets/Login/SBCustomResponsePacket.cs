@@ -1,6 +1,6 @@
-using DivaMC.Common.IO.Serialization;
+using DivaMC.Protocol.IO.Serialization;
 
-namespace DivaMC.Common.IO.Protocol.Packets.Login
+namespace DivaMC.Protocol.IO.Protocol.Packets.Login
 {
     public sealed class SBCustomResponsePacket : Packet
     {

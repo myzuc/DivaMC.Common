@@ -1,4 +1,4 @@
-namespace DivaMC.Common.IO.Data.PalettedContainer
+namespace DivaMC.Protocol.IO.Data.PalettedContainer
 {
     internal interface IPalettedContainer
     {

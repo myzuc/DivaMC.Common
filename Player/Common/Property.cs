@@ -1,7 +1,7 @@
 using System.Text.Json.Serialization;
-using DivaMC.Common.IO.Serialization;
+using DivaMC.Protocol.IO.Serialization;
 
-namespace DivaMC.Common.Player.Common
+namespace DivaMC.Protocol.Player.Common
 {
     public sealed record Property : IBinarySerializable<Property>
     {

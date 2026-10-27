@@ -1,7 +1,7 @@
-using DivaMC.Common.IO.Serialization;
-using DivaMC.Common.Registries;
+using DivaMC.Protocol.IO.Serialization;
+using DivaMC.Protocol.Registries;
 
-namespace DivaMC.Common.IO.Protocol.Packets.Configuration
+namespace DivaMC.Protocol.IO.Protocol.Packets.Configuration
 {
     public sealed class CBRegistryDataPacket : Packet
     {

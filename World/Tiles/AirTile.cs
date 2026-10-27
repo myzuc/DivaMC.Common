@@ -1,4 +1,4 @@
-namespace DivaMC.Common.World.Tiles
+namespace DivaMC.Protocol.World.Tiles
 {
     public sealed record AirTile : Tile
     {

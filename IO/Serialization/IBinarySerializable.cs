@@ -1,4 +1,4 @@
-namespace DivaMC.Common.IO.Serialization
+namespace DivaMC.Protocol.IO.Serialization
 {
     internal interface IBinarySerializable<T>
     {

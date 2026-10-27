@@ -1,6 +1,4 @@
-using DivaMC.Common.Common;
-
-namespace DivaMC.Common.IO.Protocol.Packets
+namespace DivaMC.Protocol.IO.Protocol.Packets
 {
     public sealed record PacketContext
     {

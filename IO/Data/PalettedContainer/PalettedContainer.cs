@@ -1,7 +1,7 @@
 using System.Numerics;
-using DivaMC.Common.IO.Serialization;
+using DivaMC.Protocol.IO.Serialization;
 
-namespace DivaMC.Common.IO.Data.PalettedContainer
+namespace DivaMC.Protocol.IO.Data.PalettedContainer
 {
     public sealed class PalettedContainer : IBinarySerializable<PalettedContainer>
     {

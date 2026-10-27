@@ -1,8 +1,7 @@
 using System.Collections;
-using DivaMC.Common.IO.Data;
-using DivaMC.Common.IO.Serialization;
+using DivaMC.Protocol.IO.Serialization;
 
-namespace DivaMC.Common.World.Chunks.Light
+namespace DivaMC.Protocol.World.Chunks.Light
 {
     public sealed class LightChunk : IBinarySerializable<LightChunk, ChunkContext>
     {

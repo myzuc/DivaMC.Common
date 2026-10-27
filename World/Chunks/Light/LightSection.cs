@@ -1,7 +1,7 @@
-using DivaMC.Common.IO.Serialization;
-using DivaMC.Common.World.Common;
+using DivaMC.Protocol.IO.Serialization;
+using DivaMC.Protocol.World.Common;
 
-namespace DivaMC.Common.World.Chunks.Light
+namespace DivaMC.Protocol.World.Chunks.Light
 {
     public sealed class LightSection : IBinarySerializable<LightSection>
     {

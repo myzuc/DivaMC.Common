@@ -1,7 +1,7 @@
-using DivaMC.Common.IO.Serialization;
-using DivaMC.Common.World.Events.GameEvents;
+using DivaMC.Protocol.IO.Serialization;
+using DivaMC.Protocol.World.Events.GameEvents;
 
-namespace DivaMC.Common.IO.Protocol.Packets.Game
+namespace DivaMC.Protocol.IO.Protocol.Packets.Game
 {
     public sealed class CBGameEventPacket : Packet
     {

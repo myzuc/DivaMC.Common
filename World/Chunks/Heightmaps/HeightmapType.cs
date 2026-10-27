@@ -1,4 +1,4 @@
-namespace DivaMC.Common.World.Chunks.Heightmaps
+namespace DivaMC.Protocol.World.Chunks.Heightmaps
 {
     public enum HeightmapType : int
     {

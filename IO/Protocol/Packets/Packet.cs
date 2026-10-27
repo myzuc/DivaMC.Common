@@ -1,8 +1,8 @@
 using System.Collections.Concurrent;
 using System.Reflection;
-using DivaMC.Common.IO.Serialization;
+using DivaMC.Protocol.IO.Serialization;
 
-namespace DivaMC.Common.IO.Protocol.Packets
+namespace DivaMC.Protocol.IO.Protocol.Packets
 {
     public abstract class Packet : IBinarySerializable<Packet, PacketContext>
     {

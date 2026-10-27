@@ -1,7 +1,7 @@
-using DivaMC.Common.Common;
-using DivaMC.Common.IO.Serialization;
+using DivaMC.Protocol.Common;
+using DivaMC.Protocol.IO.Serialization;
 
-namespace DivaMC.Common.IO.Protocol.Packets.Cookies
+namespace DivaMC.Protocol.IO.Protocol.Packets.Cookies
 {
     public sealed class SBCookieResponsePacket : Packet
     {

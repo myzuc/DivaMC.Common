@@ -1,10 +1,10 @@
-using DivaMC.Common.Chat.Components;
-using DivaMC.Common.Common;
-using DivaMC.Common.IO.Serialization;
-using DivaMC.Common.Registries;
+using DivaMC.Protocol.Chat.Components;
+using DivaMC.Protocol.Common;
+using DivaMC.Protocol.IO.Serialization;
+using DivaMC.Protocol.Registries;
 using fNbt;
 
-namespace DivaMC.Common.Data.Trims
+namespace DivaMC.Protocol.Data.Trims
 {
     public sealed record TrimPattern : INbtSerializable<TrimPattern>
     {

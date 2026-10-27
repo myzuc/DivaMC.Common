@@ -1,8 +1,8 @@
 using System.Numerics;
-using DivaMC.Common.IO.Data;
-using DivaMC.Common.IO.Serialization;
+using DivaMC.Protocol.IO.Data;
+using DivaMC.Protocol.IO.Serialization;
 
-namespace DivaMC.Common.World.Chunks.Heightmaps
+namespace DivaMC.Protocol.World.Chunks.Heightmaps
 {
     public sealed class Heightmap : IBinarySerializable<Heightmap, ChunkContext>
     {

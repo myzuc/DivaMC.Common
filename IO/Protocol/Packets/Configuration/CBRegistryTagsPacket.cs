@@ -1,6 +1,6 @@
-using DivaMC.Common.IO.Serialization;
+using DivaMC.Protocol.IO.Serialization;
 
-namespace DivaMC.Common.IO.Protocol.Packets.Configuration
+namespace DivaMC.Protocol.IO.Protocol.Packets.Configuration
 {
     public sealed class CBRegistryTagsPacket : Packet
     {

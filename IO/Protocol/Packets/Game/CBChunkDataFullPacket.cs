@@ -1,10 +1,10 @@
-using DivaMC.Common.IO.Serialization;
-using DivaMC.Common.World.Chunks;
-using DivaMC.Common.World.Chunks.Heightmaps;
-using DivaMC.Common.World.Chunks.Light;
-using DivaMC.Common.World.TileEntities;
+using DivaMC.Protocol.IO.Serialization;
+using DivaMC.Protocol.World.Chunks;
+using DivaMC.Protocol.World.Chunks.Heightmaps;
+using DivaMC.Protocol.World.Chunks.Light;
+using DivaMC.Protocol.World.TileEntities;
 
-namespace DivaMC.Common.IO.Protocol.Packets.Game
+namespace DivaMC.Protocol.IO.Protocol.Packets.Game
 {
     public sealed class CBChunkDataFullPacket : Packet
     {

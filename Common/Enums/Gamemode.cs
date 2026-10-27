@@ -1,4 +1,4 @@
-namespace DivaMC.Common.Common.Enums
+namespace DivaMC.Protocol.Common.Enums
 {
     public enum Gamemode : sbyte
     {

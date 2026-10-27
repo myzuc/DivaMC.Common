@@ -1,4 +1,4 @@
-namespace DivaMC.Common.IO.Protocol
+namespace DivaMC.Protocol.IO.Protocol
 {
     public enum ProtocolStage : byte
     {

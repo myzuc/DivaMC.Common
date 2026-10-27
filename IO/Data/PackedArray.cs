@@ -1,7 +1,7 @@
 using System.Collections;
-using DivaMC.Common.IO.Serialization;
+using DivaMC.Protocol.IO.Serialization;
 
-namespace DivaMC.Common.IO.Data
+namespace DivaMC.Protocol.IO.Data
 {
     public sealed class PackedArray : IList<int>, IBinarySerializable<PackedArray, (int bits, int length)>
     {

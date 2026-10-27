@@ -1,4 +1,4 @@
-namespace DivaMC.Common.IO.Protocol.Packets.Status
+namespace DivaMC.Protocol.IO.Protocol.Packets.Status
 {
     public sealed class SBStatusRequestPacket : Packet
     {

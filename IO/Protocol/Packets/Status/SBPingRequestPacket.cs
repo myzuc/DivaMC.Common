@@ -1,6 +1,6 @@
-using DivaMC.Common.IO.Serialization;
+using DivaMC.Protocol.IO.Serialization;
 
-namespace DivaMC.Common.IO.Protocol.Packets.Status
+namespace DivaMC.Protocol.IO.Protocol.Packets.Status
 {
     public sealed class SBPingRequestPacket : Packet
     {

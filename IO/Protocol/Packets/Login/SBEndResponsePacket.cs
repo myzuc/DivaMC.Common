@@ -1,4 +1,4 @@
-namespace DivaMC.Common.IO.Protocol.Packets.Login
+namespace DivaMC.Protocol.IO.Protocol.Packets.Login
 {
     public sealed class SBEndResponsePacket : Packet
     {

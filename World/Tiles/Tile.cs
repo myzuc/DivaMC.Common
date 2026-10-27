@@ -1,7 +1,7 @@
 using System.Collections.Concurrent;
 using System.Reflection;
 
-namespace DivaMC.Common.World.Tiles
+namespace DivaMC.Protocol.World.Tiles
 {
     public abstract record Tile
     {

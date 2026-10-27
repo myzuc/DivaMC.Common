@@ -1,6 +1,6 @@
-using DivaMC.Common.IO.Serialization;
+using DivaMC.Protocol.IO.Serialization;
 
-namespace DivaMC.Common.World.TileEntities
+namespace DivaMC.Protocol.World.TileEntities
 {
     public readonly record struct TileEntityLocation : IBinarySerializable<TileEntityLocation>
     {

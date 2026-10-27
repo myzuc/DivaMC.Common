@@ -1,4 +1,4 @@
-namespace DivaMC.Common.World.Events.GameEvents
+namespace DivaMC.Protocol.World.Events.GameEvents
 {
     public sealed record PufferfishEffectGameEvent : GameEvent
     {

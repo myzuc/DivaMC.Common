@@ -1,10 +1,10 @@
-using DivaMC.Common.Common;
-using DivaMC.Common.Data;
-using DivaMC.Common.IO.Serialization;
-using DivaMC.Common.Registries;
+using DivaMC.Protocol.Common;
+using DivaMC.Protocol.Data;
+using DivaMC.Protocol.IO.Serialization;
+using DivaMC.Protocol.Registries;
 using fNbt;
 
-namespace DivaMC.Common.World.Dimensions
+namespace DivaMC.Protocol.World.Dimensions
 {
     public sealed record DimensionType : INbtSerializable<DimensionType>
     {

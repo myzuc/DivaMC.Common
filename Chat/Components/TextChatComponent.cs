@@ -1,8 +1,8 @@
 using System.Text.Json.Nodes;
-using DivaMC.Common.IO.Serialization;
+using DivaMC.Protocol.IO.Serialization;
 using fNbt;
 
-namespace DivaMC.Common.Chat.Components
+namespace DivaMC.Protocol.Chat.Components
 {
    
     public sealed record TextChatComponent : ChatComponent

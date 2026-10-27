@@ -1,7 +1,7 @@
-using DivaMC.Common.IO.Serialization;
-using DivaMC.Common.Player.Common;
+using DivaMC.Protocol.IO.Serialization;
+using DivaMC.Protocol.Player.Common;
 
-namespace DivaMC.Common.IO.Protocol.Packets.Login
+namespace DivaMC.Protocol.IO.Protocol.Packets.Login
 {
     public sealed class CBEndRequestPacket : Packet
     {

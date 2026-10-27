@@ -1,8 +1,8 @@
 using System.Collections;
-using DivaMC.Common.IO.Serialization;
+using DivaMC.Protocol.IO.Serialization;
 using fNbt;
 
-namespace DivaMC.Common.Registries
+namespace DivaMC.Protocol.Registries
 {
     public sealed class NbtList<T> : INbtSerializable<NbtList<T>>, IList<T> where T : INbtSerializable<T>
     {

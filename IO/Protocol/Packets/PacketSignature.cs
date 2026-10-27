@@ -1,4 +1,4 @@
-namespace DivaMC.Common.IO.Protocol.Packets
+namespace DivaMC.Protocol.IO.Protocol.Packets
 {
     public readonly record struct PacketSignature
     {

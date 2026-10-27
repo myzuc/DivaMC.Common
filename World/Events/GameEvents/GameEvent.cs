@@ -1,6 +1,6 @@
-using DivaMC.Common.IO.Serialization;
+using DivaMC.Protocol.IO.Serialization;
 
-namespace DivaMC.Common.World.Events.GameEvents
+namespace DivaMC.Protocol.World.Events.GameEvents
 {
     public abstract record GameEvent : IBinarySerializable<GameEvent>
     {

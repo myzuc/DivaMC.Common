@@ -1,8 +1,8 @@
-using DivaMC.Common.Data.Providers.Ranges;
-using DivaMC.Common.IO.Serialization;
+using DivaMC.Protocol.Data.Providers.Ranges;
+using DivaMC.Protocol.IO.Serialization;
 using fNbt;
 
-namespace DivaMC.Common.Data.SpawnConditions
+namespace DivaMC.Protocol.Data.SpawnConditions
 {
     public sealed record MoonBrightnessSpawnCondition : SpawnCondition
     {

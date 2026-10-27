@@ -1,9 +1,9 @@
-using DivaMC.Common.Common;
-using DivaMC.Common.IO.Serialization;
-using DivaMC.Common.Registries;
+using DivaMC.Protocol.Common;
+using DivaMC.Protocol.IO.Serialization;
+using DivaMC.Protocol.Registries;
 using fNbt;
 
-namespace DivaMC.Common.Data.Banners
+namespace DivaMC.Protocol.Data.Banners
 {
     public sealed record BannerPattern : INbtSerializable<BannerPattern>
     {

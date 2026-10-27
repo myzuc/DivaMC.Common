@@ -1,4 +1,4 @@
-namespace DivaMC.Common.World.TileEntities
+namespace DivaMC.Protocol.World.TileEntities
 {
     public enum TileEntityType : int
     {

@@ -1,8 +1,8 @@
-using DivaMC.Common.IO.Serialization;
-using DivaMC.Common.World.Biomes;
-using DivaMC.Common.World.Tiles;
+using DivaMC.Protocol.IO.Serialization;
+using DivaMC.Protocol.World.Biomes;
+using DivaMC.Protocol.World.Tiles;
 
-namespace DivaMC.Common.World.Chunks
+namespace DivaMC.Protocol.World.Chunks
 {
     public sealed class TileChunk : IBinarySerializable<TileChunk, ChunkContext>
     {

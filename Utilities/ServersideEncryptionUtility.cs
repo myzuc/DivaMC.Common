@@ -1,4 +1,3 @@
-using System;
 using System.Data;
 using System.Net;
 using System.Numerics;
@@ -6,10 +5,10 @@ using System.Security.Authentication;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
-using DivaMC.Common.IO.Protocol.Packets.Login;
-using DivaMC.Common.Player.Common;
+using DivaMC.Protocol.IO.Protocol.Packets.Login;
+using DivaMC.Protocol.Player.Common;
 
-namespace DivaMC.Common.Utilities
+namespace DivaMC.Protocol.Utilities
 {
     public sealed class ServersideEncryptionUtility : IDisposable
     {

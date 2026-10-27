@@ -1,10 +1,10 @@
 using System.Drawing;
-using DivaMC.Common.Common;
-using DivaMC.Common.IO.Serialization;
-using DivaMC.Common.Registries;
+using DivaMC.Protocol.Common;
+using DivaMC.Protocol.IO.Serialization;
+using DivaMC.Protocol.Registries;
 using fNbt;
 
-namespace DivaMC.Common.World.Biomes
+namespace DivaMC.Protocol.World.Biomes
 {
     public sealed record Biome : INbtSerializable<Biome>
     {

@@ -2,7 +2,7 @@ using System.Drawing;
 using System.Runtime.InteropServices;
 using fNbt;
 
-namespace DivaMC.Common.IO.Serialization
+namespace DivaMC.Protocol.IO.Serialization
 {
     internal static class NbtExtension
     {

@@ -1,19 +1,19 @@
-using DivaMC.Common.Common;
-using DivaMC.Common.Data;
-using DivaMC.Common.Data.Banners;
-using DivaMC.Common.Data.DecoratedPots;
-using DivaMC.Common.Data.Instruments;
-using DivaMC.Common.Data.Jukeboxes;
-using DivaMC.Common.Data.Trims;
-using DivaMC.Common.Data.Variants.Entities;
-using DivaMC.Common.Data.Variants.EntitySounds;
-using DivaMC.Common.IO.Serialization;
-using DivaMC.Common.World;
-using DivaMC.Common.World.Biomes;
-using DivaMC.Common.World.Dimensions;
+using DivaMC.Protocol.Common;
+using DivaMC.Protocol.Data;
+using DivaMC.Protocol.Data.Banners;
+using DivaMC.Protocol.Data.DecoratedPots;
+using DivaMC.Protocol.Data.Instruments;
+using DivaMC.Protocol.Data.Jukeboxes;
+using DivaMC.Protocol.Data.Trims;
+using DivaMC.Protocol.Data.Variants.Entities;
+using DivaMC.Protocol.Data.Variants.EntitySounds;
+using DivaMC.Protocol.IO.Serialization;
+using DivaMC.Protocol.World;
+using DivaMC.Protocol.World.Biomes;
+using DivaMC.Protocol.World.Dimensions;
 using fNbt;
 
-namespace DivaMC.Common.Registries
+namespace DivaMC.Protocol.Registries
 {
     public sealed class Registry : IBinarySerializable<Registry>
     {

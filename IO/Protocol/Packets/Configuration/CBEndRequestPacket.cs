@@ -1,4 +1,4 @@
-namespace DivaMC.Common.IO.Protocol.Packets.Configuration
+namespace DivaMC.Protocol.IO.Protocol.Packets.Configuration
 {
     public sealed class CBEndRequestPacket : Packet
     {

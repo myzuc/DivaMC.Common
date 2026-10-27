@@ -1,8 +1,8 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using DivaMC.Common.IO.JSON.JsonConverters;
+using DivaMC.Protocol.IO.JSON.JsonConverters;
 
-namespace DivaMC.Common
+namespace DivaMC.Protocol
 {
     internal static class Global
     {

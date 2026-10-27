@@ -1,8 +1,8 @@
-using DivaMC.Common.Common;
-using DivaMC.Common.IO.Serialization;
-using DivaMC.Common.World.Common.Objects;
+using DivaMC.Protocol.Common;
+using DivaMC.Protocol.IO.Serialization;
+using DivaMC.Protocol.World.Common.Objects;
 
-namespace DivaMC.Common.IO.Protocol.Packets.Game
+namespace DivaMC.Protocol.IO.Protocol.Packets.Game
 {
     public sealed class CBSpawnPacket : Packet
     {

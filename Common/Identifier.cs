@@ -1,8 +1,8 @@
 using System.Text.Json.Serialization;
-using DivaMC.Common.IO.Serialization;
+using DivaMC.Protocol.IO.Serialization;
 using fNbt;
 
-namespace DivaMC.Common.Common
+namespace DivaMC.Protocol.Common
 {
     public readonly record struct Identifier : IBinarySerializable<Identifier>, INbtSerializable<Identifier>
     {

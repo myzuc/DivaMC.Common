@@ -1,7 +1,7 @@
-using DivaMC.Common.Common;
-using DivaMC.Common.IO.Serialization;
+using DivaMC.Protocol.Common;
+using DivaMC.Protocol.IO.Serialization;
 
-namespace DivaMC.Common.Registries
+namespace DivaMC.Protocol.Registries
 {
     public sealed class RegistryTags : IBinarySerializable<RegistryTags>
     {

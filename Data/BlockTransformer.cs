@@ -1,9 +1,9 @@
-using DivaMC.Common.Common;
-using DivaMC.Common.IO.Serialization;
-using DivaMC.Common.Registries;
+using DivaMC.Protocol.Common;
+using DivaMC.Protocol.IO.Serialization;
+using DivaMC.Protocol.Registries;
 using fNbt;
 
-namespace DivaMC.Common.Data
+namespace DivaMC.Protocol.Data
 {
     using BlockStateProvider = Providers.BlockStateProviders.BlockStateProvider;
     using CopyProperties = Providers.BlockStateProviders.CopyProperties;
