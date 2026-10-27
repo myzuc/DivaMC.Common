@@ -7,7 +7,7 @@ namespace DivaMC.Protocol.World.Chunks
     public sealed record ChunkContext
     {
         public required Registry<Biome> Biomes { get; set; }
-        public required DimensionType Dimension { get; set; }
+        public required Dimension Dimension { get; set; }
         
         public ChunkContext()
         {

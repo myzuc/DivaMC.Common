@@ -6,11 +6,11 @@ using fNbt;
 
 namespace DivaMC.Protocol.World.Dimensions
 {
-    public sealed record DimensionType : INbtSerializable<DimensionType>
+    public sealed record Dimension : INbtSerializable<Dimension>
     {
         public static readonly Identifier RegistryName = "minecraft:dimension_type";
         
-        public static readonly DimensionType Stub = new()
+        public static readonly Dimension Stub = new()
         {
             Depth = 0,
             Height = 16,
@@ -34,7 +34,7 @@ namespace DivaMC.Protocol.World.Dimensions
             MobSpawnLight = 0,
             MobSpawnBlocklightLimit = 0,
         };
-        public static readonly Registry<DimensionType> StubRegistry = new(RegistryName)
+        public static readonly Registry<Dimension> StubRegistry = new(RegistryName)
         {
             Entries =
             {
@@ -66,7 +66,7 @@ namespace DivaMC.Protocol.World.Dimensions
         public required object MobSpawnLight { get; set; } //todo: implement integer providers
         public required int MobSpawnBlocklightLimit { get; set; }
         
-        public DimensionType()
+        public Dimension()
         {
             
         }
@@ -98,7 +98,7 @@ namespace DivaMC.Protocol.World.Dimensions
             NbtInt.FromS32(MobSpawnBlocklightLimit).Rename("monster_spawn_block_light_limit").AddTo(nbt);
             return nbt;
         }
-        public static DimensionType FromNbt(NbtTag nbt)
+        public static Dimension FromNbt(NbtTag nbt)
         {
             throw new NotImplementedException();
         }

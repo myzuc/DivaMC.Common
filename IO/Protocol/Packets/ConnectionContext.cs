@@ -7,9 +7,9 @@ namespace DivaMC.Protocol.IO.Protocol.Packets
 {
     public sealed record ConnectionContext
     {
-        public required Registry<DimensionType> Dimensions { get; set; }
+        public required Registry<Dimension> Dimensions { get; set; }
         public required Registry<Biome> Biomes { get; set; }
-        public DimensionType? Dimension { get; set; } = null;
+        public Dimension? Dimension { get; set; } = null;
         
         public ConnectionContext()
         {

@@ -21,7 +21,7 @@ namespace DivaMC.Protocol.Registries
 
         public static readonly IReadOnlyList<Registry> StubRegistries =
         [
-            (Registry)DimensionType.StubRegistry,
+            (Registry)Dimension.StubRegistry,
             (Registry)Biome.StubRegistry,
             (Registry)CatSounds.StubRegistry,
             (Registry)ChickenSounds.StubRegistry,
@@ -47,7 +47,7 @@ namespace DivaMC.Protocol.Registries
         ];
         public static readonly IReadOnlyList<RegistryTags> StubRegistryTags = 
         [
-            DimensionType.StubRegistryTags,
+            Dimension.StubRegistryTags,
             Biome.StubRegistryTags,
             CatSounds.StubRegistryTags,
             ChickenSounds.StubRegistryTags,
