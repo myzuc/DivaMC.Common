@@ -16,7 +16,6 @@ namespace DivaMC.Common.IO.Protocol
        private Stream Stream { get; set; }
        private SemaphoreSlim ReadSync { get; } = new(1, 1);
        private SemaphoreSlim WriteSync { get; } = new(1, 1);
-       public ProtocolStage ProtocolStage { get; private set; } = ProtocolStage.Handshake;
        private int CompressionThreshold { get; set; } = -1;
        private readonly bool RemoteIsClient;
        private bool Disposed;
@@ -30,16 +29,20 @@ namespace DivaMC.Common.IO.Protocol
        {
            Stream = new AesCfbStream(Stream, secret, secret, false);
        }
-       public async Task<Packet> ReadAsync(CancellationToken cancellationToken = default)
+       public void Compress(int threshold)
        {
-           await using Stream ms = await ReadRawAsync(cancellationToken);
-           int id = ms.ReadVS32();
-           PacketSignature signature = new(RemoteIsClient ? ProtocolDirection.Serverbound : ProtocolDirection.Clientbound, ProtocolStage, id);
-           Packet packet = Packet.Deserialize(signature, ms);
-           Run(packet);
-           return packet;
+           CompressionThreshold = threshold;
        }
-       private async Task<Stream> ReadRawAsync(CancellationToken cancellationToken = default)
+       public async Task<Packet> ReadAsync(PacketContext context, CancellationToken cancellationToken = default)
+       {
+           context = context with
+           {
+               ProtocolDirection = RemoteIsClient ? ProtocolDirection.Serverbound : ProtocolDirection.Clientbound,
+           };
+           await using Stream ms = await ReadAsync(cancellationToken);
+           return Packet.Deserialize(ms, context);
+       }
+       private async Task<Stream> ReadAsync(CancellationToken cancellationToken = default)
        {
            byte[] data;
            try
@@ -58,14 +61,16 @@ namespace DivaMC.Common.IO.Protocol
            await using ZLibStream zlib = new(ms2, CompressionMode.Decompress, false);
            return new MemoryStream(zlib.ReadU8A(decompressedSize));
        }
-       public async Task WriteAsync(Packet packet, CancellationToken cancellationToken = default)
+       public async Task WriteAsync(Packet packet, PacketContext context, CancellationToken cancellationToken = default)
        {
-           if (packet.Signature.Direction != (RemoteIsClient ? ProtocolDirection.Clientbound : ProtocolDirection.Serverbound) || packet.Signature.Stage != ProtocolStage) throw new InvalidOperationException($"Disallowed packet!");
+           context = context with
+           {
+               ProtocolDirection = RemoteIsClient ? ProtocolDirection.Clientbound : ProtocolDirection.Serverbound,
+           };
+           context.Check(packet.Signature);
            using MemoryStream ms = new();
-           ms.WriteVS32(packet.Signature.Id);
-           Packet.Serialize(packet, ms);
+           packet.Serialize(ms, context);
            await WriteAsync(ms.ToArray(), cancellationToken);
-           Run(packet);
        }
        private async Task WriteAsync(byte[] data, CancellationToken cancellationToken = default)
        {
@@ -96,47 +101,6 @@ namespace DivaMC.Common.IO.Protocol
            finally
            {
                WriteSync.Release();
-           }
-       }
-       private void Run(Packet packet)
-       {
-           switch (packet)
-           {
-               case HandshakePackets.Serverbound.HandshakePacket intention:
-               {
-                   ProtocolStage = intention.Intent switch
-                   {
-                       Intent.Status => ProtocolStage.Status,
-                       Intent.Login or Intent.Transfer => ProtocolStage.Login,
-                       _ => throw new InvalidDataException("Unknown intent!")
-                   };
-                   break;
-               }
-               case LoginPackets.Clientbound.DisconnectPacket:
-               {
-                   Dispose();
-                   break;
-               }
-               case LoginPackets.Clientbound.CompressionPacket loginCompressionPacket:
-               {
-                   CompressionThreshold = loginCompressionPacket.Threshold;
-                   break;
-               }
-               case LoginPackets.Serverbound.EndPacket:
-               {
-                   ProtocolStage = ProtocolStage.Configuration;
-                   break;
-               }
-               case ConfigurationPackets.Serverbound.EndPacket:
-               {
-                   ProtocolStage = ProtocolStage.Play;
-                   break;
-               }
-               /*case DisconnectPacket:
-               {
-                   ProtocolStage = this.ProtocolStage.Disconnected;
-                   break;
-               }*/
            }
        }
        public void Dispose()

@@ -4,9 +4,9 @@ using DivaMC.Common.IO.Serialization;
 
 namespace DivaMC.Common.IO.Protocol.Packets
 {
-    public abstract record Packet
+    public abstract class Packet : IBinarySerializable<Packet, PacketContext>
     {
-        protected delegate Packet Deserializer(Stream stream);
+        protected delegate Packet Deserializer(Stream stream, PacketContext context);
         private static readonly ConcurrentDictionary<PacketSignature, Deserializer> Deserializers = [];
         private static readonly ConcurrentDictionary<Type, PacketSignature> Signatures = [];
 
@@ -34,20 +34,22 @@ namespace DivaMC.Common.IO.Protocol.Packets
         {
             
         }
-        
-        protected abstract void Serialize(Stream stream);
-        public static Packet Deserialize(PacketSignature signature, Stream stream)
+
+        public virtual void Serialize(Stream stream, PacketContext context)
         {
+            context.Check(Signature);
+            stream.WriteVS32(Signature.Id);
+        }
+        public static Packet Deserialize(Stream stream, PacketContext context)
+        {
+            int id = stream.ReadVS32();
+            PacketSignature signature = new(context.ProtocolDirection, context.ProtocolStage, id);
             if (!Deserializers.TryGetValue(signature, out Deserializer? deserializer))
             {
                 return new UnknownPacket(signature, stream.ReadU8A());
             }
-            Packet packet = deserializer(stream);
+            Packet packet = deserializer(stream, context);
             return packet;
-        }
-        public static void Serialize(Packet packet, Stream stream)
-        {
-            packet.Serialize(stream);
         }
 
         protected static void Register<TPacket>(PacketSignature signature, Deserializer deserializer) where TPacket : Packet

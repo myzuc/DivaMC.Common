@@ -4,6 +4,13 @@ namespace DivaMC.Common.World.Common
 {
     public readonly record struct Location : IBinarySerializable<Location>
     {
+        public static readonly int MinX = -33554432;
+        public static readonly int MaxX = 33554431;
+        public static readonly int MinY = -2048;
+        public static readonly int MaxY = 2047;
+        public static readonly int MinZ = -33554432;
+        public static readonly int MaxZ = 33554431;
+        
         private readonly long Value;
         public int X
         {
@@ -43,6 +50,9 @@ namespace DivaMC.Common.World.Common
         }
         public Location(int x, int y, int z)
         {
+            if (x < MinX || x > MaxX) throw new ArgumentOutOfRangeException();
+            if (y < MinY || y > MaxY) throw new ArgumentOutOfRangeException();
+            if (z < MinZ || z > MaxZ) throw new ArgumentOutOfRangeException();
             Value = (long)((ulong)y | (ulong)(z << 12) | ((ulong)x << 38));
         }
         

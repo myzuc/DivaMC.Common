@@ -2,27 +2,30 @@ using DivaMC.Common.IO.Serialization;
 
 namespace DivaMC.Common.IO.Protocol.Packets.Configuration.Clientbound
 {
-    public sealed record TransferPacket : Packet
+    public sealed class TransferPacket : Packet
     {
         static TransferPacket()
         {
-            PacketSignature signature = new PacketSignature(
-                ProtocolDirection.Clientbound,
-                ProtocolStage.Configuration,
-                0x0C
-            );
-            Packet.Register<TransferPacket>(signature, Deserialize);
+            Register<TransferPacket>(Signature, Deserialize);
         }
+        
+        new public static readonly PacketSignature Signature = new PacketSignature(
+            ProtocolDirection.Clientbound,
+            ProtocolStage.Configuration,
+            0x0C
+        );
         
         public required string Address { get; set; }
         public required ushort Port { get; set; }
         
-        protected override void Serialize(Stream stream)
+        public override void Serialize(Stream stream, PacketContext context)
         {
+            base.Serialize(stream, context);
+            context.Check(Signature);
             stream.WriteT0AVS32(Address);
             stream.WriteVS32(Port);
         }
-        private static Packet Deserialize(Stream stream)
+        new private static Packet Deserialize(Stream stream, PacketContext context)
         {
             throw new NotImplementedException();
         }

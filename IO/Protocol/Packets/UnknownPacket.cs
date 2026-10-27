@@ -2,7 +2,7 @@ using DivaMC.Common.IO.Serialization;
 
 namespace DivaMC.Common.IO.Protocol.Packets
 {
-    public sealed record UnknownPacket : Packet
+    public sealed class UnknownPacket : Packet
     {
         public override PacketSignature Signature { get; }
         public byte[] Buffer { get; set; }
@@ -11,8 +11,11 @@ namespace DivaMC.Common.IO.Protocol.Packets
             Signature = signature;
             Buffer = buffer;
         }
-        protected override void Serialize(Stream stream)
+        public override void Serialize(Stream stream, PacketContext context)
         {
+            base.Serialize(stream, context);
+            context.Check(Signature);
+            context.Check(Signature);
             stream.WriteU8A(Buffer);
         }
     }

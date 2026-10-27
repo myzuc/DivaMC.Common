@@ -1,4 +1,5 @@
 using System.Buffers.Binary;
+using System.Collections;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.Json;
@@ -495,6 +496,17 @@ namespace DivaMC.Common.IO.Serialization
             }
             #endregion
 
+            #region Enum
+            public T ReadVS32<T>() where T : Enum
+            {
+                return (T)(object)stream.ReadVS32();
+            }
+            public void WriteVS32<T>(T data) where T : Enum
+            {
+                stream.WriteVS32((int)(object)data);
+            }
+            #endregion
+            
             #region Guid
             public async ValueTask<Guid> ReadGuidAsync(CancellationToken cancellationToken = default)
             {
@@ -528,42 +540,98 @@ namespace DivaMC.Common.IO.Serialization
             }
             #endregion
             
-            #region S32A
-            public Span<int> ReadS32A(int size)
+            #region U1A
+            public BitArray ReadU1A(int size)
             {
-                Span<byte> buffer = stream.ReadU8A(size * sizeof(int));
-                Span<int> data = MemoryMarshal.Cast<byte, int>(buffer);
+                byte[] buffer = stream.ReadU8A((size + 7) / 8);
+                return new(buffer)
+                {
+                    Length = size,
+                };
+            }
+            public void WriteU1A(BitArray data)
+            {
+                byte[] buffer = new byte[(data.Length + 7) / 8];
+                data.CopyTo(buffer, 0);
+                stream.WriteU8A(buffer);
+            }
+            #endregion
+            #region S32A
+            public int[] ReadS32A(int size)
+            {
+                byte[] buffer = stream.ReadU8A(size * sizeof(int));
+                int[] data = MemoryMarshal.Cast<byte, int>(buffer.AsSpan()).ToArray();
                 if (BitConverter.IsLittleEndian) BinaryPrimitives.ReverseEndianness(data, data);
                 return data;
             }
-            public void WriteS32A(ReadOnlySpan<int> data)
+            public void WriteS32A(int[] data)
             {
-                if(!BitConverter.IsLittleEndian)
+                if(BitConverter.IsLittleEndian)
                 {
                     stream.WriteU8A(MemoryMarshal.AsBytes(data).ToArray());
                     return;
                 }
-                Span<int> reversed = new(new int[data.Length]);
+                int[] reversed = new int[data.Length];
+                BinaryPrimitives.ReverseEndianness(data, reversed);
+                stream.WriteU8A(MemoryMarshal.AsBytes(reversed).ToArray());
+            }
+            #endregion
+            #region U32A
+            public uint[] ReadU32A(int size)
+            {
+                byte[] buffer = stream.ReadU8A(size * sizeof(uint));
+                uint[] data = MemoryMarshal.Cast<byte, uint>(buffer.AsSpan()).ToArray();
+                if (BitConverter.IsLittleEndian) BinaryPrimitives.ReverseEndianness(data, data);
+                return data;
+            }
+            public void WriteU32A(uint[] data)
+            {
+                if(BitConverter.IsLittleEndian)
+                {
+                    stream.WriteU8A(MemoryMarshal.AsBytes(data).ToArray());
+                    return;
+                }
+                uint[] reversed = new uint[data.Length];
                 BinaryPrimitives.ReverseEndianness(data, reversed);
                 stream.WriteU8A(MemoryMarshal.AsBytes(reversed).ToArray());
             }
             #endregion
             #region S64A
-            public Span<long> ReadS64A(int size)
+            public long[] ReadS64A(int size)
             {
-                Span<byte> buffer = stream.ReadU8A(size * sizeof(long));
-                Span<long> data = MemoryMarshal.Cast<byte, long>(buffer);
+                byte[] buffer = stream.ReadU8A(size * sizeof(long));
+                long[] data = MemoryMarshal.Cast<byte, long>(buffer.AsSpan()).ToArray();
                 if (BitConverter.IsLittleEndian) BinaryPrimitives.ReverseEndianness(data, data);
                 return data;
             }
-            public void WriteS64A(ReadOnlySpan<long> data)
+            public void WriteS64A(long[] data)
             {
-                if(!BitConverter.IsLittleEndian)
+                if(BitConverter.IsLittleEndian)
                 {
                     stream.WriteU8A(MemoryMarshal.AsBytes(data).ToArray());
                     return;
                 }
-                Span<long> reversed = new(new long[data.Length]);
+                long[] reversed = new long[data.Length];
+                BinaryPrimitives.ReverseEndianness(data, reversed);
+                stream.WriteU8A(MemoryMarshal.AsBytes(reversed).ToArray());
+            }
+            #endregion
+            #region U64A
+            public ulong[] ReadU64A(int size)
+            {
+                byte[] buffer = stream.ReadU8A(size * sizeof(ulong));
+                ulong[] data = MemoryMarshal.Cast<byte, ulong>(buffer.AsSpan()).ToArray();
+                if (BitConverter.IsLittleEndian) BinaryPrimitives.ReverseEndianness(data, data);
+                return data;
+            }
+            public void WriteU64A(ulong[] data)
+            {
+                if(BitConverter.IsLittleEndian)
+                {
+                    stream.WriteU8A(MemoryMarshal.AsBytes(data).ToArray());
+                    return;
+                }
+                ulong[] reversed = new ulong[data.Length];
                 BinaryPrimitives.ReverseEndianness(data, reversed);
                 stream.WriteU8A(MemoryMarshal.AsBytes(reversed).ToArray());
             }
@@ -591,6 +659,14 @@ namespace DivaMC.Common.IO.Serialization
             public void Write<T>(T data) where T : IBinarySerializable<T>
             {
                 data.Serialize(stream);
+            }
+            public T Read<T, TContext>(TContext context) where T : IBinarySerializable<T, TContext>
+            {
+                return T.Deserialize(stream, context);
+            }
+            public void Write<T, TContext>(T data, TContext context) where T : IBinarySerializable<T, TContext>
+            {
+                data.Serialize(stream, context);
             }
             #endregion
             #region INbtSerializable

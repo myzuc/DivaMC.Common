@@ -2,23 +2,27 @@ using DivaMC.Common.IO.Serialization;
 
 namespace DivaMC.Common.IO.Protocol.Packets.Configuration.Serverbound
 {
-    public sealed record EndPacket : Packet
+    public sealed class EndPacket : Packet
     {
         static EndPacket()
         {
-            PacketSignature signature = new PacketSignature(
-                ProtocolDirection.Serverbound,
-                ProtocolStage.Configuration,
-                0x03
-            );
-            Packet.Register<EndPacket>(signature, Deserialize);
+            Register<EndPacket>(Signature, Deserialize);
         }
         
-        protected override void Serialize(Stream stream)
+        new public static readonly PacketSignature Signature = new PacketSignature(
+            ProtocolDirection.Serverbound,
+            ProtocolStage.Configuration,
+            0x03
+        );
+        
+        public override void Serialize(Stream stream, PacketContext context)
         {
+            base.Serialize(stream, context);
+            context.Check(Signature);
         }
-        private static Packet Deserialize(Stream stream)
+        new private static Packet Deserialize(Stream stream, PacketContext context)
         {
+            context.Check(Signature);
             return new EndPacket();
         }
     }

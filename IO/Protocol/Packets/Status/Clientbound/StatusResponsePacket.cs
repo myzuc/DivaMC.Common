@@ -3,25 +3,28 @@ using DivaMC.Common.IO.Serialization;
 
 namespace DivaMC.Common.IO.Protocol.Packets.Status.Clientbound
 {
-    public sealed record StatusResponsePacket : Packet
+    public sealed class StatusResponsePacket : Packet
     {
         static StatusResponsePacket()
         {
-            PacketSignature signature = new PacketSignature(
-                ProtocolDirection.Clientbound,
-                ProtocolStage.Status,
-                0x00
-            );
-            Packet.Register<StatusResponsePacket>(signature, Deserialize);
+            Register<StatusResponsePacket>(Signature, Deserialize);
         }
+    
+        new public static readonly PacketSignature Signature = new PacketSignature(
+            ProtocolDirection.Clientbound,
+            ProtocolStage.Status,
+            0x00
+        );
         
         public required Chat.Status.Status Status { get; set; }
         
-        protected override void Serialize(Stream stream)
+        public override void Serialize(Stream stream, PacketContext context)
         {
+            base.Serialize(stream, context);
+            context.Check(Signature);
             stream.WriteJSON(Status);
         }
-        private static Packet Deserialize(Stream stream)
+        new private static Packet Deserialize(Stream stream, PacketContext context)
         {
             throw new NotImplementedException();
         }

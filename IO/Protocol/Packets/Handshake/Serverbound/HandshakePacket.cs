@@ -2,29 +2,31 @@ using DivaMC.Common.IO.Serialization;
 
 namespace DivaMC.Common.IO.Protocol.Packets.Handshake.Serverbound
 {
-    public sealed record HandshakePacket : Packet
+    public sealed class HandshakePacket : Packet
     {
         static HandshakePacket()
         {
-            PacketSignature signature = new PacketSignature(
-                ProtocolDirection.Serverbound,
-                ProtocolStage.Handshake,
-                0x00
-            );
-            Packet.Register<HandshakePacket>(signature, Deserialize);
+            Register<HandshakePacket>(Signature, Deserialize);
         }
+        
+        new public static readonly PacketSignature Signature = new PacketSignature(
+            ProtocolDirection.Serverbound,
+            ProtocolStage.Handshake,
+            0x00
+        );
         
         public required int Version { get; set; }
         public required string ServerAddress { get; set; }
         public required ushort ServerPort { get; set; }
         public required Intent Intent { get; set; }
         
-        protected override void Serialize(Stream stream)
+        public override void Serialize(Stream stream, PacketContext context)
         {
             throw new NotImplementedException();
         }
-        private static Packet Deserialize(Stream stream)
+        new private static Packet Deserialize(Stream stream, PacketContext context)
         {
+            context.Check(Signature);
             return new HandshakePacket()
             {
                 Version = stream.ReadVS32(),

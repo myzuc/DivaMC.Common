@@ -4,17 +4,18 @@ using DivaMC.Common.World.Common.Objects;
 
 namespace DivaMC.Common.IO.Protocol.Packets.Play.Clientbound
 {
-    public sealed record StartPacket : Packet
+    public sealed class StartPacket : Packet
     {
         static StartPacket()
         {
-            PacketSignature signature = new PacketSignature(
-                ProtocolDirection.Clientbound,
-                ProtocolStage.Play,
-                0x32
-            );
-            Packet.Register<StartPacket>(signature, Deserialize);
+            Register<StartPacket>(Signature, Deserialize);
         }
+    
+        new public static readonly PacketSignature Signature = new PacketSignature(
+            ProtocolDirection.Clientbound,
+            ProtocolStage.Play,
+            0x32
+        );
         
         public required int EntityId { get; set; }
         public required bool Hardcore { get; set; }
@@ -29,8 +30,10 @@ namespace DivaMC.Common.IO.Protocol.Packets.Play.Clientbound
         public required bool Authenticated { get; set; }
         public required bool HasCensorship { get; set; }
         
-        protected override void Serialize(Stream stream)
+        public override void Serialize(Stream stream, PacketContext context)
         {
+            base.Serialize(stream, context);
+            context.Check(Signature);
             stream.WriteS32(EntityId);
             stream.WriteU1(Hardcore);
             stream.WriteVS32(DimensionNames.Count);
@@ -48,7 +51,7 @@ namespace DivaMC.Common.IO.Protocol.Packets.Play.Clientbound
             stream.WriteU1(Authenticated);
             stream.WriteU1(HasCensorship);
         }
-        private static Packet Deserialize(Stream stream)
+        new private static Packet Deserialize(Stream stream, PacketContext context)
         {
             throw new NotImplementedException();
         }

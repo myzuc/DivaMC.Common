@@ -3,27 +3,30 @@ using DivaMC.Common.Player.Common;
 
 namespace DivaMC.Common.IO.Protocol.Packets.Login.Clientbound
 {
-    public sealed record EndPacket : Packet
+    public sealed class EndPacket : Packet
     {
         static EndPacket()
         {
-            PacketSignature signature = new PacketSignature(
-                ProtocolDirection.Clientbound,
-                ProtocolStage.Login,
-                0x02
-            );
-            Packet.Register<EndPacket>(signature, Deserialize);
+            Register<EndPacket>(Signature, Deserialize);
         }
+        
+        new public static readonly PacketSignature Signature = new PacketSignature(
+            ProtocolDirection.Clientbound,
+            ProtocolStage.Login,
+            0x02
+        );
         
         public required Profile Profile { get; set; }
         public required Guid SessionId { get; set; }
         
-        protected override void Serialize(Stream stream)
+        public override void Serialize(Stream stream, PacketContext context)
         {
+            base.Serialize(stream, context);
+            context.Check(Signature);
             stream.Write(Profile);
             stream.WriteGuid(SessionId);
         }
-        private static Packet Deserialize(Stream stream)
+        new private static Packet Deserialize(Stream stream, PacketContext context)
         {
             throw new NotImplementedException();
         }

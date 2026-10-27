@@ -2,25 +2,28 @@ using DivaMC.Common.IO.Serialization;
 
 namespace DivaMC.Common.IO.Protocol.Packets.Status.Clientbound
 {
-    public sealed record PingResponsePacket : Packet
+    public sealed class PingResponsePacket : Packet
     {
         static PingResponsePacket()
         {
-            PacketSignature signature = new PacketSignature(
-                ProtocolDirection.Clientbound,
-                ProtocolStage.Status,
-                0x01
-            );
-            Packet.Register<PingResponsePacket>(signature, Deserialize);
+            Register<PingResponsePacket>(Signature, Deserialize);
         }
+    
+        new public static readonly PacketSignature Signature = new PacketSignature(
+            ProtocolDirection.Clientbound,
+            ProtocolStage.Status,
+            0x01
+        );
         
         public required long Data { get; set; }
         
-        protected override void Serialize(Stream stream)
+        public override void Serialize(Stream stream, PacketContext context)
         {
+            base.Serialize(stream, context);
+            context.Check(Signature);
             stream.WriteS64(Data);
         }
-        private static Packet Deserialize(Stream stream)
+        new private static Packet Deserialize(Stream stream, PacketContext context)
         {
             throw new NotImplementedException();
         }

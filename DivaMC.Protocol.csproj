@@ -28,11 +28,8 @@
       <Folder Include="IO\Protocol\Packets\Play\Serverbound\" />
       <Folder Include="Tablist\" />
       <Folder Include="World\Blocks\" />
-      <Folder Include="World\Chunks\" />
       <Folder Include="World\Entities\" />
       <Folder Include="World\Events\" />
-      <Folder Include="World\Sections\" />
-      <Folder Include="World\TileEntities\" />
     </ItemGroup>
 
     <ItemGroup>

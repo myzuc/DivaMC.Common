@@ -2,25 +2,28 @@ using DivaMC.Common.IO.Serialization;
 
 namespace DivaMC.Common.IO.Protocol.Packets.Configuration.Clientbound
 {
-    public sealed record RulesAcceptRequestPacket : Packet
+    public sealed class RulesAcceptRequestPacket : Packet
     {
         static RulesAcceptRequestPacket()
         {
-            PacketSignature signature = new PacketSignature(
-                ProtocolDirection.Clientbound,
-                ProtocolStage.Configuration,
-                0x14
-            );
-            Packet.Register<RulesAcceptRequestPacket>(signature, Deserialize);
+            Register<RulesAcceptRequestPacket>(Signature, Deserialize);
         }
+        
+        new public static readonly PacketSignature Signature = new PacketSignature(
+            ProtocolDirection.Clientbound,
+            ProtocolStage.Configuration,
+            0x14
+        );
         
         public required string Message { get; set; }
         
-        protected override void Serialize(Stream stream)
+        public override void Serialize(Stream stream, PacketContext context)
         {
+            base.Serialize(stream, context);
+            context.Check(Signature);
             stream.WriteT0AVS32(Message);
         }
-        private static Packet Deserialize(Stream stream)
+        new private static Packet Deserialize(Stream stream, PacketContext context)
         {
             throw new NotImplementedException();
         }

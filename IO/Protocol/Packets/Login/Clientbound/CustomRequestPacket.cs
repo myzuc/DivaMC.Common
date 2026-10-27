@@ -3,29 +3,32 @@ using DivaMC.Common.IO.Serialization;
 
 namespace DivaMC.Common.IO.Protocol.Packets.Login.Clientbound
 {
-    public sealed record CustomRequestPacket : Packet
+    public sealed class CustomRequestPacket : Packet
     {
         static CustomRequestPacket()
         {
-            PacketSignature signature = new PacketSignature(
-                ProtocolDirection.Clientbound,
-                ProtocolStage.Login,
-                0x04
-            );
-            Packet.Register<CustomRequestPacket>(signature, Deserialize);
+            Register<CustomRequestPacket>(Signature, Deserialize);
         }
+        
+        new public static readonly PacketSignature Signature = new PacketSignature(
+            ProtocolDirection.Clientbound,
+            ProtocolStage.Login,
+            0x04
+        );
         
         public required int Id { get; set; }
         public required Identifier Channel { get; set; }
         public required byte[] Data { get; set; }
         
-        protected override void Serialize(Stream stream)
+        public override void Serialize(Stream stream, PacketContext context)
         {
+            base.Serialize(stream, context);
+            context.Check(Signature);
             stream.WriteVS32(Id);
             stream.Write(Channel);
             stream.WriteU8A(Data);
         }
-        private static Packet Deserialize(Stream stream)
+        new private static Packet Deserialize(Stream stream, PacketContext context)
         {
             throw new NotImplementedException();
         }
