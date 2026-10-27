@@ -1,12 +1,11 @@
-using System.Collections.ObjectModel;
 using System.Drawing;
 using System.Globalization;
 using System.Text.Json.Nodes;
 using System.Text.Json.Serialization;
-using DivaMC.Common.IO.Serialization;
+using DivaMC.Protocol.IO.Serialization;
 using fNbt;
 
-namespace DivaMC.Common.Chat.Components
+namespace DivaMC.Protocol.Chat.Components
 {
     [JsonConverter(typeof(ChatComponentJsonConverter))]
     public abstract record ChatComponent : INbtSerializable<ChatComponent>

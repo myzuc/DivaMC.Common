@@ -1,9 +1,9 @@
-using DivaMC.Common.Common;
-using DivaMC.Common.IO.Serialization;
+using DivaMC.Protocol.Common;
+using DivaMC.Protocol.IO.Serialization;
 
-namespace DivaMC.Common.Registries
+namespace DivaMC.Protocol.Registries
 {
-    public sealed class RegistryTags : IBinarySerializable<RegistryTags>
+    public sealed class RegistryTags : IByteSerializable<RegistryTags>
     {
         public Identifier Id { get; set; }
         public Dictionary<Identifier, List<int>> Entries { get; set; } = [];

@@ -1,18 +1,19 @@
-using DivaMC.Common.IO.Serialization;
+using DivaMC.Protocol.IO.Serialization;
 
-namespace DivaMC.Common.IO.Protocol.Packets
+namespace DivaMC.Protocol.IO.Protocol.Packets
 {
-    public sealed record UnknownPacket : Packet
+    public sealed class UnknownPacket : Packet
     {
-        public override PacketSignature Signature { get; }
+        public int Id { get; set; }
         public byte[] Buffer { get; set; }
-        public UnknownPacket(PacketSignature signature, byte[] buffer)
+        public UnknownPacket(int id, byte[] buffer)
         {
-            Signature = signature;
+            Id = id;
             Buffer = buffer;
         }
-        protected override void Serialize(Stream stream)
+        public override void Serialize(Stream stream, PacketContext context)
         {
+            base.Serialize(stream, context);
             stream.WriteU8A(Buffer);
         }
     }

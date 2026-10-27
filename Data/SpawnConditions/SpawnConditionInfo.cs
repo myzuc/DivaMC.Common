@@ -1,7 +1,7 @@
-using DivaMC.Common.IO.Serialization;
+using DivaMC.Protocol.IO.Serialization;
 using fNbt;
 
-namespace DivaMC.Common.Data.SpawnConditions
+namespace DivaMC.Protocol.Data.SpawnConditions
 {
     public sealed record SpawnConditionInfo : INbtSerializable<SpawnConditionInfo>
     {

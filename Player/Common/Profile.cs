@@ -1,10 +1,10 @@
 using System.Text.Json.Serialization;
-using DivaMC.Common.IO.JSON.JsonConverters;
-using DivaMC.Common.IO.Serialization;
+using DivaMC.Protocol.IO.JSON.JsonConverters;
+using DivaMC.Protocol.IO.Serialization;
 
-namespace DivaMC.Common.Player.Common
+namespace DivaMC.Protocol.Player.Common
 {
-    public sealed record Profile : IBinarySerializable<Profile>
+    public sealed record Profile : IByteSerializable<Profile>
     {
         [JsonConverter(typeof(StringGuidJsonConverter))]
         [JsonPropertyName("id")]
@@ -18,7 +18,7 @@ namespace DivaMC.Common.Player.Common
             
         }
         
-        static Profile IBinarySerializable<Profile>.Deserialize(Stream stream)
+        static Profile IByteSerializable<Profile>.Deserialize(Stream stream)
         {
             Profile data = new()
             {
@@ -33,7 +33,7 @@ namespace DivaMC.Common.Player.Common
             }
             return data;
         }
-        void IBinarySerializable<Profile>.Serialize(Stream stream)
+        void IByteSerializable<Profile>.Serialize(Stream stream)
         {
             stream.WriteGuid(Guid);
             stream.WriteT0AVS32(Name);

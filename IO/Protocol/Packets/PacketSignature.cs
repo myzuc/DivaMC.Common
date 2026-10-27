@@ -1,10 +1,10 @@
-namespace DivaMC.Common.IO.Protocol.Packets
+namespace DivaMC.Protocol.IO.Protocol.Packets
 {
-    public readonly struct PacketSignature
+    public readonly record struct PacketSignature
     {
-        public readonly ProtocolDirection Direction;
-        public readonly ProtocolStage Stage;
-        public readonly int Id;
+        public readonly ProtocolDirection Direction { get; }
+        public readonly ProtocolStage Stage { get; }
+        public readonly int Id { get; }
         public PacketSignature(ProtocolDirection direction, ProtocolStage stage, int id)
         {
             Direction = direction;

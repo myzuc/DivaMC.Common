@@ -1,9 +1,9 @@
-using DivaMC.Common.Common;
-using DivaMC.Common.IO.Serialization;
+using DivaMC.Protocol.Common;
+using DivaMC.Protocol.IO.Serialization;
 
-namespace DivaMC.Common.World.Common.Objects
+namespace DivaMC.Protocol.World.Common.Objects
 {
-    public sealed record GlobalLocation : IBinarySerializable<GlobalLocation>
+    public sealed record GlobalLocation : IByteSerializable<GlobalLocation>
     {
         public required Identifier Dimension { get; set; }
         public required Location Location { get; set; }

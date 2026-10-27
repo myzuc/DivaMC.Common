@@ -1,7 +1,7 @@
-using DivaMC.Common.IO.Serialization;
+using DivaMC.Protocol.IO.Serialization;
 using fNbt;
 
-namespace DivaMC.Common.Data.Providers.Ranges
+namespace DivaMC.Protocol.Data.Providers.Ranges
 {
     public readonly record struct DoubleRange : INbtSerializable<DoubleRange>
     {

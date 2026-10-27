@@ -1,6 +1,6 @@
 using fNbt;
 
-namespace DivaMC.Common.IO.Serialization
+namespace DivaMC.Protocol.IO.Serialization
 {
     public interface INbtSerializable<T>
     {

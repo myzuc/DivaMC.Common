@@ -1,8 +1,8 @@
-using DivaMC.Common.Common;
-using DivaMC.Common.IO.Serialization;
+using DivaMC.Protocol.Common;
+using DivaMC.Protocol.IO.Serialization;
 using fNbt;
 
-namespace DivaMC.Common.Data.Variants.Entities
+namespace DivaMC.Protocol.Data.Variants.Entities
 {
     public sealed record WolfVariantAssets : INbtSerializable<WolfVariantAssets>
     {

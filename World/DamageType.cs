@@ -1,9 +1,9 @@
-using DivaMC.Common.Common;
-using DivaMC.Common.IO.Serialization;
-using DivaMC.Common.Registries;
+using DivaMC.Protocol.Common;
+using DivaMC.Protocol.IO.Serialization;
+using DivaMC.Protocol.Registries;
 using fNbt;
 
-namespace DivaMC.Common.World
+namespace DivaMC.Protocol.World
 {
     public sealed record DamageType : INbtSerializable<DamageType>
     {

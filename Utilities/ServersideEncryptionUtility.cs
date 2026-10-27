@@ -1,4 +1,3 @@
-using System;
 using System.Data;
 using System.Net;
 using System.Numerics;
@@ -6,11 +5,10 @@ using System.Security.Authentication;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
-using DivaMC.Common.IO.Protocol.Packets.Login.Clientbound;
-using DivaMC.Common.IO.Protocol.Packets.Login.Serverbound;
-using DivaMC.Common.Player.Common;
+using DivaMC.Protocol.IO.Protocol.Packets.Login;
+using DivaMC.Protocol.Player.Common;
 
-namespace DivaMC.Common.Utilities
+namespace DivaMC.Protocol.Utilities
 {
     public sealed class ServersideEncryptionUtility : IDisposable
     {
@@ -27,7 +25,7 @@ namespace DivaMC.Common.Utilities
             Rsa = RSA.Create(1024);
             Sample = RandomNumberGenerator.GetBytes(sampleSize);
         }
-        public EncryptionRequestPacket GenerateRequest()
+        public CBEncryptionRequestPacket GenerateRequest()
         {
             return new()
             {
@@ -37,11 +35,11 @@ namespace DivaMC.Common.Utilities
                 DecryptedSample = Sample,
             };
         }
-        public byte[] HandleResponse(EncryptionResponsePacket encryptionResponsePacketPacket)
+        public byte[] HandleResponse(SBEncryptionResponsePacket sbEncryptionResponsePacketPacket)
         {
             if (Secret is not null) throw new InvalidOperationException();
-            bool success = Enumerable.SequenceEqual(Sample, Rsa.Decrypt(encryptionResponsePacketPacket.EncryptedSample, RSAEncryptionPadding.Pkcs1));
-            Secret = Rsa.Decrypt(encryptionResponsePacketPacket.EncryptedSecret, RSAEncryptionPadding.Pkcs1);
+            bool success = Enumerable.SequenceEqual(Sample, Rsa.Decrypt(sbEncryptionResponsePacketPacket.EncryptedSample, RSAEncryptionPadding.Pkcs1));
+            Secret = Rsa.Decrypt(sbEncryptionResponsePacketPacket.EncryptedSecret, RSAEncryptionPadding.Pkcs1);
             if (!success) throw new CryptographicException();
             return Secret;
         }

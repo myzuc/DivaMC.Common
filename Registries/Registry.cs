@@ -1,27 +1,27 @@
-using DivaMC.Common.Common;
-using DivaMC.Common.Data;
-using DivaMC.Common.Data.Banners;
-using DivaMC.Common.Data.DecoratedPots;
-using DivaMC.Common.Data.Instruments;
-using DivaMC.Common.Data.Jukeboxes;
-using DivaMC.Common.Data.Trims;
-using DivaMC.Common.Data.Variants.Entities;
-using DivaMC.Common.Data.Variants.EntitySounds;
-using DivaMC.Common.IO.Serialization;
-using DivaMC.Common.World;
-using DivaMC.Common.World.Biomes;
-using DivaMC.Common.World.Dimensions;
+using DivaMC.Protocol.Common;
+using DivaMC.Protocol.Data;
+using DivaMC.Protocol.Data.Banners;
+using DivaMC.Protocol.Data.DecoratedPots;
+using DivaMC.Protocol.Data.Instruments;
+using DivaMC.Protocol.Data.Jukeboxes;
+using DivaMC.Protocol.Data.Trims;
+using DivaMC.Protocol.Data.Variants.Entities;
+using DivaMC.Protocol.Data.Variants.EntitySounds;
+using DivaMC.Protocol.IO.Serialization;
+using DivaMC.Protocol.World;
+using DivaMC.Protocol.World.Biomes;
+using DivaMC.Protocol.World.Dimensions;
 using fNbt;
 
-namespace DivaMC.Common.Registries
+namespace DivaMC.Protocol.Registries
 {
-    public sealed class Registry : IBinarySerializable<Registry>
+    public sealed class Registry : IByteSerializable<Registry>
     {
         public static readonly Identifier RegistryName = "minecraft:root";
 
         public static readonly IReadOnlyList<Registry> StubRegistries =
         [
-            (Registry)DimensionType.StubRegistry,
+            (Registry)Dimension.StubRegistry,
             (Registry)Biome.StubRegistry,
             (Registry)CatSounds.StubRegistry,
             (Registry)ChickenSounds.StubRegistry,
@@ -47,7 +47,7 @@ namespace DivaMC.Common.Registries
         ];
         public static readonly IReadOnlyList<RegistryTags> StubRegistryTags = 
         [
-            DimensionType.StubRegistryTags,
+            Dimension.StubRegistryTags,
             Biome.StubRegistryTags,
             CatSounds.StubRegistryTags,
             ChickenSounds.StubRegistryTags,
@@ -79,11 +79,25 @@ namespace DivaMC.Common.Registries
             Id = id;
         }
 
-        public int IdOf(Identifier id)
+        
+        public int IndexOf(NbtTag? entry)
+        {
+            IEnumerable<(KeyValuePair<Identifier, NbtTag?> kvp, int index)> candidates = Entries.Select((kvp, index) => (kvp, index));
+            int index = candidates.Any() ? candidates.FirstOrDefault(kvpi => kvpi.kvp.Value == entry).index : -1;
+            if (index < 0) throw new ArgumentException("Entry not found!");
+            return index;
+        }
+        public int IndexOf(Identifier id)
         {
             int index = Entries.IndexOf(id);
             if (index < 0) throw new ArgumentException("Entry not found!");
             return index;
+        }
+        public Identifier IdOf(NbtTag? entry)
+        {
+            Identifier? id = Entries.FirstOrDefault(kvp => kvp.Value == entry).Key;
+            if (!id.HasValue) throw new ArgumentException("Entry not found!");
+            return id.Value;
         }
         public Identifier IdOf(int index)
         {
@@ -126,7 +140,7 @@ namespace DivaMC.Common.Registries
             return registry;
         }
     }
-    public sealed class Registry<T> : IBinarySerializable<Registry<T>> where T : class, INbtSerializable<T>
+    public sealed class Registry<T> : IByteSerializable<Registry<T>> where T : class, INbtSerializable<T>
     {
         public Identifier Id { get; set; }
         public OrderedDictionary<Identifier, T?> Entries { get; init; } = [];
@@ -135,11 +149,24 @@ namespace DivaMC.Common.Registries
             Id = id;
         }
         
-        public int IdOf(Identifier id)
+        public int IndexOf(T entry)
+        {
+            IEnumerable<(KeyValuePair<Identifier, T?> kvp, int index)> candidates = Entries.Select((kvp, index) => (kvp, index));
+            int index = candidates.Any() ? candidates.FirstOrDefault(kvpi => kvpi.kvp.Value == entry).index : -1;
+            if (index < 0) throw new ArgumentException("Entry not found!");
+            return index;
+        }
+        public int IndexOf(Identifier id)
         {
             int index = Entries.IndexOf(id);
             if (index < 0) throw new ArgumentException("Entry not found!");
             return index;
+        }
+        public Identifier IdOf(T entry)
+        {
+            Identifier? id = Entries.FirstOrDefault(kvp => kvp.Value == entry).Key;
+            if (!id.HasValue) throw new ArgumentException("Entry not found!");
+            return id.Value;
         }
         public Identifier IdOf(int index)
         {

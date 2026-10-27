@@ -1,20 +1,22 @@
-using DivaMC.Common.IO.Serialization;
+using DivaMC.Protocol.IO.Serialization;
 
-namespace DivaMC.Common.IO.Protocol.Packets
+namespace DivaMC.Protocol.IO.Protocol.Packets
 {
-    public sealed record PreserializedPacket : Packet
+    public sealed class PreserializedPacket : Packet
     {
-        public override PacketSignature Signature { get; }
+        private PacketContext Context { get; }
         private byte[] Buffer { get; }
-        public PreserializedPacket(Packet packet)
+        public PreserializedPacket(Packet packet, PacketContext context)
         {
-            Signature = packet.Signature;
+            Context = context;
             using MemoryStream ms = new();
-            Serialize(packet, ms);
+            packet.Serialize(ms, context);
             Buffer = ms.ToArray();
         }
-        protected override void Serialize(Stream stream)
+        public override void Serialize(Stream stream, PacketContext context)
         {
+            if (Context != context) throw new InvalidOperationException();
+            base.Serialize(stream, context);
             stream.WriteU8A(Buffer);
         }
     }

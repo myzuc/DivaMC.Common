@@ -1,7 +1,7 @@
 using System.Text.Json.Serialization;
-using DivaMC.Common.Chat.Components;
+using DivaMC.Protocol.Chat.Components;
 
-namespace DivaMC.Common.Chat.Status
+namespace DivaMC.Protocol.Chat.Status
 {
     public sealed record Status
     {

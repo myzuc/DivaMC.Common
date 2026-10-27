@@ -1,7 +1,7 @@
 using System.Text.Json.Serialization;
-using DivaMC.Common.IO.JSON.JsonConverters;
+using DivaMC.Protocol.IO.JSON.JsonConverters;
 
-namespace DivaMC.Common.Chat.Status
+namespace DivaMC.Protocol.Chat.Status
 {
     public sealed record PlayerSample
     {

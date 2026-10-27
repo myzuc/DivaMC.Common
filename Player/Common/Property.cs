@@ -1,9 +1,9 @@
 using System.Text.Json.Serialization;
-using DivaMC.Common.IO.Serialization;
+using DivaMC.Protocol.IO.Serialization;
 
-namespace DivaMC.Common.Player.Common
+namespace DivaMC.Protocol.Player.Common
 {
-    public sealed record Property : IBinarySerializable<Property>
+    public sealed record Property : IByteSerializable<Property>
     {
         [JsonPropertyName("name")]
         public required string Name { get; set; }
@@ -16,7 +16,7 @@ namespace DivaMC.Common.Player.Common
             
         }
         
-        static Property IBinarySerializable<Property>.Deserialize(Stream stream)
+        static Property IByteSerializable<Property>.Deserialize(Stream stream)
         {
             return new()
             {
@@ -25,7 +25,7 @@ namespace DivaMC.Common.Player.Common
                 Signature = stream.ReadU1() ? stream.ReadT0AVS32() : null
             };
         }
-        void IBinarySerializable<Property>.Serialize(Stream stream)
+        void IByteSerializable<Property>.Serialize(Stream stream)
         {
             stream.WriteT0AVS32(Name);
             stream.WriteT0AVS32(Value);

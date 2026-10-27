@@ -1,0 +1,19 @@
+namespace DivaMC.Protocol.IO.Protocol.Packets.Login
+{
+    public sealed class SBEndResponsePacket : Packet
+    {
+        static SBEndResponsePacket()
+        {
+            Register<SBEndResponsePacket>(new(ProtocolDirection.Serverbound, ProtocolStage.Login,0x03), Deserialize);
+        }
+        
+        public override void Serialize(Stream stream, PacketContext context)
+        {
+            base.Serialize(stream, context);
+        }
+        new private static Packet Deserialize(Stream stream, PacketContext context)
+        {
+            return new SBEndResponsePacket();
+        }
+    }
+}

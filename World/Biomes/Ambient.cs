@@ -1,8 +1,8 @@
 using System.Drawing;
-using DivaMC.Common.IO.Serialization;
+using DivaMC.Protocol.IO.Serialization;
 using fNbt;
 
-namespace DivaMC.Common.World.Biomes
+namespace DivaMC.Protocol.World.Biomes
 {
     public sealed record Ambient : INbtSerializable<Ambient>
     {

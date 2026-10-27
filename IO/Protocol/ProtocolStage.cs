@@ -1,4 +1,4 @@
-namespace DivaMC.Common.IO.Protocol
+namespace DivaMC.Protocol.IO.Protocol
 {
     public enum ProtocolStage : byte
     {
@@ -6,6 +6,6 @@ namespace DivaMC.Common.IO.Protocol
         Status = 0x01,
         Login = 0x02,
         Configuration = 0x03,
-        Play = 0x04,
+        Game = 0x04,
     }
 }

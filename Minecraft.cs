@@ -1,4 +1,4 @@
-namespace DivaMC.Common
+namespace DivaMC.Protocol
 {
     public static class Minecraft
     {

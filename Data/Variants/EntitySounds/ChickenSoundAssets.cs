@@ -1,7 +1,7 @@
-using DivaMC.Common.IO.Serialization;
+using DivaMC.Protocol.IO.Serialization;
 using fNbt;
 
-namespace DivaMC.Common.Data.Variants.EntitySounds
+namespace DivaMC.Protocol.Data.Variants.EntitySounds
 {
     public sealed record ChickenSoundAssets : INbtSerializable<ChickenSoundAssets>
     {

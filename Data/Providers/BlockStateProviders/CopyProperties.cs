@@ -1,7 +1,7 @@
-using DivaMC.Common.IO.Serialization;
+using DivaMC.Protocol.IO.Serialization;
 using fNbt;
 
-namespace DivaMC.Common.Data.Providers.BlockStateProviders
+namespace DivaMC.Protocol.Data.Providers.BlockStateProviders
 {
     public sealed record CopyProperties : BlockStateProvider
     {
