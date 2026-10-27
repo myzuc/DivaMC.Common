@@ -6,7 +6,7 @@ namespace DivaMC.Protocol.IO.Protocol.Packets.Configuration
     {
         static CBRegistryTagsPacket()
         {
-            Register<CBRulesAcceptRequestPacket>(new(ProtocolDirection.Clientbound, ProtocolStage.Configuration,0x0E), Deserialize);
+            Register<CBRegistryTagsPacket>(new(ProtocolDirection.Clientbound, ProtocolStage.Configuration,0x0E), Deserialize);
         }
         
         public required List<Registries.RegistryTags> RegistryTagLists { get; init; }

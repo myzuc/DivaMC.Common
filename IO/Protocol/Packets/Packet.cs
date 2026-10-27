@@ -36,7 +36,7 @@ namespace DivaMC.Protocol.IO.Protocol.Packets
                 stream.WriteVS32(unknownPacket.Id);
                 return;
             }
-            IEnumerable<KeyValuePair<PacketSignature, Type>> candidates = Signatures.Where(s => s.Key.Direction == context.ProtocolDirection && s.Key.Stage == context.ProtocolStage);
+            IEnumerable<KeyValuePair<PacketSignature, Type>> candidates = Signatures.Where(s => s.Value == this.GetType() && s.Key.Direction == context.ProtocolDirection && s.Key.Stage == context.ProtocolStage);
             PacketSignature? signature = candidates.FirstOrDefault().Key;
             if (!signature.HasValue) throw new InvalidOperationException();
             stream.WriteVS32(signature.Value.Id);
