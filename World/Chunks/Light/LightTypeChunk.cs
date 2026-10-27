@@ -2,7 +2,7 @@ using DivaMC.Protocol.IO.Serialization;
 
 namespace DivaMC.Protocol.World.Chunks.Light
 {
-    public sealed class LightTypeChunk : IBinarySerializable<LightChunk, ChunkContext>
+    public sealed class LightTypeChunk : IByteSerializable<LightChunk, ChunkContext>
     {
         public ChunkContext Context { get; }
         public int Sections { get; }

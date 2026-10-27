@@ -1,11 +1,11 @@
 namespace DivaMC.Protocol.IO.Serialization
 {
-    internal interface IBinarySerializable<T>
+    internal interface IByteSerializable<T>
     {
         internal void Serialize(Stream stream);
         internal static abstract T Deserialize(Stream stream);
     }
-    internal interface IBinarySerializable<T, TContext>
+    internal interface IByteSerializable<T, TContext>
     {
         internal void Serialize(Stream stream, TContext context);
         internal static abstract T Deserialize(Stream stream, TContext context);

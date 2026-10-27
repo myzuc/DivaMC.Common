@@ -2,7 +2,7 @@ using DivaMC.Protocol.IO.Serialization;
 
 namespace DivaMC.Protocol.World.Common
 {
-    public readonly record struct Location : IBinarySerializable<Location>
+    public readonly record struct Location : IByteSerializable<Location>
     {
         public static readonly int MinX = -33554432;
         public static readonly int MaxX = 33554431;

@@ -652,19 +652,19 @@ namespace DivaMC.Protocol.IO.Serialization
             }
             #endregion
             #region IBinarySerializable
-            public T Read<T>() where T : IBinarySerializable<T>
+            public T Read<T>() where T : IByteSerializable<T>
             {
                 return T.Deserialize(stream);
             }
-            public void Write<T>(T data) where T : IBinarySerializable<T>
+            public void Write<T>(T data) where T : IByteSerializable<T>
             {
                 data.Serialize(stream);
             }
-            public T Read<T, TContext>(TContext context) where T : IBinarySerializable<T, TContext>
+            public T Read<T, TContext>(TContext context) where T : IByteSerializable<T, TContext>
             {
                 return T.Deserialize(stream, context);
             }
-            public void Write<T, TContext>(T data, TContext context) where T : IBinarySerializable<T, TContext>
+            public void Write<T, TContext>(T data, TContext context) where T : IByteSerializable<T, TContext>
             {
                 data.Serialize(stream, context);
             }

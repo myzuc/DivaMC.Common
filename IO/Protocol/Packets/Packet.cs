@@ -4,7 +4,7 @@ using DivaMC.Protocol.IO.Serialization;
 
 namespace DivaMC.Protocol.IO.Protocol.Packets
 {
-    public abstract class Packet : IBinarySerializable<Packet, PacketContext>
+    public abstract class Packet : IByteSerializable<Packet, PacketContext>
     {
         protected delegate Packet Deserializer(Stream stream, PacketContext context);
         private static readonly ConcurrentDictionary<PacketSignature, Deserializer> Deserializers = [];

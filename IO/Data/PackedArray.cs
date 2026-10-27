@@ -3,7 +3,7 @@ using DivaMC.Protocol.IO.Serialization;
 
 namespace DivaMC.Protocol.IO.Data
 {
-    public sealed class PackedArray : IList<int>, IBinarySerializable<PackedArray, (int bits, int length)>
+    public sealed class PackedArray : IList<int>, IByteSerializable<PackedArray, (int bits, int length)>
     {
         private sealed class Enumerator : IEnumerator<int>
         {

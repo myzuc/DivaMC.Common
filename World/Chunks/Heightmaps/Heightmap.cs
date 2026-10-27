@@ -4,7 +4,7 @@ using DivaMC.Protocol.IO.Serialization;
 
 namespace DivaMC.Protocol.World.Chunks.Heightmaps
 {
-    public sealed class Heightmap : IBinarySerializable<Heightmap, ChunkContext>
+    public sealed class Heightmap : IByteSerializable<Heightmap, ChunkContext>
     {
         public ChunkContext Context { get; }
         public HeightmapType Type { get; }

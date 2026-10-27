@@ -15,7 +15,7 @@ using fNbt;
 
 namespace DivaMC.Protocol.Registries
 {
-    public sealed class Registry : IBinarySerializable<Registry>
+    public sealed class Registry : IByteSerializable<Registry>
     {
         public static readonly Identifier RegistryName = "minecraft:root";
 
@@ -140,7 +140,7 @@ namespace DivaMC.Protocol.Registries
             return registry;
         }
     }
-    public sealed class Registry<T> : IBinarySerializable<Registry<T>> where T : class, INbtSerializable<T>
+    public sealed class Registry<T> : IByteSerializable<Registry<T>> where T : class, INbtSerializable<T>
     {
         public Identifier Id { get; set; }
         public OrderedDictionary<Identifier, T?> Entries { get; init; } = [];

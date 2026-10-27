@@ -3,7 +3,7 @@ using DivaMC.Protocol.IO.Serialization;
 
 namespace DivaMC.Protocol.Registries
 {
-    public sealed class RegistryTags : IBinarySerializable<RegistryTags>
+    public sealed class RegistryTags : IByteSerializable<RegistryTags>
     {
         public Identifier Id { get; set; }
         public Dictionary<Identifier, List<int>> Entries { get; set; } = [];

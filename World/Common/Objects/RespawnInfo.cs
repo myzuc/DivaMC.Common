@@ -4,7 +4,7 @@ using DivaMC.Protocol.IO.Serialization;
 
 namespace DivaMC.Protocol.World.Common.Objects
 {
-    public sealed record RespawnInfo : IBinarySerializable<RespawnInfo>
+    public sealed record RespawnInfo : IByteSerializable<RespawnInfo>
     {
         public required int CurrentDimensionTypeId { get; init; }
         public required Identifier CurrentDimensionName { get; init; }

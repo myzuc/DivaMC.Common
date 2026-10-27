@@ -4,7 +4,7 @@ using fNbt;
 
 namespace DivaMC.Protocol.Common
 {
-    public readonly record struct Identifier : IBinarySerializable<Identifier>, INbtSerializable<Identifier>
+    public readonly record struct Identifier : IByteSerializable<Identifier>, INbtSerializable<Identifier>
     {
         public static readonly Identifier Empty = "mineraft:empty";
         public static readonly Identifier EmptySound = "minecraft:intentionally_empty";
@@ -62,11 +62,11 @@ namespace DivaMC.Protocol.Common
             return value.FullKey;
         }
         
-        static Identifier IBinarySerializable<Identifier>.Deserialize(Stream stream)
+        static Identifier IByteSerializable<Identifier>.Deserialize(Stream stream)
         {
             return new(stream.ReadT0AVS32());
         }
-        void IBinarySerializable<Identifier>.Serialize(Stream stream)
+        void IByteSerializable<Identifier>.Serialize(Stream stream)
         {
             stream.WriteT0AVS32(FullKey);
         }

@@ -3,7 +3,7 @@ using DivaMC.Protocol.World.Common;
 
 namespace DivaMC.Protocol.World.Chunks.Light
 {
-    public sealed class LightSection : IBinarySerializable<LightSection>
+    public sealed class LightSection : IByteSerializable<LightSection>
     {
         public bool IsEmpty => Data.All(b => b == 0);
         private byte[] Data { get; } = new byte[2048];

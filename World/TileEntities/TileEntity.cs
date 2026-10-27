@@ -3,7 +3,7 @@ using fNbt;
 
 namespace DivaMC.Protocol.World.TileEntities
 {
-    public sealed class TileEntity : IBinarySerializable<TileEntity>
+    public sealed class TileEntity : IByteSerializable<TileEntity>
     {
         public TileEntityType Type { get; }
         public required TileEntityLocation Location { get; set; }

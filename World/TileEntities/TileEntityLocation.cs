@@ -2,7 +2,7 @@ using DivaMC.Protocol.IO.Serialization;
 
 namespace DivaMC.Protocol.World.TileEntities
 {
-    public readonly record struct TileEntityLocation : IBinarySerializable<TileEntityLocation>
+    public readonly record struct TileEntityLocation : IByteSerializable<TileEntityLocation>
     {
         public static readonly int MinX = 0;
         public static readonly int MaxX = 15;

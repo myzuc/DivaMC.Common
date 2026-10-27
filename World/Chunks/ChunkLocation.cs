@@ -2,7 +2,7 @@ using DivaMC.Protocol.IO.Serialization;
 
 namespace DivaMC.Protocol.World.Chunks
 {
-    public readonly record struct ChunkLocation : IBinarySerializable<ChunkLocation>
+    public readonly record struct ChunkLocation : IByteSerializable<ChunkLocation>
     {
         public int X { get; } = 0;
         public int Z { get; } = 0;

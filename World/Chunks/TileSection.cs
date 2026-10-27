@@ -7,7 +7,7 @@ using DivaMC.Protocol.World.Tiles;
 
 namespace DivaMC.Protocol.World.Chunks
 {
-    public sealed class TileSection : IBinarySerializable<TileSection, ChunkContext>
+    public sealed class TileSection : IByteSerializable<TileSection, ChunkContext>
     {
         public ChunkContext Context { get; }
         private short TileCount { get; set; } = 0;

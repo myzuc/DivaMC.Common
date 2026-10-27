@@ -2,7 +2,7 @@ using DivaMC.Protocol.IO.Serialization;
 
 namespace DivaMC.Protocol.World.Events.GameEvents
 {
-    public abstract record GameEvent : IBinarySerializable<GameEvent>
+    public abstract record GameEvent : IByteSerializable<GameEvent>
     {
         protected abstract byte Type { get; }
         protected float RawValue { get; set; }
