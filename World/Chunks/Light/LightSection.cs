@@ -13,6 +13,25 @@ namespace DivaMC.Common.World.Chunks.Light
             
         }
         
+        public int this[SectionLocalLocation xyz]
+        {
+            get
+            {
+                int index = xyz.Index >> 1;
+                int shift = (xyz.Index % 2) * 4;
+                int mask = 15 << shift;
+                return ((Data[index] & mask) >> shift);
+            }
+            set
+            {
+                if (value < 0 || value >= 16) throw new ArgumentOutOfRangeException();
+                int index = xyz.Index >> 1;
+                int shift = (xyz.Index % 2) * 4;
+                int mask = 15 << shift;
+                Data[index] &= (byte)~mask;
+                Data[index] |= (byte)(value << shift);
+            }
+        }
         public int this[int x, int y, int z]
         {
             get
@@ -22,25 +41,6 @@ namespace DivaMC.Common.World.Chunks.Light
             set
             {
                 this[new(x, y, z)] = value;
-            }
-        }
-        public int this[SectionLocalLocation location]
-        {
-            get
-            {
-                int index = location.Index >> 1;
-                int shift = (location.Index % 2) * 4;
-                int mask = 15 << shift;
-                return ((Data[index] & mask) >> shift);
-            }
-            set
-            {
-                if (value < 0 || value >= 16) throw new ArgumentOutOfRangeException();
-                int index = location.Index >> 1;
-                int shift = (location.Index % 2) * 4;
-                int mask = 15 << shift;
-                Data[index] &= (byte)~mask;
-                Data[index] |= (byte)(value << shift);
             }
         }
         

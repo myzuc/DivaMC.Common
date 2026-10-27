@@ -31,8 +31,8 @@ namespace DivaMC.Common.World.Chunks.Light
         }
         private LightSection GetSection(int y)
         {
-            if (y < Context.Dimension.Depth || y > Context.Dimension.Height) throw new ArgumentOutOfRangeException();
-            LightSection? section = Data[y / 16];
+            if (y < Context.Dimension.Depth - 16 || y > Context.Dimension.Height + 16) throw new ArgumentOutOfRangeException();
+            LightSection? section = Data[y / 16 - Context.Dimension.Depth / 16];
             if (section is null) throw new InvalidOperationException();
             return section;
         }

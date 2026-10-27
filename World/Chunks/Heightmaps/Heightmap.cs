@@ -19,7 +19,7 @@ namespace DivaMC.Common.World.Chunks.Heightmaps
         public Heightmap(IList<int> data, ChunkContext context, HeightmapType type) : this(context, type)
         {
             if (data.Count < 256) throw new ArgumentException();
-            for (int i = 0; i < 256; i++) Data[i] = (ulong)data[i];
+            for (int i = 0; i < 256; i++) Data[i] = data[i];
         }
         public Heightmap(PackedArray data, ChunkContext context, HeightmapType type) : this(context, type)
         {
@@ -40,7 +40,7 @@ namespace DivaMC.Common.World.Chunks.Heightmaps
                 if (x < 0 | x >= 16 ) throw new ArgumentOutOfRangeException();
                 if (z < 0 | z >= 16) throw new ArgumentOutOfRangeException();
                 if (value < 0 | value > Context.Dimension.Height) throw new ArgumentOutOfRangeException();
-                Data[x | (z << 4)] = (ulong)value;
+                Data[x | (z << 4)] = value;
             }
         }
         

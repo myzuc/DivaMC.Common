@@ -566,7 +566,7 @@ namespace DivaMC.Common.IO.Serialization
             }
             public void WriteS32A(int[] data)
             {
-                if(BitConverter.IsLittleEndian)
+                if(!BitConverter.IsLittleEndian)
                 {
                     stream.WriteU8A(MemoryMarshal.AsBytes(data).ToArray());
                     return;
@@ -586,7 +586,7 @@ namespace DivaMC.Common.IO.Serialization
             }
             public void WriteU32A(uint[] data)
             {
-                if(BitConverter.IsLittleEndian)
+                if(!BitConverter.IsLittleEndian)
                 {
                     stream.WriteU8A(MemoryMarshal.AsBytes(data).ToArray());
                     return;
@@ -606,7 +606,7 @@ namespace DivaMC.Common.IO.Serialization
             }
             public void WriteS64A(long[] data)
             {
-                if(BitConverter.IsLittleEndian)
+                if(!BitConverter.IsLittleEndian)
                 {
                     stream.WriteU8A(MemoryMarshal.AsBytes(data).ToArray());
                     return;
@@ -626,7 +626,7 @@ namespace DivaMC.Common.IO.Serialization
             }
             public void WriteU64A(ulong[] data)
             {
-                if(BitConverter.IsLittleEndian)
+                if(!BitConverter.IsLittleEndian)
                 {
                     stream.WriteU8A(MemoryMarshal.AsBytes(data).ToArray());
                     return;

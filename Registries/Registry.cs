@@ -79,11 +79,25 @@ namespace DivaMC.Common.Registries
             Id = id;
         }
 
-        public int IdOf(Identifier id)
+        
+        public int IndexOf(NbtTag? entry)
+        {
+            IEnumerable<(KeyValuePair<Identifier, NbtTag?> kvp, int index)> candidates = Entries.Select((kvp, index) => (kvp, index));
+            int index = candidates.Any() ? candidates.FirstOrDefault(kvpi => kvpi.kvp.Value == entry).index : -1;
+            if (index < 0) throw new ArgumentException("Entry not found!");
+            return index;
+        }
+        public int IndexOf(Identifier id)
         {
             int index = Entries.IndexOf(id);
             if (index < 0) throw new ArgumentException("Entry not found!");
             return index;
+        }
+        public Identifier IdOf(NbtTag? entry)
+        {
+            Identifier? id = Entries.FirstOrDefault(kvp => kvp.Value == entry).Key;
+            if (!id.HasValue) throw new ArgumentException("Entry not found!");
+            return id.Value;
         }
         public Identifier IdOf(int index)
         {
@@ -135,11 +149,24 @@ namespace DivaMC.Common.Registries
             Id = id;
         }
         
-        public int IdOf(Identifier id)
+        public int IndexOf(T entry)
+        {
+            IEnumerable<(KeyValuePair<Identifier, T?> kvp, int index)> candidates = Entries.Select((kvp, index) => (kvp, index));
+            int index = candidates.Any() ? candidates.FirstOrDefault(kvpi => kvpi.kvp.Value == entry).index : -1;
+            if (index < 0) throw new ArgumentException("Entry not found!");
+            return index;
+        }
+        public int IndexOf(Identifier id)
         {
             int index = Entries.IndexOf(id);
             if (index < 0) throw new ArgumentException("Entry not found!");
             return index;
+        }
+        public Identifier IdOf(T entry)
+        {
+            Identifier? id = Entries.FirstOrDefault(kvp => kvp.Value == entry).Key;
+            if (!id.HasValue) throw new ArgumentException("Entry not found!");
+            return id.Value;
         }
         public Identifier IdOf(int index)
         {

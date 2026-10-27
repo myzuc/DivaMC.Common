@@ -3,13 +3,13 @@ using DivaMC.Common.IO.Serialization;
 
 namespace DivaMC.Common.IO.Data
 {
-    public sealed class PackedArray : IList<ulong>, IBinarySerializable<PackedArray, (int bits, int length)>
+    public sealed class PackedArray : IList<int>, IBinarySerializable<PackedArray, (int bits, int length)>
     {
-        private sealed class Enumerator : IEnumerator<ulong>
+        private sealed class Enumerator : IEnumerator<int>
         {
             private readonly PackedArray Data;
             private int Index;
-            public ulong Current { get; private set; }
+            public int Current { get; private set; }
             object IEnumerator.Current => Current;
             public Enumerator(PackedArray data)
             {
@@ -43,7 +43,7 @@ namespace DivaMC.Common.IO.Data
         
         public PackedArray(int bits, int length)
         {
-            if (bits < 1 || bits > 64) throw new ArgumentException("Invalid bit amount!");
+            if (bits < 1 || bits > 31) throw new ArgumentException("Invalid bit amount!");
             if (length < 0 || length > int.MaxValue / 64) throw new ArgumentException("Invalid length!");
             Bits = bits;
             Length = length;
@@ -55,78 +55,58 @@ namespace DivaMC.Common.IO.Data
             Array.Copy(buffer, Buffer, Buffer.Length);
         }
         
-        public ulong this[int index]
+        public int this[int index]
         {
             get
             {
                 if (index < 0 || index > Length) throw new IndexOutOfRangeException();
-                
-                int totalBitOffsetLowest = index * Bits;
-                int totalBitOffsetHighest = totalBitOffsetLowest + Bits;
-                
-                int wordOffsetLow = totalBitOffsetLowest / 64;
-                int wordOffsetHigh = totalBitOffsetHighest / 64;
-                int shiftLow = totalBitOffsetLowest % 64;
-                int shiftHigh = 64 - shiftLow;
 
+                int entriesPerWord = 64 / Bits;
+                int offset = index / entriesPerWord;
+                int shift = (index % entriesPerWord) * Bits;
                 ulong mask = Bits < 64 ? (1ul << Bits) - 1 : ulong.MaxValue;
-                ulong maskLow = mask << shiftLow;
-                ulong maskHigh = shiftHigh == 64 ? 0 : mask >> shiftHigh;
                 
-                ulong wordLow = (Buffer[wordOffsetLow] & maskLow) >> shiftLow;
-                ulong wordHigh = (Buffer[wordOffsetHigh] & maskHigh) << shiftHigh;
-
-                ulong wordFull = wordLow | wordHigh;
-                return wordFull;
+                ulong value = (Buffer[offset] >> shift) & mask;
+                return (int)value;
             }
             set
             {
                 if (index < 0 || index > Length) throw new IndexOutOfRangeException();
-                if (value > (Bits < 64 ? (1ul << Bits) - 1 : ulong.MaxValue)) throw new ArgumentOutOfRangeException();
+                if (value > (Bits < 64 ? (1 << Bits) - 1 : int.MaxValue)) throw new ArgumentOutOfRangeException();
                 
-                int totalBitOffsetLowest = index * Bits;
-                int totalBitOffsetHighest = totalBitOffsetLowest + Bits;
-                
-                int wordOffsetLow = totalBitOffsetLowest / 64;
-                int wordOffsetHigh = totalBitOffsetHighest / 64;
-                int shiftLow = totalBitOffsetLowest % 64;
-                int shiftHigh = 64 - shiftLow;
-
+                int entriesPerWord = 64 / Bits;
+                int offset = index / entriesPerWord;
+                int shift = (index % entriesPerWord) * Bits;
                 ulong mask = Bits < 64 ? (1ul << Bits) - 1 : ulong.MaxValue;
-                ulong maskLow = mask << shiftLow;
-                ulong maskHigh = shiftHigh == 64 ? 0 : mask >> shiftHigh;
 
-                Buffer[wordOffsetLow] &= ~maskLow;
-                Buffer[wordOffsetLow] |= (value << shiftLow) & maskLow;
-                Buffer[wordOffsetHigh] &= ~maskHigh;
-                Buffer[wordOffsetHigh] |= (value >> shiftHigh) & maskHigh;
+                Buffer[offset] &= ~(mask << shift);
+                Buffer[offset] |= ((ulong)value & mask) << shift;
             }
         }
         
         public void Serialize(Stream stream, (int bits, int length) context)
         {
             if (context.bits != Bits || context.length != Length) throw new ArgumentException();
-            stream.WriteVS32(Buffer.Length);
             stream.WriteU64A(Buffer);
         }
         public static PackedArray Deserialize(Stream stream, (int bits, int length) context)
         {
-            return new(stream.ReadU64A(stream.ReadVS32()), context.bits, context.length);
+            return new(stream.ReadU64A(DetermineBufferSize(context.bits, context.length)), context.bits, context.length);
         }
         
-        void ICollection<ulong>.Add(ulong item)
+        void ICollection<int>.Add(int item)
         {
             throw new InvalidOperationException();
         }
-        void IList<ulong>.Insert(int index, ulong item)
+        void IList<int>.Insert(int index, int item)
         {
             throw new InvalidOperationException();
         }
-        bool ICollection<ulong>.Remove(ulong item)
+        bool ICollection<int>.Remove(int item)
         {
             throw new InvalidOperationException();
         }
-        void IList<ulong>.RemoveAt(int index)
+        void IList<int>.RemoveAt(int index)
         {
             throw new InvalidOperationException();
         }
@@ -134,14 +114,14 @@ namespace DivaMC.Common.IO.Data
         {
             Array.Clear(Buffer);
         }
-        public void CopyTo(ulong[] array, int arrayIndex)
+        public void CopyTo(int[] array, int arrayIndex)
         {
             for (int i = 0; i < Length; i++)
             {
                 array[arrayIndex + i] = this[i];
             }
         }
-        public bool Contains(ulong item)
+        public bool Contains(int item)
         {
             for (int i = 0; i < Length; i++)
             {
@@ -149,7 +129,7 @@ namespace DivaMC.Common.IO.Data
             }
             return false;
         }
-        public int IndexOf(ulong item)
+        public int IndexOf(int item)
         {
             for (int i = 0; i < Length; i++)
             {
@@ -157,7 +137,7 @@ namespace DivaMC.Common.IO.Data
             }
             return -1;
         }
-        public IEnumerator<ulong> GetEnumerator()
+        public IEnumerator<int> GetEnumerator()
         {
             return new Enumerator(this);
         }
@@ -168,17 +148,15 @@ namespace DivaMC.Common.IO.Data
         
         private static int DetermineBufferSize(int bits, int length)
         {
-            return (length - 1) / (64 / bits) + 1;
+            int entriesPerWord = 64 / bits;
+            int size = (length + entriesPerWord - 1) / entriesPerWord;
+            return size;
         }
         
         public PackedArray Resize(byte bits, int length)
         {
             PackedArray destination = new(bits, length);
-            ulong mask = Bits < 64 ? (1ul << Bits) - 1 : ulong.MaxValue;
-            for (int i = 0; i < length && i < Length; i++)
-            {
-                destination[i] = this[i] & mask;
-            }
+            CopyTo(destination);
             return destination;
         }
         public ulong[] ExportBuffer()
