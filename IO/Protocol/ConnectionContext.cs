@@ -3,7 +3,7 @@ using DivaMC.Protocol.World.Biomes;
 using DivaMC.Protocol.World.Chunks;
 using DivaMC.Protocol.World.Dimensions;
 
-namespace DivaMC.Protocol.IO.Protocol.Packets
+namespace DivaMC.Protocol.IO.Protocol
 {
     public sealed record ConnectionContext
     {
