@@ -34,8 +34,4 @@
       <PackageReference Include="System.Text.Json" Version="11.0.0-rc.2.26504.105" />
     </ItemGroup>
 
-    <ItemGroup>
-      <None Remove="DivaMC.Protocol.sln.DotSettings" />
-    </ItemGroup>
-
 </Project>

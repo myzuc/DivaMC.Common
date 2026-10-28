@@ -1,6 +1,12 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DivaMC.Protocol", "DivaMC.Protocol.csproj", "{FA967F08-98EF-4783-809B-60E82ED70B8B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DivaMC.Protocol", "DivaMC.Protocol\DivaMC.Protocol.csproj", "{FF04C843-1AE4-4E64-8D37-6A865643E302}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "", "", "{55415B44-9578-475E-B2A6-4972601F969E}"
+	ProjectSection(SolutionItems) = preProject
+		LICENSE.md = LICENSE.md
+		.gitignore = .gitignore
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -8,9 +14,9 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{FA967F08-98EF-4783-809B-60E82ED70B8B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FA967F08-98EF-4783-809B-60E82ED70B8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FA967F08-98EF-4783-809B-60E82ED70B8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FA967F08-98EF-4783-809B-60E82ED70B8B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FF04C843-1AE4-4E64-8D37-6A865643E302}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FF04C843-1AE4-4E64-8D37-6A865643E302}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FF04C843-1AE4-4E64-8D37-6A865643E302}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FF04C843-1AE4-4E64-8D37-6A865643E302}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
